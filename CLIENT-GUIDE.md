@@ -9,8 +9,14 @@ You can change your own details and prices — no code, no fuss. Here's how.
 2. Tap **Log in** and enter your email. You'll get a code or a login link —
    follow it. That's it, you're in.
 
-You'll see a list on the left with two things you can edit: **Business details**
-and **Prices**.
+You'll see a list on the left of the things you can edit:
+
+- **Business details** — your phone, WhatsApp, address and hours.
+- **Prices** — the pricing table.
+- **Home page**, **Container storage page**, **Yard space page**, **Contact
+  page** — the headings, wording and photos on each page.
+
+Tap any of them to open it, make your change, and tap **Save** (top right).
 
 ## Change a price
 
@@ -37,6 +43,45 @@ and **Prices**.
 Change the phone number here once and it updates everywhere on the site — the
 top bar, the buttons, the footer, all of it.
 
+## Swap a photo
+
+1. Tap the page the photo is on — **Home page**, **Container storage page** or
+   **Yard space page**.
+2. Find the photo. It sits in a section like **Top banner**, **Side photo** or
+   **Section photo**. Tap **Photo**.
+3. Tap to **upload** a new picture from your phone or computer, or pick one
+   that's already there. Then tap to select it.
+4. Tap **Save**.
+
+You don't need to crop, shrink or tidy the photo first — just upload it as it
+is. The site resizes it and slots it in neatly on its own, so the page never
+looks stretched or jumps about.
+
+- **Photo description** is a short line describing what's in the picture (for
+  screen readers and Google). Update it to match the new photo.
+- **Focus point** you can ignore — leave it as `50% 50%`. It only matters if a
+  photo looks off-centre after swapping, and you can tell me and I'll nudge it.
+
+## Edit a heading or a paragraph
+
+1. Tap the page you want — **Home page**, **Container storage page**, **Yard
+   space page** or **Contact page**.
+2. Scroll to the section you want. Headings are short boxes; paragraphs are
+   bigger boxes.
+3. Type your change straight into the box.
+   - To add another paragraph, tap the **+** under the paragraph list.
+   - To reorder or remove one, use the handle or the menu next to it.
+4. Tap **Save**.
+
+A couple of things are filled in for you and aren't in these boxes: the price in
+the top lines (it follows your **Prices**), the address and map (they follow
+**Business details**), and the fourth security card and the HGV line (they
+follow your access-hours and vehicle settings). Change those in **Business
+details** or **Prices** and they update themselves.
+
+Try to keep headings short — very long headings can look cramped on a phone. If
+one's too long, the editor gently warns you.
+
 ## What happens after you save
 
 Your change is saved and the website rebuilds itself automatically. Give it
@@ -50,8 +95,3 @@ to do anything else.
   site, go back into `/admin`, fix it, and save again.
 - Every change is saved with a history, so nothing is ever truly lost.
 - Still stuck? Send me a message and I'll sort it.
-
----
-
-*Coming soon: editing the photos and the wording on each page. For now, send me
-any photo or wording changes and I'll pop them in.*

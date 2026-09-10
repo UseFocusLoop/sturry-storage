@@ -51,6 +51,26 @@ That's it — `https://<your-site>/admin` will now let you log in and edit.
 > two `TINA_` variables are set, or the build will fail. The plain `npm run build`
 > (Astro only) keeps working without Tina if you ever need it.
 
+## Where photos are stored (and why the build still optimises them)
+
+Tina's media library is pointed at **`src/assets`** (see `media.tina` in
+`tina/config.ts`: `mediaRoot: "src/assets"`, `publicFolder: ""`). Photos the
+client uploads are committed into that folder in the repo, and are referenced in
+the page content as `/src/assets/<file>`.
+
+This is deliberate: Astro only optimises (AVIF/WebP + resize) images it can see
+in `src/`. A tiny helper, `src/lib/resolveImage.ts`, turns the stored
+`/src/assets/…` path back into an imported image at build time, so every photo —
+including ones the client swaps in later — is still optimised automatically. The
+client never has to crop or compress before uploading. (`public/uploads` is no
+longer used; if you have old uploads there, move them into `src/assets`.)
+
+One caveat to know: because `src/assets` isn't a public web folder, photo
+**thumbnails inside the media library** preview reliably during local editing
+(`npm run dev`) and may show as a placeholder icon in the live `/admin`. Choosing
+and uploading photos by name still works fine either way; only the little
+preview image is affected.
+
 ---
 
 # Test checklist (run this before handing the login to the client)
@@ -69,17 +89,29 @@ Do each one in `/admin`, save, wait ~1–2 minutes, then check the live site.
 - [ ] **Hours toggle** — Business details → type real *Access hours* and turn on
       *Show access hours* → Save. Confirm they appear in the Security section and
       footer.
+- [ ] **Edit a heading** — Home page → Top banner → *Headline* → change it →
+      Save. Confirm the home hero headline updates. (Try a Container/Yard/Contact
+      heading too.)
+- [ ] **Edit a paragraph** — Container storage page → Top of the page →
+      *Paragraphs* → edit one → Save. Confirm the wording changes on the page.
+- [ ] **Swap a photo** — Yard space page → Top of the page → *Side photo* →
+      Photo → upload a new image → Save. Confirm the new photo appears, fills the
+      slot neatly (no stretching or layout shift), and is served as AVIF/WebP.
 
 Set anything you changed back to the real value when you're done testing.
 
 ---
 
-# What's editable now vs later
+# What's editable
 
-**Now:** all business/contact details (phone, WhatsApp, address, hours, company
-number) and the full pricing table.
+- **Business details** — phone, WhatsApp, address, access hours, company number.
+- **Prices** — every row of the pricing table (price, unit, description,
+  show/hide, order).
+- **Home / Container / Yard / Contact pages** — the section headings, intro
+  lines, body paragraphs, the security cards, the directions, and every photo.
 
-**Next (on your go-ahead):** swapping the photos, and editing the headings and
-paragraph wording on each page. These are the remaining items from the brief;
-they're deliberately staged after the high-value details so each step could be
-verified against the live design.
+Left in code on purpose (not client-editable): page titles / SEO text, the
+search-engine schema, nav and button labels, the address and map wording (they
+follow Business details), the price shown in the intro lines (follows Prices),
+the fourth security card and the HGV line (they follow the access-hours and
+vehicle settings in Business details), and the logo.
