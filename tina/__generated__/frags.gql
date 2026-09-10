@@ -1,0 +1,136 @@
+fragment BusinessParts on Business {
+  __typename
+  legalName
+  phoneDisplay
+  phoneDial
+  whatsapp
+  whatsappMessage
+  address {
+    __typename
+    line1
+    town
+    city
+    county
+    postcode
+  }
+  accessHours
+  accessHoursConfirmed
+  companyNumber
+  minimumTerm
+  pricesIndicative
+}
+
+fragment PricingParts on Pricing {
+  __typename
+  name
+  priceFrom
+  priceUnit
+  priceNote
+  whatFits
+  available
+  order
+}
+
+fragment PageHomeParts on PageHome {
+  __typename
+  hero {
+    __typename
+    image {
+      __typename
+      src
+      alt
+      objectPosition
+    }
+    heading
+    leadBefore
+    leadAfter
+  }
+  pricing {
+    __typename
+    heading
+    lead
+  }
+  security {
+    __typename
+    heading
+    lead
+    facts {
+      __typename
+      title
+      text
+    }
+  }
+  finding {
+    __typename
+    heading
+    directions {
+      __typename
+      heading
+      body
+    }
+    areas
+  }
+  enquiry {
+    __typename
+    heading
+    lead
+  }
+}
+
+fragment PageContainerParts on PageContainer {
+  __typename
+  intro {
+    __typename
+    heading
+    leadBefore
+    leadAfter
+    body
+    image {
+      __typename
+      src
+      alt
+      objectPosition
+    }
+  }
+  pricing {
+    __typename
+    heading
+  }
+}
+
+fragment PageYardParts on PageYard {
+  __typename
+  intro {
+    __typename
+    heading
+    lead
+    body
+    image {
+      __typename
+      src
+      alt
+      objectPosition
+    }
+  }
+  second {
+    __typename
+    heading
+    image {
+      __typename
+      src
+      alt
+      objectPosition
+    }
+    body1
+  }
+}
+
+fragment PageContactParts on PageContact {
+  __typename
+  intro {
+    __typename
+    heading
+    lead
+  }
+  formHeading
+}
