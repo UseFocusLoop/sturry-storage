@@ -8,6 +8,38 @@ const branch =
   process.env.CF_PAGES_BRANCH ||
   "main";
 
+// A reusable "photo slot" field group: the photo, its description (alt text)
+// and an optional focus point. Written once, used on every page photo.
+const photoField = (name: string, label: string, description: string) => ({
+  type: "object" as const,
+  name,
+  label,
+  description,
+  fields: [
+    {
+      type: "image" as const,
+      name: "src",
+      label: "Photo",
+      description:
+        "Tap to choose an existing photo or upload a new one. Any size or shape is fine — the site resizes and optimises it for you. No need to crop or shrink it first.",
+    },
+    {
+      type: "string" as const,
+      name: "alt",
+      label: "Photo description",
+      description:
+        "A few words describing what's in the photo, e.g. 'The gated yard entrance'. Used by screen readers and search engines. Not shown on the page.",
+    },
+    {
+      type: "string" as const,
+      name: "objectPosition",
+      label: "Focus point (advanced — usually leave as is)",
+      description:
+        "Which part of the photo to keep in view if it has to be trimmed to fit the slot. '50% 50%' is the centre. Use '50% 0%' to favour the top, '50% 100%' for the bottom. Leave as '50% 50%' if unsure.",
+    },
+  ],
+});
+
 export default defineConfig({
   branch,
   // These come from your Tina Cloud project (set as env vars — see .env.example).
@@ -20,8 +52,11 @@ export default defineConfig({
   },
   media: {
     tina: {
-      mediaRoot: "uploads", // uploaded photos go in public/uploads
-      publicFolder: "public",
+      // Photos live in src/assets so Astro optimises them (AVIF/WebP, resized)
+      // at build time. publicFolder is the repo root ("") so the saved path is
+      // "/src/assets/<file>" — exactly what the site looks up when building.
+      mediaRoot: "src/assets",
+      publicFolder: "",
     },
   },
 
@@ -187,6 +222,324 @@ export default defineConfig({
             name: "order",
             label: "Order in the table",
             description: "Lower numbers appear first (20ft = 1, 40ft = 2, yard = 3).",
+          },
+        ],
+      },
+
+      // ---------------------------------------------------------------
+      // HOME PAGE  (headings, leads, prose + hero photo)
+      // ---------------------------------------------------------------
+      {
+        name: "pageHome",
+        label: "Home page",
+        path: "src/content/pages",
+        format: "json",
+        match: { include: "home" },
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          {
+            type: "object",
+            name: "hero",
+            label: "Top banner (hero)",
+            fields: [
+              photoField(
+                "image",
+                "Background photo",
+                "The large photo behind the headline at the very top of the home page.",
+              ),
+              {
+                type: "string",
+                name: "heading",
+                label: "Headline",
+                description:
+                  "The big headline over the photo. Best kept under about 55 characters, or it can wrap awkwardly on phones.",
+                ui: {
+                  validate: (v?: string) =>
+                    v && v.length > 70
+                      ? "That's quite long and may look cramped on phones — try to trim it."
+                      : undefined,
+                },
+              },
+              {
+                type: "string",
+                name: "leadBefore",
+                label: "Sentence before the price",
+                description:
+                  "The line that leads up to the '£xx a week' price. The price is filled in automatically from your 20ft price, so you don't type it here. Keep a space at the end.",
+                ui: { component: "textarea" },
+              },
+              {
+                type: "string",
+                name: "leadAfter",
+                label: "Words after the price",
+                description: "The words that come straight after the price, e.g. ' a week.'",
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "pricing",
+            label: "‘Sizes and pricing’ section",
+            fields: [
+              { type: "string", name: "heading", label: "Section heading" },
+              {
+                type: "string",
+                name: "lead",
+                label: "Section intro line",
+                ui: { component: "textarea" },
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "security",
+            label: "‘Security and access’ section",
+            fields: [
+              { type: "string", name: "heading", label: "Section heading" },
+              {
+                type: "string",
+                name: "lead",
+                label: "Section intro line",
+                ui: { component: "textarea" },
+              },
+              {
+                type: "object",
+                name: "facts",
+                label: "Security cards (first three)",
+                description:
+                  "The first three cards. The fourth card, ‘Easy access’, fills itself in from the access-hours setting in Business details, so it isn't listed here.",
+                list: true,
+                ui: {
+                  itemProps: (item: { title?: string }) => ({
+                    label: item?.title || "Card",
+                  }),
+                },
+                fields: [
+                  {
+                    type: "string",
+                    name: "title",
+                    label: "Card title",
+                    description: "Keep it short — one to three words.",
+                  },
+                  {
+                    type: "string",
+                    name: "text",
+                    label: "Card text",
+                    ui: { component: "textarea" },
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "finding",
+            label: "‘Finding us’ section",
+            description:
+              "The address and map fill themselves in from Business details — you only edit the directions and the areas line here.",
+            fields: [
+              { type: "string", name: "heading", label: "Section heading" },
+              {
+                type: "object",
+                name: "directions",
+                label: "Directions",
+                list: true,
+                ui: {
+                  itemProps: (item: { heading?: string }) => ({
+                    label: item?.heading || "Directions",
+                  }),
+                },
+                fields: [
+                  { type: "string", name: "heading", label: "Small heading" },
+                  {
+                    type: "string",
+                    name: "body",
+                    label: "Directions text",
+                    ui: { component: "textarea" },
+                  },
+                ],
+              },
+              {
+                type: "string",
+                name: "areas",
+                label: "Areas you cover (last paragraph)",
+                ui: { component: "textarea" },
+              },
+            ],
+          },
+          {
+            type: "object",
+            name: "enquiry",
+            label: "‘Get a quote’ section",
+            fields: [
+              { type: "string", name: "heading", label: "Section heading" },
+              {
+                type: "string",
+                name: "lead",
+                label: "Section intro line",
+                ui: { component: "textarea" },
+              },
+            ],
+          },
+        ],
+      },
+
+      // ---------------------------------------------------------------
+      // CONTAINER STORAGE PAGE
+      // ---------------------------------------------------------------
+      {
+        name: "pageContainer",
+        label: "Container storage page",
+        path: "src/content/pages",
+        format: "json",
+        match: { include: "container" },
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          {
+            type: "object",
+            name: "intro",
+            label: "Top of the page",
+            fields: [
+              {
+                type: "string",
+                name: "heading",
+                label: "Page headline",
+                description: "Best kept under about 55 characters.",
+              },
+              {
+                type: "string",
+                name: "leadBefore",
+                label: "Intro sentence before the price",
+                description:
+                  "Leads up to the '£xx a week' price, which is added automatically. Keep a space at the end.",
+                ui: { component: "textarea" },
+              },
+              {
+                type: "string",
+                name: "leadAfter",
+                label: "Words after the price",
+                description: "e.g. ' a week.'",
+              },
+              {
+                type: "string",
+                name: "body",
+                label: "Paragraphs",
+                description:
+                  "The main text, one box per paragraph. Use the + button to add a paragraph, or the handle to reorder them.",
+                list: true,
+                ui: {
+                  component: "textarea",
+                  itemProps: (item: string) => ({
+                    label: item ? item.slice(0, 40) + "…" : "Paragraph",
+                  }),
+                },
+              },
+              photoField("image", "Side photo", "The photo beside the text near the top of the page."),
+            ],
+          },
+          {
+            type: "object",
+            name: "pricing",
+            label: "Pricing section",
+            fields: [{ type: "string", name: "heading", label: "Section heading" }],
+          },
+        ],
+      },
+
+      // ---------------------------------------------------------------
+      // YARD SPACE PAGE
+      // ---------------------------------------------------------------
+      {
+        name: "pageYard",
+        label: "Yard space page",
+        path: "src/content/pages",
+        format: "json",
+        match: { include: "yard" },
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          {
+            type: "object",
+            name: "intro",
+            label: "Top of the page",
+            fields: [
+              {
+                type: "string",
+                name: "heading",
+                label: "Page headline",
+                description: "Best kept under about 55 characters.",
+              },
+              {
+                type: "string",
+                name: "lead",
+                label: "Intro line",
+                ui: { component: "textarea" },
+              },
+              {
+                type: "string",
+                name: "body",
+                label: "Paragraphs",
+                description:
+                  "The main text, one box per paragraph. Use the + button to add a paragraph, or the handle to reorder them.",
+                list: true,
+                ui: {
+                  component: "textarea",
+                  itemProps: (item: string) => ({
+                    label: item ? item.slice(0, 40) + "…" : "Paragraph",
+                  }),
+                },
+              },
+              photoField("image", "Side photo", "The photo beside the text near the top of the page."),
+            ],
+          },
+          {
+            type: "object",
+            name: "second",
+            label: "‘What the yard takes’ section",
+            fields: [
+              { type: "string", name: "heading", label: "Section heading" },
+              photoField("image", "Section photo", "The photo in this second section."),
+              {
+                type: "string",
+                name: "body1",
+                label: "Paragraph",
+                description:
+                  "The second line about larger vehicles / HGVs fills itself in and isn't edited here.",
+                ui: { component: "textarea" },
+              },
+            ],
+          },
+        ],
+      },
+
+      // ---------------------------------------------------------------
+      // CONTACT PAGE
+      // ---------------------------------------------------------------
+      {
+        name: "pageContact",
+        label: "Contact page",
+        path: "src/content/pages",
+        format: "json",
+        match: { include: "contact" },
+        ui: { allowedActions: { create: false, delete: false } },
+        fields: [
+          {
+            type: "object",
+            name: "intro",
+            label: "Top of the page",
+            fields: [
+              { type: "string", name: "heading", label: "Page headline" },
+              {
+                type: "string",
+                name: "lead",
+                label: "Intro line",
+                ui: { component: "textarea" },
+              },
+            ],
+          },
+          {
+            type: "string",
+            name: "formHeading",
+            label: "Heading above the enquiry form",
           },
         ],
       },
