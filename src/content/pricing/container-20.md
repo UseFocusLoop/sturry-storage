@@ -1,6 +1,6 @@
 ---
 name: 20ft container
-priceFrom: 36
+priceFrom: 35
 priceUnit: week
 priceNote: ''
 whatFits: 'About the contents of a three-bed house, or a full van-load of tools and stock.'
