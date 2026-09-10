@@ -1,0 +1,62 @@
+---
+/* =============================================================================
+   PHOTO SLOT
+   -----------------------------------------------------------------------------
+   A fixed-shape image slot the client can swap from the CMS.
+
+   - `src` / `alt` / `objectPosition` come from content (frontmatter), never
+     hardcoded here.
+   - The slot has a FIXED aspect ratio + object-fit: cover, so a replacement
+     photo of any size fills it without shifting the layout. `objectPosition`
+     lets the client nudge which part of an off-ratio photo shows.
+   - Renders through Astro's <Picture>, so the image is optimised (AVIF/WebP,
+     resized) at build time.
+   ============================================================================= */
+import { Picture } from "astro:assets";
+import { resolveImage } from "../lib/resolveImage";
+
+interface Props {
+  src: string;
+  alt: string;
+  /** e.g. "3 / 2" — the fixed shape of the slot. */
+  ratio: string;
+  widths: number[];
+  sizes: string;
+  objectPosition?: string;
+  loading?: "lazy" | "eager";
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  ratio,
+  widths,
+  sizes,
+  objectPosition = "50% 50%",
+  loading = "lazy",
+  class: className,
+} = Astro.props;
+
+const image = resolveImage(src);
+
+const style = [
+  "display:block",
+  "width:100%",
+  `aspect-ratio:${ratio}`,
+  "object-fit:cover",
+  `object-position:${objectPosition}`,
+  "border-radius:var(--radius)",
+].join(";");
+---
+
+<Picture
+  src={image}
+  formats={["avif", "webp"]}
+  alt={alt}
+  widths={widths}
+  sizes={sizes}
+  loading={loading}
+  class={className}
+  style={style}
+/>
