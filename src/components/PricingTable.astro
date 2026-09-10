@@ -1,34 +1,21 @@
 ---
+import { getCollection } from "astro:content";
 import { business } from "../data/business";
-const p = business.pricing;
 
-// Build the rows from the data file so prices live in one place.
-const rows = [
-  {
-    size: "20ft container",
-    fits: "About the contents of a three-bed house, or a full van-load of tools and stock.",
-    price: p.container20.from
-      ? `from ${p.container20.from}/${p.container20.per}`
-      : "Call for a quote",
-    show: true,
-  },
-  {
-    size: "40ft container",
-    fits: "Roughly double a 20ft — for larger stock holdings or a bigger clear-out.",
-    price: p.container40.from
-      ? `from ${p.container40.from}/${p.container40.per}`
-      : "Call for availability", // [CONFIRM] 40ft offered? price?
-    show: true,
-  },
-  {
-    size: "Open yard space",
-    fits: "Plant, trailers, vehicles or materials that live outside. Priced by the space you need.",
-    price: "Priced on requirement — call for a quote",
-    show: true,
-  },
-];
-const anyPlaceholder =
-  p.container20.isPlaceholder || p.yard.isPlaceholder || p.container40.isPlaceholder;
+// Rows come from the pricing collection (src/content/pricing/*.md), so the
+// client edits prices in the CMS. Hidden (available: false) rows are dropped.
+const priceText = (d: {
+  priceFrom?: number | null;
+  priceUnit: string;
+  priceNote: string;
+}) => (d.priceFrom != null ? `from £${d.priceFrom}/${d.priceUnit}` : d.priceNote);
+
+const rows = (await getCollection("pricing"))
+  .filter((e) => e.data.available)
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((e) => ({ size: e.data.name, fits: e.data.whatFits, price: priceText(e.data) }));
+
+const anyPlaceholder = business.pricesIndicative;
 ---
 
 <div class="table-wrap">
@@ -43,15 +30,13 @@ const anyPlaceholder =
     </thead>
     <tbody>
       {
-        rows
-          .filter((r) => r.show)
-          .map((r) => (
-            <tr>
-              <th scope="row" class="tnum">{r.size}</th>
-              <td data-label="Roughly what fits">{r.fits}</td>
-              <td class="tnum price" data-label="Price from">{r.price}</td>
-            </tr>
-          ))
+        rows.map((r) => (
+          <tr>
+            <th scope="row" class="tnum">{r.size}</th>
+            <td data-label="Roughly what fits">{r.fits}</td>
+            <td class="tnum price" data-label="Price from">{r.price}</td>
+          </tr>
+        ))
       }
     </tbody>
   </table>

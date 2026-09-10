@@ -1,0 +1,33 @@
+{
+  "legalName": "Sturry Storage Solutions Ltd",
+  "shortName": "Sturry Storage",
+  "phoneDisplay": "07777 39 25 38",
+  "phoneDial": "+447777392538",
+  "whatsapp": "447777392538",
+  "whatsappMessage": "Hi Sturry Storage, I'd like to ask about storage. ",
+  "address": {
+    "line1": "Staines Hill",
+    "town": "Sturry",
+    "city": "Canterbury",
+    "county": "Kent",
+    "postcode": "CT2 0EU"
+  },
+  "geo": { "lat": 51.3106, "lng": 1.1176 },
+  "accessHours": "Access hours to be confirmed",
+  "accessHoursConfirmed": false,
+  "companyNumber": "",
+  "insuranceNote": "",
+  "deposit": "",
+  "minimumTerm": "",
+  "hgvParking": null,
+  "pricesIndicative": true,
+  "areas": [
+    "Sturry",
+    "Canterbury",
+    "Fordwich",
+    "Westbere",
+    "Herne Bay",
+    "Whitstable",
+    "Broad Oak"
+  ]
+}

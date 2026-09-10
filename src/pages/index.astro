@@ -4,11 +4,14 @@ import { Picture } from "astro:assets";
 import PricingTable from "../components/PricingTable.astro";
 import ContactForm from "../components/ContactForm.astro";
 import Icon from "../components/Icon.astro";
+import { getCollection } from "astro:content";
 import { business, links, addressOneLine } from "../data/business";
 // Yard photo. Swap this file in src/assets to change the hero image.
 import heroImg from "../assets/containers.png";
 
-const p = business.pricing;
+// 20ft "from" price for the hero line, read from the pricing collection.
+const twenty = (await getCollection("pricing")).find((e) => e.id === "container-20");
+const heroPrice = `£${twenty?.data.priceFrom ?? 35}`;
 const title =
   "Container & Yard Storage in Sturry, Canterbury | Sturry Storage Solutions";
 const description =
@@ -37,7 +40,7 @@ const description =
       <h1>Secure container and yard storage in Sturry, Canterbury</h1>
       <p class="hero-lead">
         Drive right up to your unit and load straight in. Flexible weekly terms,
-        short or long, from <span class="tnum">{p.container20.from}</span> a week.
+        short or long, from <span class="tnum">{heroPrice}</span> a week.
       </p>
       <div class="hero-actions">
         <a href={links.tel} class="btn btn-primary btn-lg">

@@ -3,10 +3,12 @@ import Base from "../layouts/Base.astro";
 import { Picture } from "astro:assets";
 import PricingTable from "../components/PricingTable.astro";
 import Icon from "../components/Icon.astro";
+import { getCollection } from "astro:content";
 import { business, links } from "../data/business";
 import containerImg from "../assets/containers.png";
 
-const p = business.pricing;
+const twenty = (await getCollection("pricing")).find((e) => e.id === "container-20");
+const heroPrice = `£${twenty?.data.priceFrom ?? 35}`;
 const title = "20ft Container Storage in Sturry, Canterbury | Sturry Storage";
 const description =
   "Secure 20ft container storage at Staines Hill, Sturry, Canterbury. Drive-up access, 24hr CCTV, weekly terms from £35. Call 07777 39 25 38 or WhatsApp.";
@@ -19,7 +21,7 @@ const description =
     <p class="section-lead">
       Steel 20ft containers on a gated, CCTV-covered yard. Dry, secure and yours
       to come and go from. Containers from
-      <span class="tnum">{p.container20.from}</span> a week.
+      <span class="tnum">{heroPrice}</span> a week.
     </p>
 
     <div class="two-col">
