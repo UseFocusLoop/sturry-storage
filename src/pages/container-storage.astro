@@ -1,0 +1,126 @@
+---
+import Base from "../layouts/Base.astro";
+import { Picture } from "astro:assets";
+import PricingTable from "../components/PricingTable.astro";
+import Icon from "../components/Icon.astro";
+import { business, links } from "../data/business";
+import containerImg from "../assets/containers.png";
+
+const p = business.pricing;
+const title = "20ft Container Storage in Sturry, Canterbury | Sturry Storage";
+const description =
+  "Secure 20ft container storage at Staines Hill, Sturry, Canterbury. Drive-up access, 24hr CCTV, weekly terms from £35. Call 07777 39 25 38 or WhatsApp.";
+---
+
+<Base title={title} description={description} path="/container-storage/">
+  <section class="section container">
+    <p class="crumb"><a href="/">Home</a> / Container storage</p>
+    <h1>Container storage in Sturry</h1>
+    <p class="section-lead">
+      Steel 20ft containers on a gated, CCTV-covered yard. Dry, secure and yours
+      to come and go from. Containers from
+      <span class="tnum">{p.container20.from}</span> a week.
+    </p>
+
+    <div class="two-col">
+      <div class="prose">
+        <p>
+          A 20ft container holds about the contents of a three-bed house, or a
+          full van's worth of tools and stock. Plenty of room to walk in and get
+          at what you need.
+        </p>
+        <p>
+          Drive right up to the door and load straight in — no lifts, no long
+          carry, no booking a slot. Good for builders keeping kit between jobs,
+          traders holding stock overflow, and anyone clearing a house or garage.
+        </p>
+        <p>
+          Take it for a week or keep it for a year. Pay weekly, no long tie-in.
+          When you're done, hand it back.
+        </p>
+        <div class="cta-row">
+          <a href={links.tel} class="btn btn-primary">
+            <Icon name="phone" size={19} />
+            Call {business.phoneDisplay}
+          </a>
+          <a href={links.whatsapp} class="btn btn-wa" target="_blank" rel="noopener">
+            <Icon name="whatsapp" size={19} />
+            WhatsApp us
+          </a>
+        </div>
+      </div>
+      <Picture
+        src={containerImg}
+        formats={["avif", "webp"]}
+        alt="A 20ft shipping container at the Sturry storage yard"
+        widths={[480, 800, 1200]}
+        sizes="(min-width: 800px) 40vw, 100vw"
+        loading="lazy"
+        class="side-img"
+      />
+    </div>
+  </section>
+
+  <section class="section container">
+    <h2>Sizes and pricing</h2>
+    <PricingTable />
+    <p class="terms-line">
+      Paid weekly. Short or long term. {
+        business.minimumTerm ? business.minimumTerm : "No long tie-in"
+      }.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .crumb {
+    font-size: var(--step-small);
+    color: var(--steel);
+    margin-bottom: 0.5rem;
+  }
+  .crumb a {
+    color: var(--green-dark);
+  }
+  .section-lead {
+    margin-top: 0.5rem;
+    color: var(--steel);
+    font-size: var(--step-body-lg);
+    max-width: var(--measure);
+  }
+  .two-col {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+    margin-top: 1.75rem;
+    align-items: start;
+  }
+  .prose {
+    display: grid;
+    gap: 1rem;
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  .two-col :global(picture) {
+    display: block;
+  }
+  .side-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    display: block;
+  }
+  .terms-line {
+    margin-top: 1rem;
+    font-weight: 500;
+  }
+  @media (min-width: 800px) {
+    .two-col {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 3rem;
+    }
+  }
+</style>

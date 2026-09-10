@@ -1,0 +1,86 @@
+---
+/*
+  Sturry Storage Solutions logo.
+  The container mark is the real logo lifted from the company leaflet
+  (public/logo-mark.png), paired with the wordmark.
+
+  variant="dark"  -> navy type (light backgrounds, e.g. header)
+  variant="light" -> white type (dark backgrounds, e.g. footer)
+*/
+interface Props {
+  variant?: "dark" | "light";
+  class?: string;
+}
+const { variant = "dark", class: className = "" } = Astro.props;
+---
+
+<span class:list={["logo", `logo--${variant}`, className]}>
+  <span class="logo-chip">
+    <img
+      src="/logo-mark.png"
+      alt="Sturry Storage Solutions logo"
+      class="logo-mark"
+      width="224"
+      height="206"
+    />
+  </span>
+  <span class="logo-word">
+    <span class="logo-word-1">Sturry</span>
+    <span class="logo-word-2">Storage Solutions Ltd</span>
+  </span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .logo-chip {
+    display: inline-flex;
+    background: #fff;
+    border-radius: 7px;
+    padding: 3px 5px;
+    flex: none;
+  }
+  .logo-mark {
+    height: 38px;
+    width: auto;
+    display: block;
+  }
+  .logo-word {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .logo-word-1 {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+  .logo-word-2 {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 0.5rem;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    margin-top: 0.22rem;
+    padding: 0.12rem 0;
+    border-top: 1.5px solid var(--green);
+    border-bottom: 1.5px solid var(--green);
+    white-space: nowrap;
+  }
+
+  /* Light variant for dark backgrounds. */
+  .logo--light .logo-word-1 {
+    color: #ffffff;
+  }
+  .logo--light .logo-word-2 {
+    color: var(--green-bright);
+    border-color: var(--green-bright);
+  }
+</style>

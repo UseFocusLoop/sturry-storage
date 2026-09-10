@@ -1,0 +1,156 @@
+---
+import { business } from "../data/business";
+
+// Web3Forms access key comes from an environment variable so no secret is
+// hard-coded. Set PUBLIC_WEB3FORMS_KEY in a .env file (see .env.example) or in
+// your Cloudflare Pages project settings. The key is safe to expose publicly —
+// it only routes messages to the email you configured at web3forms.com.
+const accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? "";
+const configured = accessKey.length > 0;
+---
+
+{
+  !configured && (
+    <p class="form-notice">
+      <strong>Form not connected yet.</strong> Add your free Web3Forms access
+      key to <code>.env</code> as <code>PUBLIC_WEB3FORMS_KEY</code> and the form
+      will start emailing enquiries. Until then, use the Call or WhatsApp
+      buttons above.
+    </p>
+  )
+}
+
+<form
+  class="enquiry-form"
+  action="https://api.web3forms.com/submit"
+  method="POST"
+>
+  <input type="hidden" name="access_key" value={accessKey} />
+  <input
+    type="hidden"
+    name="subject"
+    value="New storage enquiry from the website"
+  />
+  <input type="hidden" name="from_name" value={business.legalName} />
+  <!-- After submitting, the visitor lands on this thank-you page. -->
+  <input type="hidden" name="redirect" value="/thank-you/" />
+  <!-- Honeypot: real people leave this empty; bots fill it and get rejected. -->
+  <input
+    type="checkbox"
+    name="botcheck"
+    class="visually-hidden"
+    style="display:none"
+    tabindex="-1"
+    autocomplete="off"
+    aria-hidden="true"
+  />
+
+  <div class="field">
+    <label for="name">Your name</label>
+    <input id="name" name="name" type="text" required autocomplete="name" />
+  </div>
+
+  <div class="field">
+    <label for="phone">Phone number</label>
+    <input
+      id="phone"
+      name="phone"
+      type="tel"
+      required
+      inputmode="tel"
+      autocomplete="tel"
+      placeholder="So we can call or text you back"
+    />
+  </div>
+
+  <div class="field">
+    <label for="store">What do you need to store?</label>
+    <textarea
+      id="store"
+      name="what_to_store"
+      rows="3"
+      placeholder="e.g. builder's tools and materials, or stock overflow"
+    ></textarea>
+  </div>
+
+  <div class="field">
+    <label for="dates">Rough dates</label>
+    <input
+      id="dates"
+      name="rough_dates"
+      type="text"
+      placeholder="e.g. from next week, for a couple of months"
+    />
+  </div>
+
+  <button type="submit" class="btn btn-primary" disabled={!configured}>
+    Send enquiry
+  </button>
+  <p class="form-foot">
+    We'll call or text you back. We don't share your details.
+  </p>
+</form>
+
+<style>
+  .enquiry-form {
+    display: grid;
+    gap: 1rem;
+    max-width: 34rem;
+  }
+  .field {
+    display: grid;
+    gap: 0.35rem;
+  }
+  label {
+    font-weight: 500;
+    font-size: var(--step-body);
+    color: var(--navy);
+  }
+  input,
+  textarea {
+    font-family: var(--font-body);
+    font-size: var(--step-body);
+    color: var(--navy);
+    background: var(--white);
+    border: 1px solid var(--steel);
+    border-radius: var(--radius);
+    padding: 0.7rem 0.8rem;
+    min-height: 48px;
+    width: 100%;
+  }
+  textarea {
+    min-height: auto;
+    resize: vertical;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: color-mix(in srgb, var(--steel) 85%, transparent);
+  }
+  .enquiry-form .btn {
+    justify-self: start;
+  }
+  .btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .form-foot {
+    font-size: var(--step-small);
+    color: var(--steel);
+    margin: 0;
+  }
+  .form-notice {
+    background: color-mix(in srgb, var(--green) 10%, var(--white));
+    border: 1px solid var(--green-dark);
+    border-radius: var(--radius);
+    padding: 0.9rem 1rem;
+    font-size: var(--step-small);
+    color: var(--navy);
+    max-width: 34rem;
+  }
+  .form-notice code {
+    font-size: 0.85em;
+    background: color-mix(in srgb, var(--navy) 8%, transparent);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+  }
+</style>

@@ -1,0 +1,109 @@
+---
+import Base from "../layouts/Base.astro";
+import ContactForm from "../components/ContactForm.astro";
+import Icon from "../components/Icon.astro";
+import { business, links, addressOneLine } from "../data/business";
+
+const title = "Contact Sturry Storage Solutions | Call or WhatsApp 07777 39 25 38";
+const description =
+  "Call or WhatsApp Sturry Storage Solutions on 07777 39 25 38 for container and yard storage at Staines Hill, Sturry, Canterbury CT2 0EU.";
+---
+
+<Base title={title} description={description} path="/contact/">
+  <section class="section container">
+    <p class="crumb"><a href="/">Home</a> / Contact</p>
+    <h1>Contact us</h1>
+    <p class="section-lead">
+      Quickest way to a price and availability is a call or a WhatsApp. Or leave
+      your details below and we'll get back to you.
+    </p>
+
+    <div class="contact-grid">
+      <div>
+        <div class="actions">
+          <a href={links.whatsapp} class="btn btn-primary" target="_blank" rel="noopener">
+            <Icon name="whatsapp" size={19} />
+            Message us on WhatsApp
+          </a>
+          <a href={links.tel} class="btn btn-ghost">
+            <Icon name="phone" size={18} />
+            Call {business.phoneDisplay}
+          </a>
+        </div>
+
+        <dl class="details">
+          <dt>Phone / WhatsApp</dt>
+          <dd><a href={links.tel}>{business.phoneDisplay}</a></dd>
+          <dt>Address</dt>
+          <dd>{addressOneLine}</dd>
+          <dt>Access</dt>
+          <dd>
+            {
+              business.accessHoursConfirmed
+                ? business.accessHours
+                : "Ask when you call — we'll arrange access to suit." /* [CONFIRM] */
+            }
+          </dd>
+        </dl>
+      </div>
+
+      <div>
+        <h2>Send an enquiry</h2>
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .crumb {
+    font-size: var(--step-small);
+    color: var(--steel);
+    margin-bottom: 0.5rem;
+  }
+  .crumb a {
+    color: var(--green-dark);
+  }
+  .section-lead {
+    margin-top: 0.5rem;
+    color: var(--steel);
+    font-size: var(--step-body-lg);
+    max-width: var(--measure);
+  }
+  .contact-grid {
+    display: grid;
+    gap: 2.5rem;
+    grid-template-columns: 1fr;
+    margin-top: 2rem;
+    align-items: start;
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+  .details {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 0.15rem 1rem;
+    margin: 0;
+  }
+  .details dt {
+    font-family: var(--font-head);
+    font-weight: 600;
+    color: var(--steel);
+    font-size: var(--step-small);
+    margin-top: 0.9rem;
+  }
+  .details dd {
+    margin: 0;
+    color: var(--navy);
+  }
+  @media (min-width: 800px) {
+    .contact-grid {
+      grid-template-columns: 1fr 1.1fr;
+      gap: 3.5rem;
+    }
+  }
+</style>

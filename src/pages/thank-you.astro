@@ -1,0 +1,39 @@
+---
+import Base from "../layouts/Base.astro";
+import { business, links } from "../data/business";
+
+const title = "Thanks — we'll be in touch | Sturry Storage Solutions";
+const description = "Your enquiry has been sent to Sturry Storage Solutions.";
+---
+
+<Base title={title} description={description} path="/thank-you/">
+  <section class="section container thanks">
+    <h1>Thanks — we've got your enquiry</h1>
+    <p class="section-lead">
+      We'll call or text you back shortly. If you need an answer now, the
+      quickest way is to ring us.
+    </p>
+    <div class="actions">
+      <a href={links.tel} class="btn btn-primary">Call {business.phoneDisplay}</a>
+      <a href="/" class="btn btn-ghost">Back to home</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .thanks {
+    min-height: 40vh;
+  }
+  .section-lead {
+    margin-top: 0.75rem;
+    color: var(--steel);
+    font-size: var(--step-body-lg);
+    max-width: var(--measure);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.75rem;
+  }
+</style>

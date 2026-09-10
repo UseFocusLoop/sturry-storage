@@ -1,0 +1,60 @@
+---
+/* The single highest-value element on the site: fixed bottom bar on phones.
+   Call on the left, WhatsApp on the right. Hidden at >= 768px. */
+import { business, links } from "../data/business";
+import Icon from "./Icon.astro";
+---
+
+<div class="call-bar" role="region" aria-label="Contact Sturry Storage">
+  <a href={links.tel} class="call-bar-btn call">
+    <Icon name="phone" size={20} /> Call
+  </a>
+  <a
+    href={links.whatsapp}
+    class="call-bar-btn whatsapp"
+    target="_blank"
+    rel="noopener"
+  >
+    <Icon name="whatsapp" size={21} /> WhatsApp
+  </a>
+</div>
+
+<style>
+  .call-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--hairline);
+    box-shadow: 0 -4px 16px rgba(13, 27, 46, 0.14);
+    padding-bottom: env(safe-area-inset-bottom); /* iPhone home bar */
+  }
+  .call-bar-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 56px;
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    text-decoration: none;
+  }
+  .call {
+    background: var(--navy);
+    color: var(--white);
+  }
+  .whatsapp {
+    background: var(--green);
+    color: var(--white);
+  }
+  @media (min-width: 768px) {
+    .call-bar {
+      display: none;
+    }
+  }
+</style>

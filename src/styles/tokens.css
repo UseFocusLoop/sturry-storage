@@ -1,0 +1,95 @@
+/* =============================================================================
+   DESIGN TOKENS — THE WHOLE PALETTE LIVES HERE
+   -----------------------------------------------------------------------------
+   Change a colour here and it changes everywhere on the site.
+   Contrast has been checked against WCAG AA — if you swap colours, keep dark
+   type on light backgrounds and re-check button label contrast.
+   ============================================================================= */
+
+:root {
+  /* ---- Colour ---- */
+  --paper: #f3f3f0; /* page base */
+  --white: #ffffff; /* cards, panels, the pricing table */
+  --navy: #12263f; /* headings, body type, structural blocks */
+  --navy-deep: #0d1b2e; /* footer + inverted sections */
+  --blue: #1f6fb2; /* accent blue — small accents, icons, links */
+  --blue-tint: #eaf1f7; /* pale blue wash for panels */
+  --green: #4e9a2f; /* buttons, active states, the ribbing */
+  --green-bright: #5cb033; /* hover / on-dark green */
+  --green-dark: #3b7622; /* green TEXT on light (AA-safe) */
+  --steel: #5a6472; /* secondary text, hairlines */
+
+  /* ---- Derived / usage ---- */
+  --hairline: color-mix(in srgb, var(--steel) 26%, transparent);
+  --focus: var(--green-dark);
+
+  /* ---- Depth ---- */
+  --shadow-sm: 0 1px 2px rgba(13, 27, 46, 0.06),
+    0 1px 3px rgba(13, 27, 46, 0.08);
+  --shadow-md: 0 4px 12px rgba(13, 27, 46, 0.08),
+    0 2px 4px rgba(13, 27, 46, 0.06);
+  --shadow-lg: 0 18px 40px rgba(13, 27, 46, 0.14),
+    0 6px 14px rgba(13, 27, 46, 0.1);
+  /* Navy scrim for text over photos (left-heavy for left-aligned copy). */
+  --hero-scrim: linear-gradient(
+      100deg,
+      rgba(13, 27, 46, 0.92) 0%,
+      rgba(13, 27, 46, 0.82) 34%,
+      rgba(13, 27, 46, 0.45) 66%,
+      rgba(18, 38, 63, 0.35) 100%
+    ),
+    linear-gradient(0deg, rgba(13, 27, 46, 0.55) 0%, rgba(13, 27, 46, 0) 40%);
+
+  /* ---- Type ---- */
+  --font-head: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* Modular scale. Display clamps down on small screens. */
+  --step-display: clamp(2.5rem, 1.5rem + 4vw, 3.75rem); /* 40 -> 60 */
+  --step-h2: clamp(1.75rem, 1.3rem + 1.6vw, 2.25rem); /* 28 -> 36 */
+  --step-h3: 1.3125rem; /* 21 */
+  --step-body-lg: 1.25rem; /* 20 */
+  --step-body: 1.0625rem; /* 17 */
+  --step-small: 0.875rem; /* 14 */
+
+  /* ---- Layout ---- */
+  --measure: 60ch; /* max body line length — tighter reads more premium */
+  --container: 75rem; /* page max width */
+  --gutter: clamp(1.25rem, 0.5rem + 3vw, 2.5rem);
+  --section-y: clamp(3.5rem, 2.5rem + 4vw, 6.5rem); /* vertical rhythm */
+  --radius: 8px; /* used sparingly, not on everything */
+}
+
+/* =============================================================================
+   THE ONE BOLD MOVE — container corrugation
+   -----------------------------------------------------------------------------
+   A tight vertical-rule pattern derived from container ribbing. Pure CSS, no
+   image, no JS. Used exactly twice on the page: as a divider band and as a
+   faint texture behind the location block. Don't reuse it elsewhere.
+   ============================================================================= */
+
+.corrugation-divider {
+  height: 12px;
+  width: 100%;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--navy) 0,
+    var(--navy) 2px,
+    transparent 2px,
+    transparent 7px
+  );
+  opacity: 0.9;
+}
+
+.corrugation-texture {
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--navy) 0,
+    var(--navy) 2px,
+    transparent 2px,
+    transparent 9px
+  );
+  background-repeat: repeat;
+  /* faint — the panel sits on top of this */
+  opacity: 0.06;
+}

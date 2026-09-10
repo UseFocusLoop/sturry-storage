@@ -1,0 +1,35 @@
+---
+import { business, addressOneLine } from "../data/business";
+
+// SelfStorage schema with full NAP + geo. Opening hours are only emitted once
+// the real access hours are confirmed (business.accessHoursConfirmed = true),
+// so we never publish an unverified 24/7 claim.
+const schema: Record<string, unknown> = {
+  "@context": "https://schema.org",
+  "@type": "SelfStorage",
+  name: business.legalName,
+  telephone: business.phoneDial,
+  url: Astro.site?.href,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: `${business.address.line1}, ${business.address.town}`,
+    addressLocality: business.address.city,
+    addressRegion: business.address.county,
+    postalCode: business.address.postcode,
+    addressCountry: "GB",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: business.geo.lat,
+    longitude: business.geo.lng,
+  },
+  areaServed: business.areas.map((a) => ({ "@type": "Place", name: a })),
+  description: `Secure 20ft container storage and open yard space at ${addressOneLine}. Drive-up access, 24hr CCTV, flexible short or long term terms.`,
+};
+
+if (business.accessHoursConfirmed && business.accessHours) {
+  schema.openingHours = business.accessHours;
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

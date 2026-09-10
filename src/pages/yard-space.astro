@@ -1,0 +1,143 @@
+---
+import Base from "../layouts/Base.astro";
+import { Picture } from "astro:assets";
+import Icon from "../components/Icon.astro";
+import { business, links } from "../data/business";
+import yardGate from "../assets/yard-gate.jpg";
+import yardOpen from "../assets/yard-open.jpg";
+
+const title = "Open Yard & Outdoor Storage in Sturry, Canterbury | Sturry Storage";
+const description =
+  "Open yard storage space at Staines Hill, Sturry, Canterbury. Hardstanding for plant, trailers and vehicles. Priced on requirement. Call 07777 39 25 38.";
+---
+
+<Base title={title} description={description} path="/yard-space/">
+  <section class="section container">
+    <p class="crumb"><a href="/">Home</a> / Yard space</p>
+    <h1>Open yard space in Sturry</h1>
+    <p class="section-lead">
+      Hardstanding you can drive onto in any weather, on a gated site with 24hr
+      CCTV. Priced on the space you need — call for a quote.
+    </p>
+
+    <div class="two-col">
+      <div class="prose">
+        <p>
+          The open yard suits anything that lives outside: plant and machinery,
+          trailers, vehicles, skips, or materials waiting on the next job.
+        </p>
+        <p>
+          You take the space you need and pay for that — no fixed packages.
+          Because it's priced on requirement, the quickest way to a price is a
+          quick phone call.
+        </p>
+        <p>
+          Short or long term, paid weekly. Drive-up access on solid ground, so
+          you're not churning up mud getting a trailer in and out.
+        </p>
+        <div class="cta-row">
+          <a href={links.tel} class="btn btn-primary">
+            <Icon name="phone" size={19} />
+            Call {business.phoneDisplay}
+          </a>
+          <a href={links.whatsapp} class="btn btn-wa" target="_blank" rel="noopener">
+            <Icon name="whatsapp" size={19} />
+            WhatsApp us
+          </a>
+        </div>
+      </div>
+      <Picture
+        src={yardGate}
+        formats={["avif", "webp"]}
+        alt="The gated entrance to the open storage yard at Sturry, Canterbury"
+        widths={[480, 800, 1200]}
+        sizes="(min-width: 800px) 44vw, 100vw"
+        loading="eager"
+        class="side-img"
+      />
+    </div>
+  </section>
+
+  <section class="section container">
+    <h2>What the yard takes</h2>
+    <div class="two-col reverse">
+      <Picture
+        src={yardOpen}
+        formats={["avif", "webp"]}
+        alt="Open gravel hardstanding with room for trailers and materials"
+        widths={[480, 800, 1200]}
+        sizes="(min-width: 800px) 44vw, 100vw"
+        loading="lazy"
+        class="side-img"
+      />
+      <div class="prose">
+        <p>
+          Plant and machinery between sites. Trailers and horseboxes off the
+          drive. Vans and vehicles you'd rather keep behind a gate. Building
+          materials, aggregates and skips staged for a job.
+        </p>
+        <p>
+          {
+            business.hgvParking === true
+              ? "HGV and larger vehicle parking is available — call to check we can fit yours."
+              : business.hgvParking === false
+                ? "For larger commercial vehicles, call first so we can check the fit."
+                : "Larger vehicles and HGVs — call first so we can check the fit." /* [CONFIRM] HGV/vehicle parking */
+          }
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .crumb {
+    font-size: var(--step-small);
+    color: var(--steel);
+    margin-bottom: 0.5rem;
+  }
+  .crumb a {
+    color: var(--green-dark);
+  }
+  .section-lead {
+    margin-top: 0.5rem;
+    color: var(--steel);
+    font-size: var(--step-body-lg);
+    max-width: var(--measure);
+  }
+  .two-col {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+    margin-top: 1.75rem;
+    align-items: start;
+  }
+  .prose {
+    display: grid;
+    gap: 1rem;
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  .two-col :global(picture) {
+    display: block;
+  }
+  .side-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    display: block;
+  }
+  @media (min-width: 800px) {
+    .two-col {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 3rem;
+    }
+    .two-col.reverse {
+      grid-template-columns: 1fr 1.2fr;
+    }
+  }
+</style>

@@ -1,0 +1,196 @@
+---
+import { business } from "../data/business";
+const p = business.pricing;
+
+// Build the rows from the data file so prices live in one place.
+const rows = [
+  {
+    size: "20ft container",
+    fits: "About the contents of a three-bed house, or a full van-load of tools and stock.",
+    price: p.container20.from
+      ? `from ${p.container20.from}/${p.container20.per}`
+      : "Call for a quote",
+    show: true,
+  },
+  {
+    size: "40ft container",
+    fits: "Roughly double a 20ft — for larger stock holdings or a bigger clear-out.",
+    price: p.container40.from
+      ? `from ${p.container40.from}/${p.container40.per}`
+      : "Call for availability", // [CONFIRM] 40ft offered? price?
+    show: true,
+  },
+  {
+    size: "Open yard space",
+    fits: "Plant, trailers, vehicles or materials that live outside. Priced by the space you need.",
+    price: "Priced on requirement — call for a quote",
+    show: true,
+  },
+];
+const anyPlaceholder =
+  p.container20.isPlaceholder || p.yard.isPlaceholder || p.container40.isPlaceholder;
+---
+
+<div class="table-wrap">
+  <table class="pricing">
+    <caption class="visually-hidden">Storage sizes and prices</caption>
+    <thead>
+      <tr>
+        <th scope="col">Size</th>
+        <th scope="col">Roughly what fits</th>
+        <th scope="col">Price from</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows
+          .filter((r) => r.show)
+          .map((r) => (
+            <tr>
+              <th scope="row" class="tnum">{r.size}</th>
+              <td data-label="Roughly what fits">{r.fits}</td>
+              <td class="tnum price" data-label="Price from">{r.price}</td>
+            </tr>
+          ))
+      }
+    </tbody>
+  </table>
+</div>
+
+{
+  anyPlaceholder && (
+    <p class="placeholder-note">
+      {/* Visible reminder — remove once real prices are set in business.ts */}
+      Prices shown are indicative starting points. Call for a firm quote on your
+      needs.
+    </p>
+  )
+}
+
+<style>
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    background: var(--white);
+    box-shadow: var(--shadow-md);
+  }
+  table.pricing {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 36rem;
+  }
+  .pricing th,
+  .pricing td {
+    text-align: left;
+    padding: 1.1rem 1.25rem;
+    vertical-align: top;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .pricing thead th {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: var(--step-small);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--white) 82%, var(--navy));
+    background: var(--navy);
+    border-bottom: none;
+  }
+  .pricing tbody tr {
+    transition: background-color 0.12s ease;
+  }
+  .pricing tbody tr:hover {
+    background: var(--blue-tint);
+  }
+  .pricing tbody th {
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    color: var(--navy);
+    white-space: nowrap;
+  }
+  .pricing tbody tr:last-child th,
+  .pricing tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .pricing td {
+    color: var(--steel);
+    line-height: 1.5;
+  }
+  .price {
+    font-family: var(--font-head);
+    font-weight: 700;
+    color: var(--green-dark);
+    white-space: nowrap;
+  }
+
+  /* On narrow screens, stack each row as a full-width card. */
+  @media (max-width: 640px) {
+    .table-wrap {
+      overflow-x: visible;
+      border: none;
+      background: transparent;
+      box-shadow: none;
+    }
+    table.pricing,
+    .pricing tbody {
+      display: block;
+      min-width: 0;
+      width: 100%;
+    }
+    .pricing thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+    }
+    .pricing tbody tr {
+      display: block;
+      padding: 1.25rem;
+      margin-bottom: 0.9rem;
+      background: var(--white);
+      border: 1px solid var(--hairline);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+    .pricing tbody tr:hover {
+      background: var(--white);
+    }
+    .pricing tbody th,
+    .pricing tbody td {
+      display: block;
+      padding: 0;
+      border: none;
+      white-space: normal;
+    }
+    .pricing tbody th {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    .pricing tbody td {
+      padding-top: 0.6rem;
+    }
+    .pricing tbody td[data-label]::before {
+      content: attr(data-label);
+      display: block;
+      font-family: var(--font-head);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.2rem;
+    }
+    .price {
+      font-size: 1.125rem;
+    }
+  }
+  .placeholder-note {
+    font-size: var(--step-small);
+    color: var(--steel);
+    margin-top: 0.75rem;
+  }
+</style>

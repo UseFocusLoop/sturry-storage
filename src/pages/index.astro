@@ -1,0 +1,444 @@
+---
+import Base from "../layouts/Base.astro";
+import { Picture } from "astro:assets";
+import PricingTable from "../components/PricingTable.astro";
+import ContactForm from "../components/ContactForm.astro";
+import Icon from "../components/Icon.astro";
+import { business, links, addressOneLine } from "../data/business";
+// Yard photo. Swap this file in src/assets to change the hero image.
+import heroImg from "../assets/containers.png";
+
+const p = business.pricing;
+const title =
+  "Container & Yard Storage in Sturry, Canterbury | Sturry Storage Solutions";
+const description =
+  "Secure 20ft container storage and open yard space at Staines Hill, Sturry, Canterbury. Drive-up access, 24hr CCTV, flexible weekly terms. Call 07777 39 25 38.";
+---
+
+<Base title={title} description={description} path="/">
+  <!-- ============================ HERO ============================ -->
+  <section class="hero">
+    <Picture
+      src={heroImg}
+      formats={["avif", "webp"]}
+      alt="Rows of storage containers on the hardstanding at the Sturry yard, Canterbury"
+      widths={[768, 1100, 1280]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="hero-bg"
+    />
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <div class="container hero-content">
+      <p class="hero-eyebrow">
+        <Icon name="pin" size={16} />
+        {business.address.town}, {business.address.city} &middot; {business.address.postcode}
+      </p>
+      <h1>Secure container and yard storage in Sturry, Canterbury</h1>
+      <p class="hero-lead">
+        Drive right up to your unit and load straight in. Flexible weekly terms,
+        short or long, from <span class="tnum">{p.container20.from}</span> a week.
+      </p>
+      <div class="hero-actions">
+        <a href={links.tel} class="btn btn-primary btn-lg">
+          <Icon name="phone" size={20} />
+          Call {business.phoneDisplay}
+        </a>
+        <a
+          href={links.whatsapp}
+          class="btn btn-glass btn-lg"
+          target="_blank"
+          rel="noopener"
+        >
+          <Icon name="whatsapp" size={20} />
+          WhatsApp us
+        </a>
+      </div>
+      <ul class="hero-trust">
+        <li><Icon name="check" size={18} /> 24hr CCTV</li>
+        <li><Icon name="check" size={18} /> Gated site</li>
+        <li><Icon name="check" size={18} /> Drive-up access</li>
+        <li><Icon name="check" size={18} /> Short or long term</li>
+      </ul>
+    </div>
+    <div class="corrugation-rib" aria-hidden="true"></div>
+  </section>
+
+  <!-- ===================== SIZES AND PRICING ===================== -->
+  <section class="section container">
+    <div class="section-head">
+      <h2>Sizes and pricing</h2>
+      <p class="lead">
+        Straight prices, no packages to wade through. Yard space is priced on
+        what you need, so give us a ring and we'll sort it.
+      </p>
+    </div>
+    <PricingTable />
+    <p class="terms-line">
+      Paid weekly. Short or long term. {
+        business.minimumTerm
+          ? business.minimumTerm
+          : "No long tie-in" /* [CONFIRM] minimum term */
+      }.
+    </p>
+  </section>
+
+  <!-- ===================== SECURITY & ACCESS ===================== -->
+  <!-- The one full-bleed dark section on the page. -->
+  <section class="security">
+    <div class="container">
+      <div class="section-head">
+        <h2>Security and access</h2>
+        <p class="lead security-lead">
+          A closed, camera-covered site you can drive right into.
+        </p>
+      </div>
+      <ul class="facts">
+        <li>
+          <span class="fact-ic"><Icon name="shield" size={24} /></span>
+          <strong>24hr CCTV</strong>
+          <span class="fact-text">The site is covered by cameras around the clock.</span>
+        </li>
+        <li>
+          <span class="fact-ic"><Icon name="lock" size={24} /></span>
+          <strong>Gated site</strong>
+          <span class="fact-text">Closed and secured — not open to the public.</span>
+        </li>
+        <li>
+          <span class="fact-ic"><Icon name="truck" size={24} /></span>
+          <strong>Drive to your door</strong>
+          <span class="fact-text">Pull right up to your container and load straight in.</span>
+        </li>
+        <li>
+          <span class="fact-ic"><Icon name="clock" size={24} /></span>
+          <strong>Easy access</strong>
+          <span class="fact-text">
+            {
+              business.accessHoursConfirmed
+                ? business.accessHours
+                : "Access arranged to suit you — ask when you call." /* [CONFIRM] access hours. NOT 24/7. */
+            }
+          </span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========================= FINDING US ========================= -->
+  <section class="section container finding" id="finding-us">
+    <div class="corrugation-texture" aria-hidden="true"></div>
+    <div class="finding-inner">
+      <div class="finding-copy">
+        <h2>Finding us</h2>
+        <address class="address">
+          {business.legalName}<br />
+          {business.address.line1}<br />
+          {business.address.town}, {business.address.city}<br />
+          {business.address.county} {business.address.postcode}
+        </address>
+
+        <h3>From the A28</h3>
+        <p>
+          Head into Sturry on the A28 between Canterbury and Herne Bay. Turn onto
+          Staines Hill and follow it to the yard. Look for the gated entrance.
+        </p>
+
+        <h3>From Canterbury city centre</h3>
+        <p>
+          Take the A28 north-east towards Sturry and Herne Bay, about ten
+          minutes out of the city. Staines Hill is on your way into Sturry.
+        </p>
+
+        <p class="areas">
+          We're handy for Sturry, Canterbury, Fordwich, Westbere, Herne Bay,
+          Whitstable and Broad Oak — most of our customers are within twenty
+          minutes' drive.
+        </p>
+      </div>
+
+      <div class="finding-map">
+        <iframe
+          title={`Map showing ${business.legalName} at ${addressOneLine}`}
+          src={`https://www.google.com/maps?q=${encodeURIComponent(
+            addressOneLine
+          )}&output=embed`}
+          width="600"
+          height="450"
+          style="border:0; width:100%; height:100%;"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== ENQUIRY ========================== -->
+  <section class="section container enquiry" id="enquiry">
+    <div class="section-head">
+      <h2>Get a quote</h2>
+      <p class="lead">
+        Quickest way is to call or WhatsApp — you'll get a straight answer on
+        price and availability. Or leave your details and we'll come back to you.
+      </p>
+    </div>
+
+    <div class="enquiry-actions">
+      <a href={links.whatsapp} class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+        <Icon name="whatsapp" size={20} />
+        Message us on WhatsApp
+      </a>
+      <a href={links.tel} class="btn btn-ghost btn-lg">
+        <Icon name="phone" size={19} />
+        Call {business.phoneDisplay}
+      </a>
+    </div>
+
+    <ContactForm />
+  </section>
+</Base>
+
+<style>
+  /* ---- Hero (photographic) ---- */
+  .hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: clamp(30rem, 62vh, 44rem);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero :global(.hero-bg) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+  }
+  .hero :global(.hero-bg) :global(img),
+  .hero :global(picture.hero-bg) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--hero-scrim);
+  }
+  .hero-content {
+    padding-block: clamp(3rem, 2rem + 6vw, 6rem);
+    color: var(--white);
+    max-width: 62rem;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin: 0 0 1.1rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: #fff;
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    letter-spacing: 0.01em;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+  }
+  .hero-eyebrow .icon {
+    color: var(--green-bright);
+  }
+  .hero-content h1 {
+    color: var(--white);
+    max-width: 20ch;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
+  }
+  .hero-lead {
+    font-size: var(--step-body-lg);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 1.25rem;
+    max-width: 46ch;
+  }
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 2rem;
+  }
+  .hero-trust {
+    list-style: none;
+    padding: 1.6rem 0 0;
+    margin: 1.75rem 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem 1.6rem;
+  }
+  .hero-trust li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: var(--step-small);
+    color: #fff;
+  }
+  .hero-trust .icon {
+    color: var(--green-bright);
+  }
+  /* Container-rib accent along the bottom edge of the hero. */
+  .corrugation-rib {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 8px;
+    background-image: repeating-linear-gradient(
+      90deg,
+      var(--green) 0,
+      var(--green) 3px,
+      var(--navy-deep) 3px,
+      var(--navy-deep) 9px
+    );
+  }
+  @media (max-width: 767px) {
+    .hero {
+      min-height: 0;
+    }
+    .hero-content {
+      padding-top: 2.5rem;
+      padding-bottom: 3.5rem;
+    }
+    .hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .hero-actions .btn {
+      width: 100%;
+    }
+  }
+
+  .terms-line {
+    margin-top: 1.25rem;
+    font-weight: 500;
+    color: var(--navy);
+  }
+
+  /* ---- Security (inverted) ---- */
+  .security {
+    background: var(--navy-deep);
+    color: color-mix(in srgb, var(--white) 82%, var(--navy-deep));
+    padding-block: var(--section-y);
+  }
+  .security :global(h2) {
+    color: var(--white);
+  }
+  .security-lead {
+    color: color-mix(in srgb, var(--white) 68%, var(--navy-deep)) !important;
+  }
+  .facts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  .facts li {
+    line-height: 1.5;
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  .fact-ic {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+    background: color-mix(in srgb, var(--green) 22%, transparent);
+    color: var(--green-bright);
+    margin-bottom: 0.9rem;
+  }
+  .facts strong {
+    display: block;
+    color: var(--white);
+    font-family: var(--font-head);
+    font-size: 1.1875rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.3rem;
+  }
+  .facts .fact-text {
+    color: color-mix(in srgb, var(--white) 68%, var(--navy-deep));
+    display: block;
+  }
+  @media (min-width: 560px) {
+    .facts {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 940px) {
+    .facts {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* ---- Finding us ---- */
+  .finding {
+    position: relative;
+  }
+  .finding .corrugation-texture {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .finding-inner {
+    position: relative;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .address {
+    font-style: normal;
+    font-size: var(--step-body-lg);
+    line-height: 1.5;
+    margin: 1rem 0 1.5rem;
+  }
+  .finding h3 {
+    margin: 1.25rem 0 0.35rem;
+  }
+  .areas {
+    margin-top: 1.25rem;
+    color: var(--navy);
+  }
+  .finding-map {
+    background: var(--white);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    min-height: 320px;
+  }
+  @media (min-width: 900px) {
+    .finding-inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+  }
+
+  /* ---- Enquiry ---- */
+  .enquiry-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1.5rem 0 2rem;
+  }
+</style>

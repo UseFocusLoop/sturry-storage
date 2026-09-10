@@ -1,0 +1,35 @@
+---
+/*
+  A clearly-labelled placeholder for a real photo.
+  Reserves the exact aspect ratio + width/height so when you drop in a real
+  image there is ZERO layout shift.
+
+  TO ADD A REAL PHOTO:
+  1. Put the image in  src/assets/  (e.g. yard-hero.jpg)
+  2. At the top of the page, import it and Astro's Image component:
+       import { Image } from "astro:assets";
+       import yardHero from "../assets/yard-hero.jpg";
+  3. Replace <PhotoSlot .../> with:
+       <Image src={yardHero} alt="Rows of green containers at the Sturry yard"
+              width={1200} height={800} loading="lazy" />
+     Astro will output AVIF/WebP automatically.
+*/
+interface Props {
+  label: string;
+  width: number;
+  height: number;
+  loading?: "lazy" | "eager";
+  class?: string;
+}
+const { label, width, height, class: className = "" } = Astro.props;
+const ratio = `${width} / ${height}`;
+---
+
+<div
+  class:list={["photo-slot", className]}
+  style={`aspect-ratio: ${ratio};`}
+  role="img"
+  aria-label={`Photo placeholder: ${label}`}
+>
+  <span>[PHOTO: {label} &middot; {width}&times;{height}]</span>
+</div>

@@ -1,0 +1,105 @@
+---
+import { business, links, addressOneLine } from "../data/business";
+import Logo from "./Logo.astro";
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <Logo variant="light" class="footer-logo" />
+      <p class="footer-line footer-addr">{addressOneLine}</p>
+    </div>
+
+    <div>
+      <p class="footer-heading">Get in touch</p>
+      <p class="footer-line">
+        <a href={links.tel}>{business.phoneDisplay}</a> — call or WhatsApp
+      </p>
+      {
+        business.accessHoursConfirmed ? (
+          <p class="footer-line">{business.accessHours}</p>
+        ) : (
+          <p class="footer-line footer-muted">
+            {/* [CONFIRM] access hours — shown once accessHoursConfirmed = true */}
+            Access hours on request
+          </p>
+        )
+      }
+    </div>
+
+    <div>
+      <p class="footer-heading">Company</p>
+      {
+        business.companyNumber ? (
+          <p class="footer-line">
+            {business.legalName} — company no. {business.companyNumber}
+          </p>
+        ) : (
+          <p class="footer-line footer-muted">
+            {/* [CONFIRM] company registration number */}
+            Registered in England &amp; Wales
+          </p>
+        )
+      }
+    </div>
+  </div>
+
+  <div class="container footer-base">
+    <p>&copy; {year} {business.legalName}. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--navy-deep);
+    color: color-mix(in srgb, var(--white) 82%, var(--navy-deep));
+    padding-block: 2.5rem 6rem; /* extra bottom padding clears the mobile call bar */
+    margin-top: 2rem;
+  }
+  .footer-grid {
+    display: grid;
+    gap: 1.75rem;
+    grid-template-columns: 1fr;
+  }
+  .footer-logo {
+    margin-bottom: 0.85rem;
+  }
+  .footer-addr {
+    margin-top: 0;
+  }
+  .footer-heading {
+    font-family: var(--font-head);
+    font-weight: 600;
+    color: var(--white);
+    font-size: var(--step-small);
+    margin: 0 0 0.4rem;
+  }
+  .footer-line {
+    margin: 0.15rem 0;
+    font-size: var(--step-small);
+    line-height: 1.5;
+    max-width: none;
+  }
+  .footer-line a {
+    color: color-mix(in srgb, var(--green) 55%, var(--white));
+  }
+  .footer-muted {
+    color: color-mix(in srgb, var(--white) 55%, var(--navy-deep));
+  }
+  .footer-base {
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid color-mix(in srgb, var(--white) 14%, transparent);
+    font-size: var(--step-small);
+    color: color-mix(in srgb, var(--white) 60%, var(--navy-deep));
+  }
+  @media (min-width: 700px) {
+    .footer-grid {
+      grid-template-columns: 1.4fr 1fr 1fr;
+    }
+    .site-footer {
+      padding-bottom: 2.5rem; /* no call bar on desktop */
+    }
+  }
+</style>

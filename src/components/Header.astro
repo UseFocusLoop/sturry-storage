@@ -1,0 +1,208 @@
+---
+import { business, links, addressOneLine } from "../data/business";
+import Icon from "./Icon.astro";
+import Logo from "./Logo.astro";
+---
+
+<!-- Slim contact bar -->
+<div class="topbar">
+  <div class="container topbar-inner">
+    <span class="topbar-addr">
+      <Icon name="pin" size={15} />
+      {addressOneLine}
+    </span>
+    <a href={links.tel} class="topbar-tel">
+      <Icon name="phone" size={15} />
+      {business.phoneDisplay}
+    </a>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="brand" aria-label={`${business.legalName} home`}>
+      <Logo />
+    </a>
+
+    <nav class="primary-nav" aria-label="Primary">
+      <a href="/container-storage/">Container storage</a>
+      <a href="/yard-space/">Yard space</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+
+    <a href={links.tel} class="btn btn-primary header-call">
+      <Icon name="phone" size={18} />
+      Call {business.phoneDisplay}
+    </a>
+
+    <!-- Mobile menu: a native <details> disclosure, no JavaScript. -->
+    <details class="mobile-menu">
+      <summary aria-label="Menu">
+        <span class="bars" aria-hidden="true"></span>
+        Menu
+      </summary>
+      <div class="mobile-menu-panel">
+        <a href="/container-storage/">Container storage</a>
+        <a href="/yard-space/">Yard space</a>
+        <a href="/contact/">Contact</a>
+        <a href={links.tel} class="btn btn-primary">Call {business.phoneDisplay}</a>
+      </div>
+    </details>
+  </div>
+</header>
+
+<style>
+  /* ---- Contact bar ---- */
+  .topbar {
+    background: var(--navy-deep);
+    color: color-mix(in srgb, var(--white) 72%, var(--navy-deep));
+    font-size: 0.8125rem;
+  }
+  .topbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 38px;
+  }
+  .topbar-addr {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .topbar-addr .icon {
+    color: var(--green-bright);
+  }
+  .topbar-tel {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .topbar-tel .icon {
+    color: var(--green-bright);
+  }
+  .topbar-tel:hover {
+    color: var(--green-bright);
+  }
+  @media (max-width: 600px) {
+    .topbar-addr {
+      display: none;
+    }
+    .topbar-inner {
+      justify-content: center;
+    }
+  }
+
+  .site-header {
+    background: color-mix(in srgb, var(--paper) 60%, var(--white));
+    border-bottom: 1px solid var(--hairline);
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    -webkit-backdrop-filter: saturate(1.1) blur(6px);
+    backdrop-filter: saturate(1.1) blur(6px);
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 66px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    margin-right: auto;
+    white-space: nowrap;
+  }
+  .primary-nav {
+    display: none;
+    gap: 1.4rem;
+  }
+  .primary-nav a {
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: var(--step-body);
+  }
+  .primary-nav a:hover {
+    color: var(--green-dark);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .header-call {
+    display: none;
+  }
+
+  /* ---- Mobile menu (details/summary) ---- */
+  .mobile-menu {
+    position: relative;
+  }
+  .mobile-menu summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    padding: 0.4rem 0.6rem;
+    font-family: var(--font-head);
+    font-weight: 600;
+    color: var(--navy);
+    list-style: none;
+    cursor: pointer;
+    user-select: none;
+  }
+  .mobile-menu summary::-webkit-details-marker {
+    display: none;
+  }
+  .bars {
+    width: 20px;
+    height: 2px;
+    background: var(--navy);
+    box-shadow: 0 6px 0 var(--navy), 0 -6px 0 var(--navy);
+    display: inline-block;
+  }
+  .mobile-menu-panel {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 220px;
+    padding: 0.75rem;
+    background: var(--white);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 24px rgba(13, 27, 46, 0.12);
+  }
+  .mobile-menu-panel a:not(.btn) {
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.6rem 0.5rem;
+    border-radius: 4px;
+  }
+  .mobile-menu-panel a:not(.btn):hover {
+    background: var(--paper);
+  }
+  .mobile-menu-panel .btn {
+    margin-top: 0.4rem;
+  }
+
+  @media (min-width: 768px) {
+    .primary-nav {
+      display: flex;
+    }
+    .header-call {
+      display: inline-flex;
+    }
+    .mobile-menu {
+      display: none;
+    }
+  }
+</style>
