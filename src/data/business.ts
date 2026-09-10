@@ -1,15 +1,33 @@
 /* =============================================================================
    BUSINESS DETAILS
    -----------------------------------------------------------------------------
-   The actual values now live in  src/content/settings/business.json  so the
-   client can edit them in the CMS. This file just loads that JSON and adds the
-   derived links (tel:, wa.me, one-line address) that components use.
+   Client-editable details live in  src/content/settings/business.json  (managed
+   in the CMS). A few technical fields the client should NOT edit (map coords,
+   areas served for SEO, etc.) are kept here in code and merged in.
 
-   Do not hardcode business details here — edit the JSON (or the CMS).
+   To change a phone number, address, price note, etc. — edit the JSON / CMS.
    ============================================================================= */
-import businessData from "../content/settings/business.json";
+import editable from "../content/settings/business.json";
 
-export const business = businessData;
+// Technical fields kept out of the CMS (structural / SEO — not client-editable).
+const technical = {
+  shortName: "Sturry Storage",
+  geo: { lat: 51.3106, lng: 1.1176 },
+  insuranceNote: "",
+  deposit: "",
+  hgvParking: null as boolean | null,
+  areas: [
+    "Sturry",
+    "Canterbury",
+    "Fordwich",
+    "Westbere",
+    "Herne Bay",
+    "Whitstable",
+    "Broad Oak",
+  ],
+};
+
+export const business = { ...editable, ...technical };
 
 export const links = {
   tel: `tel:${business.phoneDial}`,
