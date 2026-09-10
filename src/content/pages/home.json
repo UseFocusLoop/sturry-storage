@@ -1,0 +1,52 @@
+{
+  "hero": {
+    "image": {
+      "src": "/src/assets/containers.png",
+      "alt": "Rows of storage containers on the hardstanding at the Sturry yard, Canterbury",
+      "objectPosition": "50% 50%"
+    },
+    "heading": "Secure container and yard storage in Sturry, Canterbury",
+    "leadBefore": "Drive right up to your unit and load straight in. Flexible weekly terms, short or long, from ",
+    "leadAfter": " a week."
+  },
+  "pricing": {
+    "heading": "Sizes and pricing",
+    "lead": "Straight prices, no packages to wade through. Yard space is priced on what you need, so give us a ring and we'll sort it."
+  },
+  "security": {
+    "heading": "Security and access",
+    "lead": "A closed, camera-covered site you can drive right into.",
+    "facts": [
+      {
+        "title": "24hr CCTV",
+        "text": "The site is covered by cameras around the clock."
+      },
+      {
+        "title": "Gated site",
+        "text": "Closed and secured — not open to the public."
+      },
+      {
+        "title": "Drive to your door",
+        "text": "Pull right up to your container and load straight in."
+      }
+    ]
+  },
+  "finding": {
+    "heading": "Finding us",
+    "directions": [
+      {
+        "heading": "From the A28",
+        "body": "Head into Sturry on the A28 between Canterbury and Herne Bay. Turn onto Staines Hill and follow it to the yard. Look for the gated entrance."
+      },
+      {
+        "heading": "From Canterbury city centre",
+        "body": "Take the A28 north-east towards Sturry and Herne Bay, about ten minutes out of the city. Staines Hill is on your way into Sturry."
+      }
+    ],
+    "areas": "We're handy for Sturry, Canterbury, Fordwich, Westbere, Herne Bay, Whitstable and Broad Oak — most of our customers are within twenty minutes' drive."
+  },
+  "enquiry": {
+    "heading": "Get a quote",
+    "lead": "Quickest way is to call or WhatsApp — you'll get a straight answer on price and availability. Or leave your details and we'll come back to you."
+  }
+}

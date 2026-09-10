@@ -1,11 +1,15 @@
 ---
 import Base from "../layouts/Base.astro";
-import { Picture } from "astro:assets";
 import PricingTable from "../components/PricingTable.astro";
+import Photo from "../components/Photo.astro";
 import Icon from "../components/Icon.astro";
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import { business, links } from "../data/business";
-import containerImg from "../assets/containers.png";
+
+// Editable page text + side photo (CMS: Page sections -> Container storage).
+const page = (await getEntry("pages", "container"))!.data;
+const intro = page.intro!;
+const pricingSection = page.pricing!;
 
 const twenty = (await getCollection("pricing")).find((e) => e.id === "container-20");
 const heroPrice = `£${twenty?.data.priceFrom ?? 35}`;
@@ -17,29 +21,14 @@ const description =
 <Base title={title} description={description} path="/container-storage/">
   <section class="section container">
     <p class="crumb"><a href="/">Home</a> / Container storage</p>
-    <h1>Container storage in Sturry</h1>
+    <h1>{intro.heading}</h1>
     <p class="section-lead">
-      Steel 20ft containers on a gated, CCTV-covered yard. Dry, secure and yours
-      to come and go from. Containers from
-      <span class="tnum">{heroPrice}</span> a week.
+      {intro.leadBefore}<span class="tnum">{heroPrice}</span>{intro.leadAfter}
     </p>
 
     <div class="two-col">
       <div class="prose">
-        <p>
-          A 20ft container holds about the contents of a three-bed house, or a
-          full van's worth of tools and stock. Plenty of room to walk in and get
-          at what you need.
-        </p>
-        <p>
-          Drive right up to the door and load straight in — no lifts, no long
-          carry, no booking a slot. Good for builders keeping kit between jobs,
-          traders holding stock overflow, and anyone clearing a house or garage.
-        </p>
-        <p>
-          Take it for a week or keep it for a year. Pay weekly, no long tie-in.
-          When you're done, hand it back.
-        </p>
+        {intro.body!.map((para) => <p>{para}</p>)}
         <div class="cta-row">
           <a href={links.tel} class="btn btn-primary">
             <Icon name="phone" size={19} />
@@ -51,10 +40,11 @@ const description =
           </a>
         </div>
       </div>
-      <Picture
-        src={containerImg}
-        formats={["avif", "webp"]}
-        alt="A 20ft shipping container at the Sturry storage yard"
+      <Photo
+        src={intro.image!.src}
+        alt={intro.image!.alt}
+        objectPosition={intro.image!.objectPosition}
+        ratio="3 / 2"
         widths={[480, 800, 1200]}
         sizes="(min-width: 800px) 40vw, 100vw"
         loading="lazy"
@@ -64,7 +54,7 @@ const description =
   </section>
 
   <section class="section container">
-    <h2>Sizes and pricing</h2>
+    <h2>{pricingSection.heading}</h2>
     <PricingTable />
     <p class="terms-line">
       Paid weekly. Short or long term. {

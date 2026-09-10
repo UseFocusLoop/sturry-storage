@@ -4,10 +4,25 @@ import { Picture } from "astro:assets";
 import PricingTable from "../components/PricingTable.astro";
 import ContactForm from "../components/ContactForm.astro";
 import Icon from "../components/Icon.astro";
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import { business, links, addressOneLine } from "../data/business";
-// Yard photo. Swap this file in src/assets to change the hero image.
-import heroImg from "../assets/containers.png";
+import { resolveImage } from "../lib/resolveImage";
+
+// Editable page text + hero photo (CMS: Page sections -> Home).
+const home = (await getEntry("pages", "home"))!.data;
+const hero = home.hero!;
+const pricingSection = home.pricing!;
+const security = home.security!;
+const finding = home.finding!;
+const enquiry = home.enquiry!;
+
+// Hero photo, swapped from the CMS and optimised at build time.
+const heroImg = resolveImage(hero.image.src);
+const heroPos = hero.image.objectPosition;
+
+// Icons for the first three security cards, in order. The fourth ("Easy
+// access") stays in code because its text follows the access-hours setting.
+const factIcons = ["shield", "lock", "truck"] as const;
 
 // 20ft "from" price for the hero line, read from the pricing collection.
 const twenty = (await getCollection("pricing")).find((e) => e.id === "container-20");
@@ -24,12 +39,13 @@ const description =
     <Picture
       src={heroImg}
       formats={["avif", "webp"]}
-      alt="Rows of storage containers on the hardstanding at the Sturry yard, Canterbury"
+      alt={hero.image.alt}
       widths={[768, 1100, 1280]}
       sizes="100vw"
       loading="eager"
       fetchpriority="high"
       class="hero-bg"
+      style={heroPos !== "50% 50%" ? `object-position:${heroPos}` : undefined}
     />
     <div class="hero-scrim" aria-hidden="true"></div>
     <div class="container hero-content">
@@ -37,10 +53,9 @@ const description =
         <Icon name="pin" size={16} />
         {business.address.town}, {business.address.city} &middot; {business.address.postcode}
       </p>
-      <h1>Secure container and yard storage in Sturry, Canterbury</h1>
+      <h1>{hero.heading}</h1>
       <p class="hero-lead">
-        Drive right up to your unit and load straight in. Flexible weekly terms,
-        short or long, from <span class="tnum">{heroPrice}</span> a week.
+        {hero.leadBefore}<span class="tnum">{heroPrice}</span>{hero.leadAfter}
       </p>
       <div class="hero-actions">
         <a href={links.tel} class="btn btn-primary btn-lg">
@@ -70,11 +85,8 @@ const description =
   <!-- ===================== SIZES AND PRICING ===================== -->
   <section class="section container">
     <div class="section-head">
-      <h2>Sizes and pricing</h2>
-      <p class="lead">
-        Straight prices, no packages to wade through. Yard space is priced on
-        what you need, so give us a ring and we'll sort it.
-      </p>
+      <h2>{pricingSection.heading}</h2>
+      <p class="lead">{pricingSection.lead}</p>
     </div>
     <PricingTable />
     <p class="terms-line">
@@ -91,27 +103,21 @@ const description =
   <section class="security">
     <div class="container">
       <div class="section-head">
-        <h2>Security and access</h2>
+        <h2>{security.heading}</h2>
         <p class="lead security-lead">
-          A closed, camera-covered site you can drive right into.
+          {security.lead}
         </p>
       </div>
       <ul class="facts">
-        <li>
-          <span class="fact-ic"><Icon name="shield" size={24} /></span>
-          <strong>24hr CCTV</strong>
-          <span class="fact-text">The site is covered by cameras around the clock.</span>
-        </li>
-        <li>
-          <span class="fact-ic"><Icon name="lock" size={24} /></span>
-          <strong>Gated site</strong>
-          <span class="fact-text">Closed and secured — not open to the public.</span>
-        </li>
-        <li>
-          <span class="fact-ic"><Icon name="truck" size={24} /></span>
-          <strong>Drive to your door</strong>
-          <span class="fact-text">Pull right up to your container and load straight in.</span>
-        </li>
+        {
+          security.facts.map((f, i) => (
+            <li>
+              <span class="fact-ic"><Icon name={factIcons[i] ?? "check"} size={24} /></span>
+              <strong>{f.title}</strong>
+              <span class="fact-text">{f.text}</span>
+            </li>
+          ))
+        }
         <li>
           <span class="fact-ic"><Icon name="clock" size={24} /></span>
           <strong>Easy access</strong>
@@ -132,7 +138,7 @@ const description =
     <div class="corrugation-texture" aria-hidden="true"></div>
     <div class="finding-inner">
       <div class="finding-copy">
-        <h2>Finding us</h2>
+        <h2>{finding.heading}</h2>
         <address class="address">
           {business.legalName}<br />
           {business.address.line1}<br />
@@ -140,23 +146,16 @@ const description =
           {business.address.county} {business.address.postcode}
         </address>
 
-        <h3>From the A28</h3>
-        <p>
-          Head into Sturry on the A28 between Canterbury and Herne Bay. Turn onto
-          Staines Hill and follow it to the yard. Look for the gated entrance.
-        </p>
+        {
+          finding.directions.map((d) => (
+            <Fragment>
+              <h3>{d.heading}</h3>
+              <p>{d.body}</p>
+            </Fragment>
+          ))
+        }
 
-        <h3>From Canterbury city centre</h3>
-        <p>
-          Take the A28 north-east towards Sturry and Herne Bay, about ten
-          minutes out of the city. Staines Hill is on your way into Sturry.
-        </p>
-
-        <p class="areas">
-          We're handy for Sturry, Canterbury, Fordwich, Westbere, Herne Bay,
-          Whitstable and Broad Oak — most of our customers are within twenty
-          minutes' drive.
-        </p>
+        <p class="areas">{finding.areas}</p>
       </div>
 
       <div class="finding-map">
@@ -177,11 +176,8 @@ const description =
   <!-- ========================== ENQUIRY ========================== -->
   <section class="section container enquiry" id="enquiry">
     <div class="section-head">
-      <h2>Get a quote</h2>
-      <p class="lead">
-        Quickest way is to call or WhatsApp — you'll get a straight answer on
-        price and availability. Or leave your details and we'll come back to you.
-      </p>
+      <h2>{enquiry.heading}</h2>
+      <p class="lead">{enquiry.lead}</p>
     </div>
 
     <div class="enquiry-actions">

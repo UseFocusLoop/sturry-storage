@@ -1,10 +1,14 @@
 ---
 import Base from "../layouts/Base.astro";
-import { Picture } from "astro:assets";
+import Photo from "../components/Photo.astro";
 import Icon from "../components/Icon.astro";
+import { getEntry } from "astro:content";
 import { business, links } from "../data/business";
-import yardGate from "../assets/yard-gate.jpg";
-import yardOpen from "../assets/yard-open.jpg";
+
+// Editable page text + photos (CMS: Page sections -> Yard space).
+const page = (await getEntry("pages", "yard"))!.data;
+const intro = page.intro!;
+const second = page.second!;
 
 const title = "Open Yard & Outdoor Storage in Sturry, Canterbury | Sturry Storage";
 const description =
@@ -14,27 +18,12 @@ const description =
 <Base title={title} description={description} path="/yard-space/">
   <section class="section container">
     <p class="crumb"><a href="/">Home</a> / Yard space</p>
-    <h1>Open yard space in Sturry</h1>
-    <p class="section-lead">
-      Hardstanding you can drive onto in any weather, on a gated site with 24hr
-      CCTV. Priced on the space you need — call for a quote.
-    </p>
+    <h1>{intro.heading}</h1>
+    <p class="section-lead">{intro.lead}</p>
 
     <div class="two-col">
       <div class="prose">
-        <p>
-          The open yard suits anything that lives outside: plant and machinery,
-          trailers, vehicles, skips, or materials waiting on the next job.
-        </p>
-        <p>
-          You take the space you need and pay for that — no fixed packages.
-          Because it's priced on requirement, the quickest way to a price is a
-          quick phone call.
-        </p>
-        <p>
-          Short or long term, paid weekly. Drive-up access on solid ground, so
-          you're not churning up mud getting a trailer in and out.
-        </p>
+        {intro.body!.map((para) => <p>{para}</p>)}
         <div class="cta-row">
           <a href={links.tel} class="btn btn-primary">
             <Icon name="phone" size={19} />
@@ -46,10 +35,11 @@ const description =
           </a>
         </div>
       </div>
-      <Picture
-        src={yardGate}
-        formats={["avif", "webp"]}
-        alt="The gated entrance to the open storage yard at Sturry, Canterbury"
+      <Photo
+        src={intro.image!.src}
+        alt={intro.image!.alt}
+        objectPosition={intro.image!.objectPosition}
+        ratio="4 / 3"
         widths={[480, 800, 1200]}
         sizes="(min-width: 800px) 44vw, 100vw"
         loading="eager"
@@ -59,23 +49,20 @@ const description =
   </section>
 
   <section class="section container">
-    <h2>What the yard takes</h2>
+    <h2>{second.heading}</h2>
     <div class="two-col reverse">
-      <Picture
-        src={yardOpen}
-        formats={["avif", "webp"]}
-        alt="Open gravel hardstanding with room for trailers and materials"
+      <Photo
+        src={second.image!.src}
+        alt={second.image!.alt}
+        objectPosition={second.image!.objectPosition}
+        ratio="4 / 3"
         widths={[480, 800, 1200]}
         sizes="(min-width: 800px) 44vw, 100vw"
         loading="lazy"
         class="side-img"
       />
       <div class="prose">
-        <p>
-          Plant and machinery between sites. Trailers and horseboxes off the
-          drive. Vans and vehicles you'd rather keep behind a gate. Building
-          materials, aggregates and skips staged for a job.
-        </p>
+        <p>{second.body1}</p>
         <p>
           {
             business.hgvParking === true

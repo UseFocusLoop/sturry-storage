@@ -1,0 +1,20 @@
+{
+  "intro": {
+    "heading": "Container storage in Sturry",
+    "leadBefore": "Steel 20ft containers on a gated, CCTV-covered yard. Dry, secure and yours to come and go from. Containers from ",
+    "leadAfter": " a week.",
+    "body": [
+      "A 20ft container holds about the contents of a three-bed house, or a full van's worth of tools and stock. Plenty of room to walk in and get at what you need.",
+      "Drive right up to the door and load straight in — no lifts, no long carry, no booking a slot. Good for builders keeping kit between jobs, traders holding stock overflow, and anyone clearing a house or garage.",
+      "Take it for a week or keep it for a year. Pay weekly, no long tie-in. When you're done, hand it back."
+    ],
+    "image": {
+      "src": "/src/assets/containers.png",
+      "alt": "A 20ft shipping container at the Sturry storage yard",
+      "objectPosition": "50% 50%"
+    }
+  },
+  "pricing": {
+    "heading": "Sizes and pricing"
+  }
+}
