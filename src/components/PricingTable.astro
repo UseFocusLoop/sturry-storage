@@ -2,6 +2,13 @@
 import { getCollection } from "astro:content";
 import { business } from "../data/business";
 
+// Optional: only show rows of this category ("container" / "yard").
+// No category = show every available row (used on the homepage).
+interface Props {
+  category?: string;
+}
+const { category } = Astro.props;
+
 // Rows come from the pricing collection (src/content/pricing/*.md), so the
 // client edits prices in the CMS. Hidden (available: false) rows are dropped.
 const priceText = (d: {
@@ -11,7 +18,7 @@ const priceText = (d: {
 }) => (d.priceFrom != null ? `from £${d.priceFrom}/${d.priceUnit}` : d.priceNote);
 
 const rows = (await getCollection("pricing"))
-  .filter((e) => e.data.available)
+  .filter((e) => e.data.available && (!category || e.data.category === category))
   .sort((a, b) => a.data.order - b.data.order)
   .map((e) => ({ size: e.data.name, fits: e.data.whatFits, price: priceText(e.data) }));
 

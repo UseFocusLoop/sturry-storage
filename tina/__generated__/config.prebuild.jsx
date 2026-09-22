@@ -197,6 +197,16 @@ var config_default = defineConfig({
             name: "order",
             label: "Order in the table",
             description: "Lower numbers appear first (20ft = 1, 40ft = 2, yard = 3)."
+          },
+          {
+            type: "string",
+            name: "category",
+            label: "Which page it appears on",
+            description: "Controls which page's price list this shows on. Containers \u2192 Container storage page; Yards \u2192 Yard space page. Both always show on the home page table.",
+            options: [
+              { value: "container", label: "Containers" },
+              { value: "yard", label: "Yards" }
+            ]
           }
         ]
       },

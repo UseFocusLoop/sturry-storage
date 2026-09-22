@@ -13,6 +13,7 @@ const pricing = defineCollection({
     whatFits: z.string(),
     available: z.boolean().default(true),
     order: z.number().default(99),
+    category: z.string().optional(),
   }),
 });
 

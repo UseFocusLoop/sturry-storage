@@ -180,6 +180,7 @@ type Pricing implements Node & Document {
   whatFits: String
   available: Boolean
   order: Float
+  category: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -203,6 +204,7 @@ input PricingFilter {
   whatFits: StringFilter
   available: BooleanFilter
   order: NumberFilter
+  category: StringFilter
 }
 
 type PricingConnectionEdges {
@@ -580,6 +582,7 @@ input PricingMutation {
   whatFits: String
   available: Boolean
   order: Float
+  category: String
 }
 
 input PageHomeHeroImageMutation {

@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import Photo from "../components/Photo.astro";
+import PricingTable from "../components/PricingTable.astro";
 import Icon from "../components/Icon.astro";
 import { getEntry } from "astro:content";
 import { business, links } from "../data/business";
@@ -10,14 +11,14 @@ const page = (await getEntry("pages", "yard"))!.data;
 const intro = page.intro!;
 const second = page.second!;
 
-const title = "Open Yard & Outdoor Storage in Sturry, Canterbury | Sturry Storage";
+const title = "Gated Yard & Open Storage in Sturry, Canterbury | Sturry Storage";
 const description =
-  "Open yard storage space at Staines Hill, Sturry, Canterbury. Hardstanding for plant, trailers and vehicles. Priced on requirement. Call 07777 39 25 38.";
+  "Gated storage yards and open storage space at Staines Hill, Sturry, Canterbury. Hardstanding for plant, trailers and vehicles. Call 07777 39 25 38.";
 ---
 
 <Base title={title} description={description} path="/yard-space/">
   <section class="section container">
-    <p class="crumb"><a href="/">Home</a> / Yard space</p>
+    <p class="crumb"><a href="/">Home</a> / Gated yard space</p>
     <h1>{intro.heading}</h1>
     <p class="section-lead">{intro.lead}</p>
 
@@ -75,6 +76,16 @@ const description =
       </div>
     </div>
   </section>
+
+  <section class="section container">
+    <h2>Sizes and pricing</h2>
+    <PricingTable category="yard" />
+    <p class="terms-line">
+      Paid weekly. Short or long term. {
+        business.minimumTerm ? business.minimumTerm : "No long tie-in"
+      }.
+    </p>
+  </section>
 </Base>
 
 <style>
@@ -85,6 +96,11 @@ const description =
   }
   .crumb a {
     color: var(--green-dark);
+  }
+  .terms-line {
+    margin-top: 1rem;
+    font-weight: 500;
+    color: var(--navy);
   }
   .section-lead {
     margin-top: 0.5rem;

@@ -38,6 +38,7 @@ export const PricingPartsFragmentDoc = gql`
   whatFits
   available
   order
+  category
 }
     `;
 export const PageHomePartsFragmentDoc = gql`

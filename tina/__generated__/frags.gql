@@ -29,6 +29,7 @@ fragment PricingParts on Pricing {
   whatFits
   available
   order
+  category
 }
 
 fragment PageHomeParts on PageHome {

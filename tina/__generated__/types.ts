@@ -337,6 +337,7 @@ export type Pricing = Node & Document & {
   whatFits?: Maybe<Scalars['String']['output']>;
   available?: Maybe<Scalars['Boolean']['output']>;
   order?: Maybe<Scalars['Float']['output']>;
+  category?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
@@ -360,6 +361,7 @@ export type PricingFilter = {
   whatFits?: InputMaybe<StringFilter>;
   available?: InputMaybe<BooleanFilter>;
   order?: InputMaybe<NumberFilter>;
+  category?: InputMaybe<StringFilter>;
 };
 
 export type PricingConnectionEdges = {
@@ -873,6 +875,7 @@ export type PricingMutation = {
   whatFits?: InputMaybe<Scalars['String']['input']>;
   available?: InputMaybe<Scalars['Boolean']['input']>;
   order?: InputMaybe<Scalars['Float']['input']>;
+  category?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type PageHomeHeroImageMutation = {
@@ -1043,6 +1046,7 @@ export type PricingFilter = {
   whatFits?: StringFilter | null | undefined;
   available?: BooleanFilter | null | undefined;
   order?: NumberFilter | null | undefined;
+  category?: StringFilter | null | undefined;
 };
 
 export type ImageFilter = {
@@ -1170,7 +1174,7 @@ export type PageContactFilter = {
 
 export type BusinessPartsFragment = { __typename: 'Business', legalName: string | null, phoneDisplay: string | null, phoneDial: string | null, whatsapp: string | null, whatsappMessage: string | null, accessHours: string | null, accessHoursConfirmed: boolean | null, companyNumber: string | null, minimumTerm: string | null, pricesIndicative: boolean | null, address: { __typename: 'BusinessAddress', line1: string | null, town: string | null, city: string | null, county: string | null, postcode: string | null } | null };
 
-export type PricingPartsFragment = { __typename: 'Pricing', name: string, priceFrom: number | null, priceUnit: string | null, priceNote: string | null, whatFits: string | null, available: boolean | null, order: number | null };
+export type PricingPartsFragment = { __typename: 'Pricing', name: string, priceFrom: number | null, priceUnit: string | null, priceNote: string | null, whatFits: string | null, available: boolean | null, order: number | null, category: string | null };
 
 export type PageHomePartsFragment = { __typename: 'PageHome', hero: { __typename: 'PageHomeHero', heading: string | null, leadBefore: string | null, leadAfter: string | null, image: { __typename: 'PageHomeHeroImage', src: string | null, alt: string | null, objectPosition: string | null } | null } | null, pricing: { __typename: 'PageHomePricing', heading: string | null, lead: string | null } | null, security: { __typename: 'PageHomeSecurity', heading: string | null, lead: string | null, facts: Array<{ __typename: 'PageHomeSecurityFacts', title: string | null, text: string | null } | null> | null } | null, finding: { __typename: 'PageHomeFinding', heading: string | null, areas: string | null, directions: Array<{ __typename: 'PageHomeFindingDirections', heading: string | null, body: string | null } | null> | null } | null, enquiry: { __typename: 'PageHomeEnquiry', heading: string | null, lead: string | null } | null };
 
@@ -1204,7 +1208,7 @@ export type PricingQueryVariables = Exact<{
 }>;
 
 
-export type PricingQuery = { pricing: { __typename: 'Pricing', id: string, name: string, priceFrom: number | null, priceUnit: string | null, priceNote: string | null, whatFits: string | null, available: boolean | null, order: number | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type PricingQuery = { pricing: { __typename: 'Pricing', id: string, name: string, priceFrom: number | null, priceUnit: string | null, priceNote: string | null, whatFits: string | null, available: boolean | null, order: number | null, category: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type PricingConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -1216,7 +1220,7 @@ export type PricingConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PricingConnectionQuery = { pricingConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Pricing', id: string, name: string, priceFrom: number | null, priceUnit: string | null, priceNote: string | null, whatFits: string | null, available: boolean | null, order: number | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type PricingConnectionQuery = { pricingConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Pricing', id: string, name: string, priceFrom: number | null, priceUnit: string | null, priceNote: string | null, whatFits: string | null, available: boolean | null, order: number | null, category: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type PageHomeQueryVariables = Exact<{
   relativePath: string;
@@ -1327,6 +1331,7 @@ export const PricingPartsFragmentDoc = gql`
   whatFits
   available
   order
+  category
 }
     `;
 export const PageHomePartsFragmentDoc = gql`

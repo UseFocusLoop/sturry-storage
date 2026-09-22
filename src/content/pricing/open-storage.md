@@ -6,5 +6,6 @@ priceNote: Contact for availability
 whatFits: 'Open hardstanding for vehicles, trailers, plant and materials kept outside.'
 available: true
 order: 4
+category: yard
 ---
 
