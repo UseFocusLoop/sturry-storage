@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import PricingTable from "../components/PricingTable.astro";
 import Photo from "../components/Photo.astro";
 import Icon from "../components/Icon.astro";
+import QuoteSection from "../components/QuoteSection.astro";
 import { getCollection, getEntry } from "astro:content";
 import { business, links } from "../data/business";
 
@@ -62,6 +63,8 @@ const description =
       }.
     </p>
   </section>
+
+  <QuoteSection />
 </Base>
 
 <style>

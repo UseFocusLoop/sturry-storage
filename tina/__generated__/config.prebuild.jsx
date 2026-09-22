@@ -480,38 +480,6 @@ var config_default = defineConfig({
             ]
           }
         ]
-      },
-      // ---------------------------------------------------------------
-      // CONTACT PAGE
-      // ---------------------------------------------------------------
-      {
-        name: "pageContact",
-        label: "Contact page",
-        path: "src/content/pages",
-        format: "json",
-        match: { include: "contact" },
-        ui: { allowedActions: { create: false, delete: false } },
-        fields: [
-          {
-            type: "object",
-            name: "intro",
-            label: "Top of the page",
-            fields: [
-              { type: "string", name: "heading", label: "Page headline" },
-              {
-                type: "string",
-                name: "lead",
-                label: "Intro line",
-                ui: { component: "textarea" }
-              }
-            ]
-          },
-          {
-            type: "string",
-            name: "formHeading",
-            label: "Heading above the enquiry form"
-          }
-        ]
       }
     ]
   }

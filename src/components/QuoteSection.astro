@@ -1,0 +1,48 @@
+---
+/*
+  The closing "Get a quote" section used at the bottom of every page:
+  a heading + Call/WhatsApp buttons + the 3-step quote questionnaire.
+  One shared component so it's identical and seamless site-wide.
+*/
+import QuoteForm from "./QuoteForm.astro";
+import Icon from "./Icon.astro";
+import { business, links } from "../data/business";
+---
+
+<section class="section container quote-section" id="quote">
+  <div class="section-head">
+    <h2>Get a quote</h2>
+    <p class="lead">
+      Quickest way is to call or WhatsApp — you'll get a straight answer on price
+      and availability. Or answer a few quick questions and we'll come back to
+      you.
+    </p>
+  </div>
+
+  <div class="quote-actions">
+    <a
+      href={links.whatsapp}
+      class="btn btn-primary btn-lg"
+      target="_blank"
+      rel="noopener"
+    >
+      <Icon name="whatsapp" size={20} />
+      Message us on WhatsApp
+    </a>
+    <a href={links.tel} class="btn btn-ghost btn-lg">
+      <Icon name="phone" size={19} />
+      Call {business.phoneDisplay}
+    </a>
+  </div>
+
+  <QuoteForm />
+</section>
+
+<style>
+  .quote-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 1.5rem 0 2rem;
+  }
+</style>

@@ -91,8 +91,6 @@ export type Query = {
   pageContainerConnection: PageContainerConnection;
   pageYard: PageYard;
   pageYardConnection: PageYardConnection;
-  pageContact: PageContact;
-  pageContactConnection: PageContactConnection;
 };
 
 
@@ -191,28 +189,12 @@ export type QueryPageYardConnectionArgs = {
   filter?: InputMaybe<PageYardFilter>;
 };
 
-
-export type QueryPageContactArgs = {
-  relativePath?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryPageContactConnectionArgs = {
-  before?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Float']['input']>;
-  last?: InputMaybe<Scalars['Float']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  filter?: InputMaybe<PageContactFilter>;
-};
-
 export type DocumentFilter = {
   business?: InputMaybe<BusinessFilter>;
   pricing?: InputMaybe<PricingFilter>;
   pageHome?: InputMaybe<PageHomeFilter>;
   pageContainer?: InputMaybe<PageContainerFilter>;
   pageYard?: InputMaybe<PageYardFilter>;
-  pageContact?: InputMaybe<PageContactFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -252,7 +234,7 @@ export type CollectionDocumentsArgs = {
   folder?: InputMaybe<Scalars['String']['input']>;
 };
 
-export type DocumentNode = Business | Pricing | PageHome | PageContainer | PageYard | PageContact | Folder;
+export type DocumentNode = Business | Pricing | PageHome | PageContainer | PageYard | Folder;
 
 export type BusinessAddress = {
   __typename?: 'BusinessAddress';
@@ -662,44 +644,6 @@ export type PageYardConnection = Connection & {
   edges?: Maybe<Array<Maybe<PageYardConnectionEdges>>>;
 };
 
-export type PageContactIntro = {
-  __typename?: 'PageContactIntro';
-  heading?: Maybe<Scalars['String']['output']>;
-  lead?: Maybe<Scalars['String']['output']>;
-};
-
-export type PageContact = Node & Document & {
-  __typename?: 'PageContact';
-  intro?: Maybe<PageContactIntro>;
-  formHeading?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  _sys: SystemInfo;
-  _values: Scalars['JSON']['output'];
-};
-
-export type PageContactIntroFilter = {
-  heading?: InputMaybe<StringFilter>;
-  lead?: InputMaybe<StringFilter>;
-};
-
-export type PageContactFilter = {
-  intro?: InputMaybe<PageContactIntroFilter>;
-  formHeading?: InputMaybe<StringFilter>;
-};
-
-export type PageContactConnectionEdges = {
-  __typename?: 'PageContactConnectionEdges';
-  cursor: Scalars['String']['output'];
-  node?: Maybe<PageContact>;
-};
-
-export type PageContactConnection = Connection & {
-  __typename?: 'PageContactConnection';
-  pageInfo: PageInfo;
-  totalCount: Scalars['Float']['output'];
-  edges?: Maybe<Array<Maybe<PageContactConnectionEdges>>>;
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   addPendingDocument: DocumentNode;
@@ -717,8 +661,6 @@ export type Mutation = {
   createPageContainer: PageContainer;
   updatePageYard: PageYard;
   createPageYard: PageYard;
-  updatePageContact: PageContact;
-  createPageContact: PageContact;
 };
 
 
@@ -814,25 +756,12 @@ export type MutationCreatePageYardArgs = {
   params: PageYardMutation;
 };
 
-
-export type MutationUpdatePageContactArgs = {
-  relativePath: Scalars['String']['input'];
-  params: PageContactMutation;
-};
-
-
-export type MutationCreatePageContactArgs = {
-  relativePath: Scalars['String']['input'];
-  params: PageContactMutation;
-};
-
 export type DocumentUpdateMutation = {
   business?: InputMaybe<BusinessMutation>;
   pricing?: InputMaybe<PricingMutation>;
   pageHome?: InputMaybe<PageHomeMutation>;
   pageContainer?: InputMaybe<PageContainerMutation>;
   pageYard?: InputMaybe<PageYardMutation>;
-  pageContact?: InputMaybe<PageContactMutation>;
   relativePath?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -842,7 +771,6 @@ export type DocumentMutation = {
   pageHome?: InputMaybe<PageHomeMutation>;
   pageContainer?: InputMaybe<PageContainerMutation>;
   pageYard?: InputMaybe<PageYardMutation>;
-  pageContact?: InputMaybe<PageContactMutation>;
 };
 
 export type BusinessAddressMutation = {
@@ -982,16 +910,6 @@ export type PageYardSecondMutation = {
 export type PageYardMutation = {
   intro?: InputMaybe<PageYardIntroMutation>;
   second?: InputMaybe<PageYardSecondMutation>;
-};
-
-export type PageContactIntroMutation = {
-  heading?: InputMaybe<Scalars['String']['input']>;
-  lead?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type PageContactMutation = {
-  intro?: InputMaybe<PageContactIntroMutation>;
-  formHeading?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type StringFilter = {
@@ -1162,16 +1080,6 @@ export type PageYardFilter = {
   second?: PageYardSecondFilter | null | undefined;
 };
 
-export type PageContactIntroFilter = {
-  heading?: StringFilter | null | undefined;
-  lead?: StringFilter | null | undefined;
-};
-
-export type PageContactFilter = {
-  intro?: PageContactIntroFilter | null | undefined;
-  formHeading?: StringFilter | null | undefined;
-};
-
 export type BusinessPartsFragment = { __typename: 'Business', legalName: string | null, phoneDisplay: string | null, phoneDial: string | null, whatsapp: string | null, whatsappMessage: string | null, accessHours: string | null, accessHoursConfirmed: boolean | null, companyNumber: string | null, minimumTerm: string | null, pricesIndicative: boolean | null, address: { __typename: 'BusinessAddress', line1: string | null, town: string | null, city: string | null, county: string | null, postcode: string | null } | null };
 
 export type PricingPartsFragment = { __typename: 'Pricing', name: string, priceFrom: number | null, priceUnit: string | null, priceNote: string | null, whatFits: string | null, available: boolean | null, order: number | null, category: string | null };
@@ -1181,8 +1089,6 @@ export type PageHomePartsFragment = { __typename: 'PageHome', hero: { __typename
 export type PageContainerPartsFragment = { __typename: 'PageContainer', intro: { __typename: 'PageContainerIntro', heading: string | null, leadBefore: string | null, leadAfter: string | null, body: Array<string | null> | null, image: { __typename: 'PageContainerIntroImage', src: string | null, alt: string | null, objectPosition: string | null } | null } | null, pricing: { __typename: 'PageContainerPricing', heading: string | null } | null };
 
 export type PageYardPartsFragment = { __typename: 'PageYard', intro: { __typename: 'PageYardIntro', heading: string | null, lead: string | null, body: Array<string | null> | null, image: { __typename: 'PageYardIntroImage', src: string | null, alt: string | null, objectPosition: string | null } | null } | null, second: { __typename: 'PageYardSecond', heading: string | null, body1: string | null, image: { __typename: 'PageYardSecondImage', src: string | null, alt: string | null, objectPosition: string | null } | null } | null };
-
-export type PageContactPartsFragment = { __typename: 'PageContact', formHeading: string | null, intro: { __typename: 'PageContactIntro', heading: string | null, lead: string | null } | null };
 
 export type BusinessQueryVariables = Exact<{
   relativePath: string;
@@ -1278,25 +1184,6 @@ export type PageYardConnectionQueryVariables = Exact<{
 
 
 export type PageYardConnectionQuery = { pageYardConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'PageYard', id: string, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, intro: { __typename: 'PageYardIntro', heading: string | null, lead: string | null, body: Array<string | null> | null, image: { __typename: 'PageYardIntroImage', src: string | null, alt: string | null, objectPosition: string | null } | null } | null, second: { __typename: 'PageYardSecond', heading: string | null, body1: string | null, image: { __typename: 'PageYardSecondImage', src: string | null, alt: string | null, objectPosition: string | null } | null } | null } | null } | null> | null } };
-
-export type PageContactQueryVariables = Exact<{
-  relativePath: string;
-}>;
-
-
-export type PageContactQuery = { pageContact: { __typename: 'PageContact', id: string, formHeading: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, intro: { __typename: 'PageContactIntro', heading: string | null, lead: string | null } | null } };
-
-export type PageContactConnectionQueryVariables = Exact<{
-  before?: string | null | undefined;
-  after?: string | null | undefined;
-  first?: number | null | undefined;
-  last?: number | null | undefined;
-  sort?: string | null | undefined;
-  filter?: PageContactFilter | null | undefined;
-}>;
-
-
-export type PageContactConnectionQuery = { pageContactConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'PageContact', id: string, formHeading: string | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, intro: { __typename: 'PageContactIntro', heading: string | null, lead: string | null } | null } | null } | null> | null } };
 
 export const BusinessPartsFragmentDoc = gql`
     fragment BusinessParts on Business {
@@ -1429,17 +1316,6 @@ export const PageYardPartsFragmentDoc = gql`
     }
     body1
   }
-}
-    `;
-export const PageContactPartsFragmentDoc = gql`
-    fragment PageContactParts on PageContact {
-  __typename
-  intro {
-    __typename
-    heading
-    lead
-  }
-  formHeading
 }
     `;
 export const BusinessDocument = gql`
@@ -1727,63 +1603,6 @@ export const PageYardConnectionDocument = gql`
   }
 }
     ${PageYardPartsFragmentDoc}`;
-export const PageContactDocument = gql`
-    query pageContact($relativePath: String!) {
-  pageContact(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...PageContactParts
-  }
-}
-    ${PageContactPartsFragmentDoc}`;
-export const PageContactConnectionDocument = gql`
-    query pageContactConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageContactFilter) {
-  pageContactConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...PageContactParts
-      }
-    }
-  }
-}
-    ${PageContactPartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
@@ -1816,12 +1635,6 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     pageYardConnection(variables?: PageYardConnectionQueryVariables, options?: C): Promise<{data: PageYardConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageYardConnectionQueryVariables, query: string}> {
         return requester<{data: PageYardConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageYardConnectionQueryVariables, query: string}, PageYardConnectionQueryVariables>(PageYardConnectionDocument, variables, options);
-      },
-    pageContact(variables: PageContactQueryVariables, options?: C): Promise<{data: PageContactQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageContactQueryVariables, query: string}> {
-        return requester<{data: PageContactQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageContactQueryVariables, query: string}, PageContactQueryVariables>(PageContactDocument, variables, options);
-      },
-    pageContactConnection(variables?: PageContactConnectionQueryVariables, options?: C): Promise<{data: PageContactConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageContactConnectionQueryVariables, query: string}> {
-        return requester<{data: PageContactConnectionQuery, errors?: { message: string, locations: { line: number, column: number }[], path: string[] }[], variables: PageContactConnectionQueryVariables, query: string}, PageContactConnectionQueryVariables>(PageContactConnectionDocument, variables, options);
       }
     };
   }

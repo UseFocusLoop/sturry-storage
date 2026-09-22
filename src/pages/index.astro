@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import { Picture } from "astro:assets";
 import PricingTable from "../components/PricingTable.astro";
-import QuoteForm from "../components/QuoteForm.astro";
+import QuoteSection from "../components/QuoteSection.astro";
 import Icon from "../components/Icon.astro";
 import { getCollection, getEntry } from "astro:content";
 import { business, links, addressOneLine } from "../data/business";
@@ -17,7 +17,6 @@ const hero = home.hero!;
 const pricingSection = home.pricing!;
 const security = home.security!;
 const finding = home.finding!;
-const enquiry = home.enquiry!;
 
 // Hero photo, swapped from the CMS and optimised at build time.
 const heroImg = resolveImage(hero.image.src);
@@ -197,25 +196,7 @@ const description =
   </section>
 
   <!-- ========================== ENQUIRY ========================== -->
-  <section class="section container enquiry" id="enquiry">
-    <div class="section-head">
-      <h2>{enquiry.heading}</h2>
-      <p class="lead">{enquiry.lead}</p>
-    </div>
-
-    <div class="enquiry-actions">
-      <a href={links.whatsapp} class="btn btn-primary btn-lg" target="_blank" rel="noopener">
-        <Icon name="whatsapp" size={20} />
-        Message us on WhatsApp
-      </a>
-      <a href={links.tel} class="btn btn-ghost btn-lg">
-        <Icon name="phone" size={19} />
-        Call {business.phoneDisplay}
-      </a>
-    </div>
-
-    <QuoteForm />
-  </section>
+  <QuoteSection />
 </Base>
 
 <style>
@@ -496,13 +477,5 @@ const description =
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
     }
-  }
-
-  /* ---- Enquiry ---- */
-  .enquiry-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin: 1.5rem 0 2rem;
   }
 </style>

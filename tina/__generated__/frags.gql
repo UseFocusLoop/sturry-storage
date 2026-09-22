@@ -125,13 +125,3 @@ fragment PageYardParts on PageYard {
     body1
   }
 }
-
-fragment PageContactParts on PageContact {
-  __typename
-  intro {
-    __typename
-    heading
-    lead
-  }
-  formHeading
-}

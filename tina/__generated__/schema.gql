@@ -64,8 +64,6 @@ type Query {
   pageContainerConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageContainerFilter): PageContainerConnection!
   pageYard(relativePath: String): PageYard!
   pageYardConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageYardFilter): PageYardConnection!
-  pageContact(relativePath: String): PageContact!
-  pageContactConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageContactFilter): PageContactConnection!
 }
 
 input DocumentFilter {
@@ -74,7 +72,6 @@ input DocumentFilter {
   pageHome: PageHomeFilter
   pageContainer: PageContainerFilter
   pageYard: PageYardFilter
-  pageContact: PageContactFilter
 }
 
 type DocumentConnectionEdges {
@@ -100,7 +97,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Business | Pricing | PageHome | PageContainer | PageYard | PageContact | Folder
+union DocumentNode = Business | Pricing | PageHome | PageContainer | PageYard | Folder
 
 type BusinessAddress {
   line1: String
@@ -479,40 +476,6 @@ type PageYardConnection implements Connection {
   edges: [PageYardConnectionEdges]
 }
 
-type PageContactIntro {
-  heading: String
-  lead: String
-}
-
-type PageContact implements Node & Document {
-  intro: PageContactIntro
-  formHeading: String
-  id: ID!
-  _sys: SystemInfo!
-  _values: JSON!
-}
-
-input PageContactIntroFilter {
-  heading: StringFilter
-  lead: StringFilter
-}
-
-input PageContactFilter {
-  intro: PageContactIntroFilter
-  formHeading: StringFilter
-}
-
-type PageContactConnectionEdges {
-  cursor: String!
-  node: PageContact
-}
-
-type PageContactConnection implements Connection {
-  pageInfo: PageInfo!
-  totalCount: Float!
-  edges: [PageContactConnectionEdges]
-}
-
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
   updateDocument(collection: String, relativePath: String!, params: DocumentUpdateMutation!): DocumentNode!
@@ -529,8 +492,6 @@ type Mutation {
   createPageContainer(relativePath: String!, params: PageContainerMutation!): PageContainer!
   updatePageYard(relativePath: String!, params: PageYardMutation!): PageYard!
   createPageYard(relativePath: String!, params: PageYardMutation!): PageYard!
-  updatePageContact(relativePath: String!, params: PageContactMutation!): PageContact!
-  createPageContact(relativePath: String!, params: PageContactMutation!): PageContact!
 }
 
 input DocumentUpdateMutation {
@@ -539,7 +500,6 @@ input DocumentUpdateMutation {
   pageHome: PageHomeMutation
   pageContainer: PageContainerMutation
   pageYard: PageYardMutation
-  pageContact: PageContactMutation
   relativePath: String
 }
 
@@ -549,7 +509,6 @@ input DocumentMutation {
   pageHome: PageHomeMutation
   pageContainer: PageContainerMutation
   pageYard: PageYardMutation
-  pageContact: PageContactMutation
 }
 
 input BusinessAddressMutation {
@@ -689,16 +648,6 @@ input PageYardSecondMutation {
 input PageYardMutation {
   intro: PageYardIntroMutation
   second: PageYardSecondMutation
-}
-
-input PageContactIntroMutation {
-  heading: String
-  lead: String
-}
-
-input PageContactMutation {
-  intro: PageContactIntroMutation
-  formHeading: String
 }
 
 schema {

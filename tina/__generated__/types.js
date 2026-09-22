@@ -138,17 +138,6 @@ export const PageYardPartsFragmentDoc = gql`
   }
 }
     `;
-export const PageContactPartsFragmentDoc = gql`
-    fragment PageContactParts on PageContact {
-  __typename
-  intro {
-    __typename
-    heading
-    lead
-  }
-  formHeading
-}
-    `;
 export const BusinessDocument = gql`
     query business($relativePath: String!) {
   business(relativePath: $relativePath) {
@@ -434,63 +423,6 @@ export const PageYardConnectionDocument = gql`
   }
 }
     ${PageYardPartsFragmentDoc}`;
-export const PageContactDocument = gql`
-    query pageContact($relativePath: String!) {
-  pageContact(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        hasReferences
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...PageContactParts
-  }
-}
-    ${PageContactPartsFragmentDoc}`;
-export const PageContactConnectionDocument = gql`
-    query pageContactConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageContactFilter) {
-  pageContactConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    pageInfo {
-      hasPreviousPage
-      hasNextPage
-      startCursor
-      endCursor
-    }
-    totalCount
-    edges {
-      cursor
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            hasReferences
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...PageContactParts
-      }
-    }
-  }
-}
-    ${PageContactPartsFragmentDoc}`;
 export function getSdk(requester) {
   return {
     business(variables, options) {
@@ -522,12 +454,6 @@ export function getSdk(requester) {
     },
     pageYardConnection(variables, options) {
       return requester(PageYardConnectionDocument, variables, options);
-    },
-    pageContact(variables, options) {
-      return requester(PageContactDocument, variables, options);
-    },
-    pageContactConnection(variables, options) {
-      return requester(PageContactConnectionDocument, variables, options);
     }
   };
 }
