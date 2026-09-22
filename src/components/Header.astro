@@ -13,13 +13,23 @@ import Logo from "./Logo.astro";
     <nav class="primary-nav" aria-label="Primary">
       <a href="/container-storage/">Container storage</a>
       <a href="/yard-space/">Gated yard space</a>
-      <a href="/#quote">Get a quote</a>
     </nav>
 
-    <a href={links.tel} class="btn btn-primary header-call">
-      <Icon name="phone" size={18} />
-      Call {business.phoneDisplay}
-    </a>
+    <div class="header-actions">
+      <a href={links.tel} class="btn btn-primary header-cta">
+        <Icon name="phone" size={15} />
+        Call
+      </a>
+      <a
+        href={links.whatsapp}
+        class="btn btn-wa header-cta"
+        target="_blank"
+        rel="noopener"
+      >
+        <Icon name="whatsapp" size={15} />
+        WhatsApp
+      </a>
+    </div>
 
     <!-- Mobile menu: a native <details> disclosure, no JavaScript. -->
     <details class="mobile-menu">
@@ -30,8 +40,15 @@ import Logo from "./Logo.astro";
       <div class="mobile-menu-panel">
         <a href="/container-storage/">Container storage</a>
         <a href="/yard-space/">Gated yard space</a>
-        <a href="/#quote">Get a quote</a>
-        <a href={links.tel} class="btn btn-primary">Call {business.phoneDisplay}</a>
+        <a href={links.tel} class="btn btn-primary">
+          <Icon name="phone" size={16} /> Call {business.phoneDisplay}
+        </a>
+        <a href={links.sms} class="btn btn-ghost">
+          <Icon name="message" size={16} /> Text us
+        </a>
+        <a href={links.whatsapp} class="btn btn-wa" target="_blank" rel="noopener">
+          <Icon name="whatsapp" size={16} /> WhatsApp
+        </a>
       </div>
     </details>
   </div>
@@ -83,8 +100,17 @@ import Logo from "./Logo.astro";
     text-decoration: underline;
     text-underline-offset: 4px;
   }
-  .header-call {
+  .header-actions {
     display: none;
+    gap: 0.6rem;
+  }
+  /* Smaller, lighter-weight header buttons. */
+  .header-cta {
+    min-height: 40px;
+    padding: 0.42rem 0.95rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    gap: 0.4rem;
   }
 
   /* ---- Mobile menu (details/summary) ---- */
@@ -149,7 +175,7 @@ import Logo from "./Logo.astro";
       flex: 1;
       justify-content: center;
     }
-    .header-call {
+    .header-actions {
       display: inline-flex;
     }
     .mobile-menu {

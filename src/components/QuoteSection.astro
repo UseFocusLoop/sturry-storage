@@ -13,9 +13,9 @@ import { business, links } from "../data/business";
   <div class="section-head">
     <h2>Get a quote</h2>
     <p class="lead">
-      Quickest way is to call or WhatsApp — you'll get a straight answer on price
-      and availability. Or answer a few quick questions and we'll come back to
-      you.
+      Quickest way is to call, text or WhatsApp — you'll get a straight answer on
+      price and availability. Or answer a few quick questions and we'll come back
+      to you.
     </p>
   </div>
 
@@ -32,6 +32,10 @@ import { business, links } from "../data/business";
     <a href={links.tel} class="btn btn-ghost btn-lg">
       <Icon name="phone" size={19} />
       Call {business.phoneDisplay}
+    </a>
+    <a href={links.sms} class="btn btn-ghost btn-lg">
+      <Icon name="message" size={19} />
+      Text us
     </a>
   </div>
 
