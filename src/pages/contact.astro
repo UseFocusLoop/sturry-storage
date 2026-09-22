@@ -1,6 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
-import ContactForm from "../components/ContactForm.astro";
+import QuoteForm from "../components/QuoteForm.astro";
 import Icon from "../components/Icon.astro";
 import { getEntry } from "astro:content";
 import { business, links, addressOneLine } from "../data/business";
@@ -51,7 +51,7 @@ const description =
 
       <div>
         <h2>{page.formHeading}</h2>
-        <ContactForm />
+        <QuoteForm />
       </div>
     </div>
   </section>

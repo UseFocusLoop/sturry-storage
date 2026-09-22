@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import { Picture } from "astro:assets";
 import PricingTable from "../components/PricingTable.astro";
-import ContactForm from "../components/ContactForm.astro";
+import QuoteForm from "../components/QuoteForm.astro";
 import Icon from "../components/Icon.astro";
 import { getCollection, getEntry } from "astro:content";
 import { business, links, addressOneLine } from "../data/business";
@@ -214,7 +214,7 @@ const description =
       </a>
     </div>
 
-    <ContactForm />
+    <QuoteForm />
   </section>
 </Base>
 
