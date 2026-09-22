@@ -21,3 +21,6 @@ public/admin
 # but the generated schema in tina/__generated__ MUST be committed so Tina
 # Cloud can index the branch. Only the local cache is ignored.
 tina/__generated__/.cache
+
+# Netlify CLI
+.netlify
