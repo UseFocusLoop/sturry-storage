@@ -1,22 +1,8 @@
 ---
-import { business, links, addressOneLine } from "../data/business";
+import { business, links } from "../data/business";
 import Icon from "./Icon.astro";
 import Logo from "./Logo.astro";
 ---
-
-<!-- Slim contact bar -->
-<div class="topbar">
-  <div class="container topbar-inner">
-    <span class="topbar-addr">
-      <Icon name="pin" size={15} />
-      {addressOneLine}
-    </span>
-    <a href={links.tel} class="topbar-tel">
-      <Icon name="phone" size={15} />
-      {business.phoneDisplay}
-    </a>
-  </div>
-</div>
 
 <header class="site-header">
   <div class="container header-inner">
@@ -52,51 +38,6 @@ import Logo from "./Logo.astro";
 </header>
 
 <style>
-  /* ---- Contact bar ---- */
-  .topbar {
-    background: var(--navy-deep);
-    color: color-mix(in srgb, var(--white) 72%, var(--navy-deep));
-    font-size: 0.8125rem;
-  }
-  .topbar-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    min-height: 38px;
-  }
-  .topbar-addr {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-  }
-  .topbar-addr .icon {
-    color: var(--green-bright);
-  }
-  .topbar-tel {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    color: var(--white);
-    text-decoration: none;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-  .topbar-tel .icon {
-    color: var(--green-bright);
-  }
-  .topbar-tel:hover {
-    color: var(--green-bright);
-  }
-  @media (max-width: 600px) {
-    .topbar-addr {
-      display: none;
-    }
-    .topbar-inner {
-      justify-content: center;
-    }
-  }
-
   .site-header {
     background: var(--navy-deep);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -107,6 +48,7 @@ import Logo from "./Logo.astro";
   .header-inner {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 1.5rem;
     min-height: 84px;
   }
@@ -114,7 +56,6 @@ import Logo from "./Logo.astro";
     display: inline-flex;
     align-items: center;
     text-decoration: none;
-    margin-right: auto;
     white-space: nowrap;
   }
   /* Scale the logo + wordmark up a touch for the bigger bar. */
@@ -205,6 +146,8 @@ import Logo from "./Logo.astro";
   @media (min-width: 768px) {
     .primary-nav {
       display: flex;
+      flex: 1;
+      justify-content: center;
     }
     .header-call {
       display: inline-flex;
