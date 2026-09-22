@@ -1,9 +1,10 @@
 ---
 name: Open storage space
-priceFrom:
+priceFrom: null
 priceUnit: ' per week.'
-priceNote: Call for availability
+priceNote: Contact for availability
 whatFits: 'Open hardstanding for vehicles, trailers, plant and materials kept outside.'
 available: true
 order: 4
 ---
+
