@@ -1,5 +1,5 @@
 ---
-name: Open storage yard space
+name: Gated storage yards
 priceFrom: 250
 priceUnit: ' per week.'
 priceNote: Priced on requirement — call for a quote
