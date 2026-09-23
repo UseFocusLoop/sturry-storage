@@ -19,7 +19,7 @@ const priceText = (d: {
   category?: string;
 }) => {
   if (d.priceFrom == null) return d.priceNote;
-  const prefix = d.category === "container" ? "Priced at" : "from";
+  const prefix = d.category === "container" ? "Priced from" : "from";
   return `${prefix} £${d.priceFrom}${d.priceUnit}`;
 };
 
@@ -28,8 +28,7 @@ const rows = (await getCollection("pricing"))
   .sort((a, b) => a.data.order - b.data.order)
   .map((e) => ({ size: e.data.name, fits: e.data.whatFits, price: priceText(e.data) }));
 
-// On the containers page the prices are fixed, so the column isn't "from".
-const priceHeading = category === "container" ? "Price" : "Price from";
+const priceHeading = "Price from";
 
 const anyPlaceholder = business.pricesIndicative;
 ---

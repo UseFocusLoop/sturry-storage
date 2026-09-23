@@ -12,7 +12,7 @@ import editable from "../content/settings/business.json";
 // Technical fields kept out of the CMS (structural / SEO — not client-editable).
 const technical = {
   shortName: "Sturry Storage",
-  geo: { lat: 51.3106, lng: 1.1176 },
+  geo: { lat: 51.3086, lng: 1.1392 },
   insuranceNote: "",
   deposit: "",
   hgvParking: null as boolean | null,

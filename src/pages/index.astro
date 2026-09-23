@@ -18,6 +18,14 @@ const pricingSection = home.pricing!;
 const security = home.security!;
 const finding = home.finding!;
 
+// Map pin. The postcode geocodes to the wrong spot, so we pin exact
+// coordinates: down Staines Hill, between the Redcot Lane junction and
+// Jennywood nature reserve. Same point powers the map and the address link.
+const mapPin = "51.3086,1.1392";
+const mapEmbed = `https://www.google.com/maps?q=${mapPin}&z=16&output=embed`;
+const mapLink = `https://www.google.com/maps/search/?api=1&query=${mapPin}`;
+const heroAddress = `${business.address.line1}, ${business.address.town}, ${business.address.city}, ${business.address.postcode}`;
+
 // Hero photo, swapped from the CMS and optimised at build time.
 const heroImg = resolveImage(hero.image.src);
 const heroPos = hero.image.objectPosition;
@@ -71,10 +79,16 @@ const description =
     </div>
     <div class="hero-scrim" aria-hidden="true"></div>
     <div class="container hero-content">
-      <p class="hero-eyebrow">
+      <a
+        class="hero-eyebrow"
+        href={mapLink}
+        target="_blank"
+        rel="noopener"
+        aria-label={`Open ${heroAddress} in Google Maps`}
+      >
         <Icon name="pin" size={16} />
-        {business.address.town}, {business.address.city} &middot; {business.address.postcode}
-      </p>
+        {heroAddress}
+      </a>
       <h1>{hero.heading}</h1>
       <p class="hero-lead">
         {hero.leadBefore}<span class="tnum">{heroPrice}</span>{hero.leadAfter}
@@ -112,11 +126,7 @@ const description =
     </div>
     <PricingTable />
     <p class="terms-line">
-      Paid weekly. Short or long term. {
-        business.minimumTerm
-          ? business.minimumTerm
-          : "No long tie-in" /* [CONFIRM] minimum term */
-      }.
+      Paid weekly or monthly. Short or long term. No tie-ins or contracts.
     </p>
   </section>
 
@@ -147,7 +157,7 @@ const description =
             {
               business.accessHoursConfirmed
                 ? business.accessHours
-                : "Access arranged to suit you — ask when you call." /* [CONFIRM] access hours. NOT 24/7. */
+                : "Let yourself in and out whenever you need — direct access to your own unit."
             }
           </span>
         </li>
@@ -183,9 +193,7 @@ const description =
       <div class="finding-map">
         <iframe
           title={`Map showing ${business.legalName} at ${addressOneLine}`}
-          src={`https://www.google.com/maps?q=${encodeURIComponent(
-            addressOneLine
-          )}&output=embed`}
+          src={mapEmbed}
           width="600"
           height="450"
           style="border:0; width:100%; height:100%;"
@@ -290,8 +298,14 @@ const description =
     font-weight: 600;
     font-size: 0.8125rem;
     letter-spacing: 0.01em;
+    text-decoration: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
+  }
+  a.hero-eyebrow:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.45);
   }
   .hero-eyebrow .icon {
     color: var(--green-bright);

@@ -15,5 +15,5 @@
   "accessHoursConfirmed": false,
   "companyNumber": "",
   "minimumTerm": "",
-  "pricesIndicative": true
+  "pricesIndicative": false
 }
