@@ -37,6 +37,13 @@ export const links = {
   )}`,
 };
 
+// Web3Forms access key for the quote form. This is a PUBLIC key (it is embedded
+// in the rendered form HTML either way), so it lives here as a committed default
+// and can be overridden per-environment with PUBLIC_WEB3FORMS_KEY.
+export const web3formsKey =
+  import.meta.env.PUBLIC_WEB3FORMS_KEY ||
+  "b0d514c7-ea8b-4abb-bc11-5bbfb8800e64";
+
 export const addressOneLine = [
   business.address.line1,
   business.address.town,

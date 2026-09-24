@@ -24,6 +24,9 @@ const finding = home.finding!;
 const mapPin = "51.3086,1.1392";
 const mapEmbed = `https://www.google.com/maps?q=${mapPin}&z=16&output=embed`;
 const mapLink = `https://www.google.com/maps/search/?api=1&query=${mapPin}`;
+const mapDirections = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+  addressOneLine
+)}`;
 const heroAddress = `${business.address.line1}, ${business.address.town}, ${business.address.city}, ${business.address.postcode}`;
 
 // Hero photo, swapped from the CMS and optimised at build time.
@@ -37,10 +40,9 @@ const factIcons = ["shield", "lock", "truck"] as const;
 // 20ft "from" price for the hero line, read from the pricing collection.
 const twenty = (await getCollection("pricing")).find((e) => e.id === "container-20");
 const heroPrice = `£${twenty?.data.priceFrom ?? 35}`;
-const title =
-  "Container & Yard Storage in Sturry, Canterbury | Sturry Storage Solutions";
+const title = "Self Storage Canterbury & Sturry | Sturry Storage";
 const description =
-  "Secure 20ft container storage and open yard space at Staines Hill, Sturry, Canterbury. Drive-up access, 24hr CCTV, flexible weekly terms. Call 07777 39 25 38.";
+  "Secure 20ft & 40ft container storage and gated/open yard space at Staines Hill, Sturry, Canterbury. Drive-up access, 24hr CCTV, flexible weekly terms. Call 07777 39 25 38.";
 ---
 
 <Base title={title} description={description} path="/">
@@ -126,7 +128,7 @@ const description =
     </div>
     <PricingTable />
     <p class="terms-line">
-      Paid weekly or monthly. Short or long term. No tie-ins or contracts.
+      Paid weekly or monthly. Short or long term. No tie-ins or contracts. Prices include VAT.
     </p>
   </section>
 
@@ -157,7 +159,7 @@ const description =
             {
               business.accessHoursConfirmed
                 ? business.accessHours
-                : "Let yourself in and out whenever you need — direct access to your own unit."
+                : "Drive-up access to your own unit — we'll confirm access hours when you get in touch." /* [CONFIRM] access hours */
             }
           </span>
         </li>
@@ -177,6 +179,11 @@ const description =
           {business.address.town}, {business.address.city}<br />
           {business.address.county} {business.address.postcode}
         </address>
+        <p class="addr-directions">
+          <a href={mapDirections} target="_blank" rel="noopener">
+            <Icon name="pin" size={16} /> Get directions
+          </a>
+        </p>
 
         {
           finding.directions.map((d) => (
@@ -469,7 +476,22 @@ const description =
     font-style: normal;
     font-size: var(--step-body-lg);
     line-height: 1.5;
-    margin: 1rem 0 1.5rem;
+    margin: 1rem 0 0.75rem;
+  }
+  .addr-directions {
+    margin: 0 0 1.5rem;
+  }
+  .addr-directions a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--green-dark);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .addr-directions a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
   .finding h3 {
     margin: 1.25rem 0 0.35rem;

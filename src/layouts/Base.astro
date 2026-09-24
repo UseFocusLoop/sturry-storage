@@ -11,8 +11,10 @@ interface Props {
   description: string;
   /* Path of this page, e.g. "/container-storage/". Used for canonical + OG. */
   path?: string;
+  /* Keep the page out of search results (e.g. the thank-you page). */
+  noindex?: boolean;
 }
-const { title, description, path = "/" } = Astro.props;
+const { title, description, path = "/", noindex = false } = Astro.props;
 const canonical = new URL(path, Astro.site).href;
 const ogImage = new URL("/og-image.png", Astro.site).href;
 ---
@@ -24,6 +26,7 @@ const ogImage = new URL("/og-image.png", Astro.site).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="canonical" href={canonical} />
 
     <!-- Open Graph -->

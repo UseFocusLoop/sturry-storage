@@ -167,15 +167,17 @@ a {
   font-size: 1.15rem;
 }
 
+/* Solid green button with white label. Uses the darker green so white text
+   clears WCAG AA (≈5.6:1) at the button's normal text size. */
 .btn-primary {
-  background: var(--green);
+  background: var(--green-dark);
   color: var(--white);
-  border-color: var(--green);
+  border-color: var(--green-dark);
   box-shadow: 0 1px 2px rgba(13, 27, 46, 0.16);
 }
 .btn-primary:hover {
-  background: var(--green-dark);
-  border-color: var(--green-dark);
+  background: color-mix(in srgb, var(--green-dark) 86%, #000);
+  border-color: color-mix(in srgb, var(--green-dark) 86%, #000);
 }
 
 .btn-ghost {

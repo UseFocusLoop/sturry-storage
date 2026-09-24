@@ -11,7 +11,12 @@ const SITE_URL = "https://sturrystorage.co.uk";
 export default defineConfig({
   site: SITE_URL,
   output: "static",
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // The thank-you page is noindex and shouldn't be in the sitemap.
+      filter: (page) => !page.includes("/thank-you"),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

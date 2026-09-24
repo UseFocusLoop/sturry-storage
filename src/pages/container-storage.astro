@@ -14,9 +14,9 @@ const pricingSection = page.pricing!;
 
 const twenty = (await getCollection("pricing")).find((e) => e.id === "container-20");
 const heroPrice = `£${twenty?.data.priceFrom ?? 35}`;
-const title = "20ft Container Storage in Sturry, Canterbury | Sturry Storage";
+const title = "20ft & 40ft Container Storage Canterbury | Sturry Storage";
 const description =
-  "Secure 20ft container storage at Staines Hill, Sturry, Canterbury. Drive-up access, 24hr CCTV, weekly terms from £35. Call 07777 39 25 38 or WhatsApp.";
+  "Secure 20ft & 40ft container storage at Staines Hill, Sturry, Canterbury. Drive-up access, 24hr CCTV, weekly terms from £35. Call 07777 39 25 38 or WhatsApp.";
 ---
 
 <Base title={title} description={description} path="/container-storage/">
@@ -62,7 +62,7 @@ const description =
     <h2>{pricingSection.heading}</h2>
     <PricingTable category="container" />
     <p class="terms-line">
-      Paid weekly or monthly. Short or long term. No tie-ins or contracts.
+      Paid weekly or monthly. Short or long term. No tie-ins or contracts. Prices include VAT.
     </p>
   </section>
 

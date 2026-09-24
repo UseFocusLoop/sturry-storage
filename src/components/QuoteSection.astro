@@ -6,16 +6,22 @@
 */
 import QuoteForm from "./QuoteForm.astro";
 import Icon from "./Icon.astro";
-import { business, links } from "../data/business";
+import { business, links, web3formsKey } from "../data/business";
+
+// The questionnaire only appears once a Web3Forms key is set. Until then we
+// don't promise a form the visitor can't use — we point them at Call/Text/WhatsApp.
+const formConfigured = web3formsKey.length > 0;
 ---
 
 <section class="section container quote-section" id="quote">
   <div class="section-head">
     <h2>Get a quote</h2>
     <p class="lead">
-      Quickest way is to call, text or WhatsApp — you'll get a straight answer on
-      price and availability. Or answer a few quick questions and we'll come back
-      to you.
+      {
+        formConfigured
+          ? "Quickest way is to call, text or WhatsApp — you'll get a straight answer on price and availability. Or answer a few quick questions and we'll come back to you."
+          : "Give us a call, text or WhatsApp and you'll get a straight answer on price and availability."
+      }
     </p>
   </div>
 

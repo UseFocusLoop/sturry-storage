@@ -2,6 +2,9 @@
 import { business, links, addressOneLine } from "../data/business";
 import Logo from "./Logo.astro";
 const year = new Date().getFullYear();
+const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+  addressOneLine
+)}`;
 ---
 
 <footer class="site-footer">
@@ -9,12 +12,18 @@ const year = new Date().getFullYear();
     <div>
       <Logo variant="light" class="footer-logo" />
       <p class="footer-line footer-addr">{addressOneLine}</p>
+      <p class="footer-line">
+        <a href={directionsUrl} target="_blank" rel="noopener">Get directions</a>
+      </p>
     </div>
 
     <div>
       <p class="footer-heading">Get in touch</p>
       <p class="footer-line">
-        <a href={links.tel}>{business.phoneDisplay}</a> — call or WhatsApp
+        <a href={links.tel}>Call {business.phoneDisplay}</a>
+      </p>
+      <p class="footer-line">
+        <a href={links.whatsapp} target="_blank" rel="noopener">WhatsApp us</a>
       </p>
       {
         business.accessHoursConfirmed ? (
@@ -98,8 +107,12 @@ const year = new Date().getFullYear();
     .footer-grid {
       grid-template-columns: 1.4fr 1fr 1fr;
     }
+  }
+  /* The fixed contact bar shows below 768px, so only drop the extra bottom
+     clearance once it's gone — otherwise it overlaps the footer at 700–767px. */
+  @media (min-width: 768px) {
     .site-footer {
-      padding-bottom: 2.5rem; /* no call bar on desktop */
+      padding-bottom: 2.5rem;
     }
   }
 </style>
