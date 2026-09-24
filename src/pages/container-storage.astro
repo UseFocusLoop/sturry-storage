@@ -27,23 +27,11 @@ const description =
       {intro.leadBefore}<span class="tnum">{heroPrice}</span>{intro.leadAfter}
     </p>
 
+    <!-- 20ft container: description + photo -->
     <div class="two-col">
       <div class="prose">
-        {intro.body!.map((para) => <p>{para}</p>)}
-        <div class="cta-row">
-          <a href={links.tel} class="btn btn-primary">
-            <Icon name="phone" size={19} />
-            Call {business.phoneDisplay}
-          </a>
-          <a href={links.sms} class="btn btn-ghost">
-            <Icon name="message" size={19} />
-            Text us
-          </a>
-          <a href={links.whatsapp} class="btn btn-wa" target="_blank" rel="noopener">
-            <Icon name="whatsapp" size={19} />
-            WhatsApp us
-          </a>
-        </div>
+        <h2 class="unit-title">20ft container</h2>
+        <p>{intro.body![0]}</p>
       </div>
       <Photo
         src={intro.image!.src}
@@ -55,6 +43,29 @@ const description =
         loading="lazy"
         class="side-img"
       />
+    </div>
+
+    <hr class="unit-divider" />
+
+    <!-- 40ft container: description -->
+    <div class="unit-40">
+      <h2 class="unit-title">40ft container</h2>
+      <p>{intro.body![1]}</p>
+    </div>
+
+    <div class="cta-row">
+      <a href={links.tel} class="btn btn-primary">
+        <Icon name="phone" size={19} />
+        Call {business.phoneDisplay}
+      </a>
+      <a href={links.sms} class="btn btn-ghost">
+        <Icon name="message" size={19} />
+        Text us
+      </a>
+      <a href={links.whatsapp} class="btn btn-wa" target="_blank" rel="noopener">
+        <Icon name="whatsapp" size={19} />
+        WhatsApp us
+      </a>
     </div>
   </section>
 
@@ -99,7 +110,24 @@ const description =
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-top: 0.5rem;
+    margin-top: 1.75rem;
+  }
+  .unit-title {
+    font-size: var(--step-h3);
+    color: var(--navy);
+    margin: 0 0 0.6rem;
+  }
+  /* Thin hairline between the 20ft block and the 40ft block. */
+  .unit-divider {
+    border: 0;
+    border-top: 1px solid var(--hairline);
+    margin: 2.5rem 0;
+  }
+  .unit-40 {
+    max-width: var(--measure);
+  }
+  .unit-40 p {
+    margin: 0;
   }
   .two-col :global(picture) {
     display: block;
