@@ -8,9 +8,9 @@
       "A 40ft container is the bigger unit — for larger stock holdings, a full house clear-out, or whenever a 20ft isn't quite enough. Same brand-new, vented, drive-up setup, with plenty more floor space. Not sure which size you need? Give us a call and we'll help you work it out."
     ],
     "image": {
-      "src": "/src/assets/containers.png",
-      "alt": "A 20ft shipping container at the Sturry storage yard",
-      "objectPosition": "50% 50%"
+      "src": "/src/assets/container-20.jpg",
+      "alt": "Inside a brand-new 20ft steel container at Sturry Storage",
+      "objectPosition": "50% 45%"
     }
   },
   "pricing": {
