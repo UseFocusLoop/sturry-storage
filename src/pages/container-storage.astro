@@ -194,4 +194,12 @@ const description =
       grid-template-columns: 1fr 1.2fr;
     }
   }
+  /* Phones: the tall portrait unit photos fill the width and get big, so cap
+     and centre them a touch. Desktop/laptop are unchanged. */
+  @media (max-width: 799px) {
+    .two-col:not(.intro-row) :global(.side-img) {
+      max-width: 19rem;
+      margin-inline: auto;
+    }
+  }
 </style>

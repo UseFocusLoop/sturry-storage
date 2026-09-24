@@ -453,6 +453,13 @@ const description =
       grid-template-columns: repeat(3, 1fr);
     }
   }
+  /* Phones: cap the single-column cards so the tall photos aren't oversized. */
+  @media (max-width: 719px) {
+    .cards {
+      max-width: 20rem;
+      margin-inline: auto;
+    }
+  }
 
   /* ---- Security (inverted) ---- */
   .security {
