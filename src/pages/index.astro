@@ -51,6 +51,7 @@ const cards = [
     price: cardPrice(priceOf("container-20"), "Priced from"),
     img: "/src/assets/container-20.jpg",
     alt: "Inside a brand-new 20ft steel container at Sturry Storage",
+    pos: "50% 50%",
     href: "/container-storage/",
   },
   {
@@ -59,6 +60,7 @@ const cards = [
     price: cardPrice(priceOf("container-40"), "Priced from"),
     img: "/src/assets/container-40.jpg",
     alt: "Inside a brand-new 40ft steel container at Sturry Storage",
+    pos: "50% 50%",
     href: "/container-storage/",
   },
   {
@@ -67,6 +69,7 @@ const cards = [
     price: cardPrice(priceOf("yard"), "From"),
     img: "/src/assets/gated-yard.jpg",
     alt: "Open green gates to a gated hardstanding storage yard at Sturry, Canterbury",
+    pos: "50% 50%",
     href: "/yard-space/",
   },
 ];
@@ -146,7 +149,8 @@ const description =
               <Photo
                 src={c.img}
                 alt={c.alt}
-                ratio="4 / 3"
+                objectPosition={c.pos}
+                ratio="4 / 5"
                 widths={[400, 600, 800]}
                 sizes="(min-width: 720px) 30vw, 100vw"
                 loading="lazy"
