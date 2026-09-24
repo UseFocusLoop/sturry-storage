@@ -9,7 +9,7 @@ import { business, links, addressOneLine } from "../data/business";
 import { resolveImage } from "../lib/resolveImage";
 // Extra hero slides for the auto-fading slideshow (first slide is the CMS one).
 import slideGate from "../assets/yard-gate.jpg";
-import slideOpen from "../assets/yard-open.jpg";
+import slideContainers from "../assets/container-yard.jpg";
 
 // Editable page text + hero photo (CMS: Page sections -> Home).
 const home = (await getEntry("pages", "home"))!.data;
@@ -103,7 +103,7 @@ const description =
         class="hero-slide"
       />
       <Picture
-        src={slideOpen}
+        src={slideContainers}
         formats={["avif", "webp"]}
         alt=""
         widths={[768, 1100, 1280]}
@@ -129,13 +129,13 @@ const description =
         {hero.leadBefore}<span class="tnum">{heroPrice}</span>{hero.leadAfter}
       </p>
       <div class="hero-actions">
-        <a href={links.tel} class="btn btn-primary btn-lg">
+        <a href={links.tel} class="btn btn-glass btn-lg">
           <Icon name="phone" size={20} />
           Call {business.phoneDisplay}
         </a>
         <a
           href={links.whatsapp}
-          class="btn btn-glass btn-lg"
+          class="btn btn-whatsapp btn-lg"
           target="_blank"
           rel="noopener"
         >

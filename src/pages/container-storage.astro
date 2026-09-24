@@ -26,9 +26,27 @@ const description =
   <section class="section container">
     <p class="crumb"><a href="/">Home</a> / Container storage</p>
     <h1>{intro.heading}</h1>
-    <p class="section-lead">
-      {intro.leadBefore}<span class="tnum">{heroPrice}</span>{intro.leadAfter}
-    </p>
+
+    <!-- Intro: yard photo (left) + lead (right) -->
+    <div class="two-col reverse intro-row">
+      <Photo
+        src="/src/assets/container-yard.jpg"
+        alt="A row of brand-new green steel storage containers on the gated yard at Sturry Storage"
+        objectPosition="50% 45%"
+        ratio="4 / 3"
+        widths={[480, 800, 1200]}
+        sizes="(min-width: 800px) 44vw, 100vw"
+        loading="eager"
+        class="side-img"
+      />
+      <div class="prose intro-lead">
+        <p class="section-lead">
+          {intro.leadBefore}<span class="tnum">{heroPrice}</span>{intro.leadAfter}
+        </p>
+      </div>
+    </div>
+
+    <hr class="unit-divider" />
 
     <!-- 20ft container: description + photo -->
     <div class="two-col">
@@ -41,7 +59,7 @@ const description =
         src={intro.image!.src}
         alt={intro.image!.alt}
         objectPosition={intro.image!.objectPosition}
-        ratio="4 / 3"
+        ratio="4 / 5"
         widths={[480, 800, 1200]}
         sizes="(min-width: 800px) 40vw, 100vw"
         loading="lazy"
@@ -56,8 +74,8 @@ const description =
       <Photo
         src="/src/assets/container-40.jpg"
         alt="Inside a brand-new 40ft steel container at Sturry Storage"
-        objectPosition="50% 45%"
-        ratio="4 / 3"
+        objectPosition="50% 50%"
+        ratio="4 / 5"
         widths={[480, 800, 1200]}
         sizes="(min-width: 800px) 40vw, 100vw"
         loading="lazy"
@@ -108,12 +126,21 @@ const description =
     font-size: var(--step-body-lg);
     max-width: var(--measure);
   }
+  /* Intro block: centre the short lead against its photo. */
+  .intro-row {
+    align-items: center;
+    margin-top: 1.25rem;
+  }
+  .intro-lead .section-lead {
+    margin: 0;
+    max-width: none;
+  }
   .two-col {
     display: grid;
     gap: 2rem;
     grid-template-columns: 1fr;
     margin-top: 1.75rem;
-    align-items: start;
+    align-items: center;
   }
   .prose {
     display: grid;
