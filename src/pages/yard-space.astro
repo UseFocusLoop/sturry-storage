@@ -1,16 +1,27 @@
 ---
 import Base from "../layouts/Base.astro";
 import Photo from "../components/Photo.astro";
-import PricingTable from "../components/PricingTable.astro";
 import Icon from "../components/Icon.astro";
 import QuoteSection from "../components/QuoteSection.astro";
-import { getEntry } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import { business, links } from "../data/business";
 
-// Editable page text + photos (CMS: Page sections -> Yard space).
+// Editable page text + photo (CMS: Page sections -> Yard space).
 const page = (await getEntry("pages", "yard"))!.data;
 const intro = page.intro!;
-const second = page.second!;
+
+// Prices from the pricing collection so a CMS edit updates them everywhere.
+const pricing = await getCollection("pricing");
+const gatedP = pricing.find((e) => e.id === "yard")!;
+const openP = pricing.find((e) => e.id === "open-storage")!;
+const priceGated =
+  gatedP.data.priceFrom != null
+    ? `From £${gatedP.data.priceFrom}${gatedP.data.priceUnit}`
+    : gatedP.data.priceNote;
+const priceOpen =
+  openP.data.priceFrom != null
+    ? `From £${openP.data.priceFrom}${openP.data.priceUnit}`
+    : openP.data.priceNote;
 
 const title = "Yard Space & Open Storage Canterbury | Sturry Storage";
 const description =
@@ -23,23 +34,12 @@ const description =
     <h1>{intro.heading}</h1>
     <p class="section-lead">{intro.lead}</p>
 
+    <!-- Gated storage yard: description + photo -->
     <div class="two-col">
       <div class="prose">
-        {intro.body!.map((para) => <p>{para}</p>)}
-        <div class="cta-row">
-          <a href={links.tel} class="btn btn-primary">
-            <Icon name="phone" size={19} />
-            Call {business.phoneDisplay}
-          </a>
-          <a href={links.sms} class="btn btn-ghost">
-            <Icon name="message" size={19} />
-            Text us
-          </a>
-          <a href={links.whatsapp} class="btn btn-wa" target="_blank" rel="noopener">
-            <Icon name="whatsapp" size={19} />
-            WhatsApp us
-          </a>
-        </div>
+        <h2 class="unit-title">Gated storage yard</h2>
+        <p>{intro.body![0]}</p>
+        <p class="unit-price">{priceGated}</p>
       </div>
       <Photo
         src={intro.image!.src}
@@ -52,15 +52,15 @@ const description =
         class="side-img"
       />
     </div>
-  </section>
 
-  <section class="section container">
-    <h2>{second.heading}</h2>
+    <hr class="unit-divider" />
+
+    <!-- Open storage space: description + photo -->
     <div class="two-col reverse">
       <Photo
-        src={second.image!.src}
-        alt={second.image!.alt}
-        objectPosition={second.image!.objectPosition}
+        src="/src/assets/yard-open.jpg"
+        alt="Open gravel hardstanding with room for trailers and materials at Sturry Storage"
+        objectPosition="50% 50%"
         ratio="4 / 3"
         widths={[480, 800, 1200]}
         sizes="(min-width: 800px) 44vw, 100vw"
@@ -68,26 +68,30 @@ const description =
         class="side-img"
       />
       <div class="prose">
-        <p>{second.body1}</p>
-        <p>
-          {
-            business.hgvParking === true
-              ? "HGV and larger vehicle parking is available — call to check we can fit yours."
-              : business.hgvParking === false
-                ? "For larger commercial vehicles, call first so we can check the fit."
-                : "Larger vehicles and HGVs — call first so we can check the fit." /* [CONFIRM] HGV/vehicle parking */
-          }
-        </p>
+        <h2 class="unit-title">Open storage space</h2>
+        <p>{intro.body![1]}</p>
+        <p class="unit-price">{priceOpen}</p>
       </div>
     </div>
-  </section>
 
-  <section class="section container">
-    <h2>Sizes and pricing</h2>
-    <PricingTable category="yard" />
     <p class="terms-line">
-      Paid weekly or monthly. Short or long term. No tie-ins or contracts. Prices include VAT.
+      Paid weekly or monthly. Short or long term. No tie-ins or contracts.
     </p>
+
+    <div class="cta-row">
+      <a href={links.tel} class="btn btn-call">
+        <Icon name="phone" size={19} />
+        Call {business.phoneDisplay}
+      </a>
+      <a href={links.sms} class="btn btn-sms">
+        <Icon name="message" size={19} />
+        Text us
+      </a>
+      <a href={links.whatsapp} class="btn btn-whatsapp" target="_blank" rel="noopener">
+        <Icon name="whatsapp" size={19} />
+        WhatsApp us
+      </a>
+    </div>
   </section>
 
   <QuoteSection />
@@ -101,11 +105,6 @@ const description =
   }
   .crumb a {
     color: var(--green-dark);
-  }
-  .terms-line {
-    margin-top: 1rem;
-    font-weight: 500;
-    color: var(--navy);
   }
   .section-lead {
     margin-top: 0.5rem;
@@ -128,7 +127,31 @@ const description =
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-top: 0.5rem;
+    margin-top: 1.75rem;
+  }
+  .unit-title {
+    font-size: var(--step-h3);
+    color: var(--navy);
+    margin: 0;
+  }
+  /* Bold, green price line at the foot of each unit's description. */
+  .unit-price {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: var(--step-body-lg);
+    color: var(--green-dark);
+    margin: 0.15rem 0 0;
+  }
+  /* Thin hairline between the gated-yard block and the open-storage block. */
+  .unit-divider {
+    border: 0;
+    border-top: 1px solid var(--hairline);
+    margin: 2.5rem 0;
+  }
+  .terms-line {
+    margin-top: 1rem;
+    font-weight: 500;
+    color: var(--navy);
   }
   .two-col :global(picture) {
     display: block;
@@ -144,6 +167,7 @@ const description =
       grid-template-columns: 1.2fr 1fr;
       gap: 3rem;
     }
+    /* Open-storage block: photo on the left, text on the right. */
     .two-col.reverse {
       grid-template-columns: 1fr 1.2fr;
     }

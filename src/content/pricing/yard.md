@@ -1,8 +1,8 @@
 ---
 name: Gated storage yards
-priceFrom: 250
+priceFrom: 200
 priceUnit: ' per week.'
-priceNote: Priced on requirement — call for a quote
+priceNote: Call for a quote
 whatFits: 'Plant, trailers, vehicles or materials that live outside. Priced by the space you need.'
 available: true
 order: 3

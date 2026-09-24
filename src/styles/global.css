@@ -206,6 +206,41 @@ a {
   color: #25a848;
 }
 
+/* -----------------------------------------------------------------------------
+   Contact buttons, colour-matched to the fixed mobile bar so Call / Text /
+   WhatsApp read the same everywhere: Call = navy, Text = white, WhatsApp = green.
+   Icons inherit the button's text colour, so they match automatically.
+   -------------------------------------------------------------------------- */
+.btn-call {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+  box-shadow: 0 1px 2px rgba(13, 27, 46, 0.16);
+}
+.btn-call:hover {
+  background: var(--navy-deep);
+  border-color: var(--navy-deep);
+}
+.btn-sms {
+  background: var(--white);
+  color: var(--navy);
+  border-color: color-mix(in srgb, var(--navy) 22%, transparent);
+  box-shadow: var(--shadow-sm);
+}
+.btn-sms:hover {
+  border-color: var(--navy);
+}
+.btn-whatsapp {
+  background: var(--green-dark);
+  color: var(--white);
+  border-color: var(--green-dark);
+  box-shadow: 0 1px 2px rgba(13, 27, 46, 0.16);
+}
+.btn-whatsapp:hover {
+  background: color-mix(in srgb, var(--green-dark) 86%, #000);
+  border-color: color-mix(in srgb, var(--green-dark) 86%, #000);
+}
+
 /* Glass button — on dark/photo backgrounds (hero). */
 .btn-glass {
   background: rgba(255, 255, 255, 0.1);

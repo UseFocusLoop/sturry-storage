@@ -1,6 +1,5 @@
 ---
 import Base from "../layouts/Base.astro";
-import PricingTable from "../components/PricingTable.astro";
 import Photo from "../components/Photo.astro";
 import Icon from "../components/Icon.astro";
 import QuoteSection from "../components/QuoteSection.astro";
@@ -10,10 +9,14 @@ import { business, links } from "../data/business";
 // Editable page text + side photo (CMS: Page sections -> Container storage).
 const page = (await getEntry("pages", "container"))!.data;
 const intro = page.intro!;
-const pricingSection = page.pricing!;
 
-const twenty = (await getCollection("pricing")).find((e) => e.id === "container-20");
-const heroPrice = `£${twenty?.data.priceFrom ?? 35}`;
+// Prices come from the pricing collection so a CMS edit updates them everywhere.
+const pricing = await getCollection("pricing");
+const twenty = pricing.find((e) => e.id === "container-20")!;
+const forty = pricing.find((e) => e.id === "container-40")!;
+const heroPrice = `£${twenty.data.priceFrom ?? 35}`;
+const price20 = `Priced from £${twenty.data.priceFrom}${twenty.data.priceUnit}`;
+const price40 = `Priced from £${forty.data.priceFrom}${forty.data.priceUnit}`;
 const title = "20ft & 40ft Container Storage Canterbury | Sturry Storage";
 const description =
   "Secure 20ft & 40ft container storage at Staines Hill, Sturry, Canterbury. Drive-up access, 24hr CCTV, weekly terms from £35. Call 07777 39 25 38 or WhatsApp.";
@@ -32,12 +35,13 @@ const description =
       <div class="prose">
         <h2 class="unit-title">20ft container</h2>
         <p>{intro.body![0]}</p>
+        <p class="unit-price">{price20}</p>
       </div>
       <Photo
         src={intro.image!.src}
         alt={intro.image!.alt}
         objectPosition={intro.image!.objectPosition}
-        ratio="3 / 2"
+        ratio="4 / 3"
         widths={[480, 800, 1200]}
         sizes="(min-width: 800px) 40vw, 100vw"
         loading="lazy"
@@ -47,34 +51,43 @@ const description =
 
     <hr class="unit-divider" />
 
-    <!-- 40ft container: description -->
-    <div class="unit-40">
-      <h2 class="unit-title">40ft container</h2>
-      <p>{intro.body![1]}</p>
+    <!-- 40ft container: description + photo -->
+    <div class="two-col reverse">
+      <Photo
+        src="/src/assets/container-interior.jpg"
+        alt="Inside a clean, dry storage container at Sturry Storage"
+        objectPosition="50% 50%"
+        ratio="4 / 3"
+        widths={[480, 800, 1200]}
+        sizes="(min-width: 800px) 40vw, 100vw"
+        loading="lazy"
+        class="side-img"
+      />
+      <div class="prose">
+        <h2 class="unit-title">40ft container</h2>
+        <p>{intro.body![1]}</p>
+        <p class="unit-price">{price40}</p>
+      </div>
     </div>
 
+    <p class="terms-line">
+      Paid weekly or monthly. Short or long term. No tie-ins or contracts.
+    </p>
+
     <div class="cta-row">
-      <a href={links.tel} class="btn btn-primary">
+      <a href={links.tel} class="btn btn-call">
         <Icon name="phone" size={19} />
         Call {business.phoneDisplay}
       </a>
-      <a href={links.sms} class="btn btn-ghost">
+      <a href={links.sms} class="btn btn-sms">
         <Icon name="message" size={19} />
         Text us
       </a>
-      <a href={links.whatsapp} class="btn btn-wa" target="_blank" rel="noopener">
+      <a href={links.whatsapp} class="btn btn-whatsapp" target="_blank" rel="noopener">
         <Icon name="whatsapp" size={19} />
         WhatsApp us
       </a>
     </div>
-  </section>
-
-  <section class="section container">
-    <h2>{pricingSection.heading}</h2>
-    <PricingTable category="container" />
-    <p class="terms-line">
-      Paid weekly or monthly. Short or long term. No tie-ins or contracts. Prices include VAT.
-    </p>
   </section>
 
   <QuoteSection />
@@ -115,19 +128,21 @@ const description =
   .unit-title {
     font-size: var(--step-h3);
     color: var(--navy);
-    margin: 0 0 0.6rem;
+    margin: 0;
+  }
+  /* Bold, green price line at the foot of each unit's description. */
+  .unit-price {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: var(--step-body-lg);
+    color: var(--green-dark);
+    margin: 0.15rem 0 0;
   }
   /* Thin hairline between the 20ft block and the 40ft block. */
   .unit-divider {
     border: 0;
     border-top: 1px solid var(--hairline);
     margin: 2.5rem 0;
-  }
-  .unit-40 {
-    max-width: var(--measure);
-  }
-  .unit-40 p {
-    margin: 0;
   }
   .two-col :global(picture) {
     display: block;
@@ -146,6 +161,10 @@ const description =
     .two-col {
       grid-template-columns: 1.2fr 1fr;
       gap: 3rem;
+    }
+    /* 40ft block: photo on the left, text on the right, for visual rhythm. */
+    .two-col.reverse {
+      grid-template-columns: 1fr 1.2fr;
     }
   }
 </style>

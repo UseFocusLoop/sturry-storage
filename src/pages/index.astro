@@ -1,7 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import { Picture } from "astro:assets";
-import PricingTable from "../components/PricingTable.astro";
+import Photo from "../components/Photo.astro";
 import QuoteSection from "../components/QuoteSection.astro";
 import Icon from "../components/Icon.astro";
 import { getCollection, getEntry } from "astro:content";
@@ -37,9 +37,42 @@ const heroPos = hero.image.objectPosition;
 // access") stays in code because its text follows the access-hours setting.
 const factIcons = ["shield", "lock", "truck"] as const;
 
-// 20ft "from" price for the hero line, read from the pricing collection.
-const twenty = (await getCollection("pricing")).find((e) => e.id === "container-20");
-const heroPrice = `£${twenty?.data.priceFrom ?? 35}`;
+// Pricing rows power the hero price line and the three summary cards below.
+const pricingRows = await getCollection("pricing");
+const priceOf = (id: string) => pricingRows.find((e) => e.id === id)!.data;
+const heroPrice = `£${priceOf("container-20").priceFrom ?? 35}`;
+
+const cardPrice = (
+  d: { priceFrom?: number | null; priceUnit: string; priceNote: string },
+  prefix: string
+) => (d.priceFrom != null ? `${prefix} £${d.priceFrom}${d.priceUnit}` : d.priceNote);
+
+const cards = [
+  {
+    title: "20ft container",
+    fits: priceOf("container-20").whatFits,
+    price: cardPrice(priceOf("container-20"), "Priced from"),
+    img: "/src/assets/containers.png",
+    alt: "A 20ft shipping container at the Sturry storage yard",
+    href: "/container-storage/",
+  },
+  {
+    title: "40ft container",
+    fits: priceOf("container-40").whatFits,
+    price: cardPrice(priceOf("container-40"), "Priced from"),
+    img: "/src/assets/container-interior.jpg",
+    alt: "Inside a clean, dry storage container at Sturry Storage",
+    href: "/container-storage/",
+  },
+  {
+    title: "Yard & open storage",
+    fits: priceOf("yard").whatFits,
+    price: cardPrice(priceOf("yard"), "From"),
+    img: "/src/assets/yard-gate.jpg",
+    alt: "The gated entrance to the storage yard at Sturry, Canterbury",
+    href: "/yard-space/",
+  },
+];
 const title = "Self Storage Canterbury & Sturry | Sturry Storage";
 const description =
   "Secure 20ft & 40ft container storage and gated/open yard space at Staines Hill, Sturry, Canterbury. Drive-up access, 24hr CCTV, flexible weekly terms. Call 07777 39 25 38.";
@@ -126,9 +159,35 @@ const description =
       <h2>{pricingSection.heading}</h2>
       <p class="lead">{pricingSection.lead}</p>
     </div>
-    <PricingTable />
+    <ul class="cards" role="list">
+      {
+        cards.map((c) => (
+          <li class="card">
+            <a class="card-media" href={c.href} aria-label={c.title}>
+              <Photo
+                src={c.img}
+                alt={c.alt}
+                ratio="4 / 3"
+                widths={[400, 600, 800]}
+                sizes="(min-width: 720px) 30vw, 100vw"
+                loading="lazy"
+                class="card-img"
+              />
+            </a>
+            <div class="card-body">
+              <h3 class="card-title">{c.title}</h3>
+              <p class="card-fits">{c.fits}</p>
+              <p class="card-price">{c.price}</p>
+              <a href={c.href} class="btn btn-primary card-btn">
+                See details
+              </a>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
     <p class="terms-line">
-      Paid weekly or monthly. Short or long term. No tie-ins or contracts. Prices include VAT.
+      Paid weekly or monthly. Short or long term. No tie-ins or contracts.
     </p>
   </section>
 
@@ -159,7 +218,7 @@ const description =
             {
               business.accessHoursConfirmed
                 ? business.accessHours
-                : "Pull your own vehicle right up to your unit and load straight in — no staff to book, no waiting around."
+                : "Pull your own vehicle right up to your unit and load straight in."
             }
           </span>
         </li>
@@ -393,6 +452,74 @@ const description =
     margin-top: 1.25rem;
     font-weight: 500;
     color: var(--navy);
+  }
+
+  /* ---- Three summary cards (sizes + pricing) ---- */
+  .cards {
+    list-style: none;
+    padding: 0;
+    margin: 1.75rem 0 0;
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: var(--white);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  .card-media {
+    display: block;
+    line-height: 0;
+  }
+  .card :global(.card-img) {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.25rem;
+    flex: 1;
+  }
+  .card-title {
+    font-size: var(--step-h3);
+    color: var(--navy);
+    margin: 0;
+  }
+  /* flex:1 pushes price + button to a common baseline across all three cards */
+  .card-fits {
+    color: var(--steel);
+    line-height: 1.5;
+    margin: 0;
+    flex: 1;
+  }
+  .card-price {
+    font-family: var(--font-head);
+    font-weight: 700;
+    font-size: var(--step-body-lg);
+    color: var(--green-dark);
+    margin: 0.35rem 0 0;
+  }
+  .card-btn {
+    align-self: start;
+    margin-top: 0.85rem;
+  }
+  @media (min-width: 720px) {
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   /* ---- Security (inverted) ---- */

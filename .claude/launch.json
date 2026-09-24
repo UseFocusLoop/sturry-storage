@@ -1,6 +1,7 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "sturry", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 4321 }
+    { "name": "sturry", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 4321 },
+    { "name": "sturry-preview", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev:astro"], "port": 4321 }
   ]
 }
