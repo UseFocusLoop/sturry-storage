@@ -91,21 +91,6 @@ const description =
     <p class="terms-line">
       Paid weekly or monthly. Short or long term. No tie-ins or contracts.
     </p>
-
-    <div class="cta-row">
-      <a href={links.tel} class="btn btn-call">
-        <Icon name="phone" size={19} />
-        Call {business.phoneDisplay}
-      </a>
-      <a href={links.sms} class="btn btn-sms">
-        <Icon name="message" size={19} />
-        Text us
-      </a>
-      <a href={links.whatsapp} class="btn btn-whatsapp" target="_blank" rel="noopener">
-        <Icon name="whatsapp" size={19} />
-        WhatsApp us
-      </a>
-    </div>
   </section>
 
   <QuoteSection />
@@ -145,12 +130,6 @@ const description =
   .prose {
     display: grid;
     gap: 1rem;
-  }
-  .cta-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-top: 1.75rem;
   }
   .unit-title {
     font-size: var(--step-h3);
