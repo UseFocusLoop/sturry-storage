@@ -7,6 +7,16 @@ import Icon from "../components/Icon.astro";
 import { getCollection, getEntry } from "astro:content";
 import { business, links, addressOneLine } from "../data/business";
 import { resolveImage } from "../lib/resolveImage";
+// Security-card photos (localhost preview test).
+import secCctv from "../assets/sec-cctv.png";
+import secGate from "../assets/sec-gate.png";
+import secDrive from "../assets/sec-drive.png";
+const factPhotos = [secCctv, secGate, secDrive];
+const factAlts = [
+  "A 24-hour CCTV camera overlooking the storage container yard",
+  "The secure, gated entrance to the Sturry Storage container yard",
+  "A car parked beside an open storage container for drive-up loading",
+];
 
 // Editable page text + hero photo (CMS: Page sections -> Home).
 const home = (await getEntry("pages", "home"))!.data;
@@ -184,11 +194,24 @@ const description =
       </div>
       <ul class="facts">
         {
-          security.facts.map((f, i) => (
-            <li>
-              <span class="fact-ic"><Icon name={factIcons[i] ?? "check"} size={24} /></span>
-              <strong>{f.title}</strong>
-              <span class="fact-text">{f.text}</span>
+          security.facts.slice(0, 3).map((f, i) => (
+            <li class="fact-card">
+              <div class="fact-body">
+                <span class="fact-ic"><Icon name={factIcons[i] ?? "check"} size={24} /></span>
+                <div class="fact-copy">
+                  <strong>{f.title}</strong>
+                  <span class="fact-text">{f.text}</span>
+                </div>
+              </div>
+              <div class="fact-photo">
+                <Picture
+                  src={factPhotos[i]}
+                  formats={["avif", "webp"]}
+                  alt={factAlts[i] ?? ""}
+                  widths={[400, 700]}
+                  sizes="(min-width: 700px) 340px, 42vw"
+                />
+              </div>
             </li>
           ))
         }
@@ -480,15 +503,28 @@ const description =
     display: grid;
     gap: 1rem;
     grid-template-columns: 1fr;
+    max-width: 860px;
   }
-  .facts li {
+  /* Each fact is a horizontal card: icon + copy on the left, photo on the
+     right. Cards are not links — nothing here is clickable. */
+  .fact-card {
+    display: grid;
+    grid-template-columns: 1fr 42%;
+    align-items: stretch;
     line-height: 1.5;
-    padding: 1.5rem;
     border-radius: var(--radius);
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+  }
+  .fact-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.4rem;
   }
   .fact-ic {
+    flex: none;
     display: grid;
     place-items: center;
     width: 44px;
@@ -496,7 +532,6 @@ const description =
     border-radius: 11px;
     background: color-mix(in srgb, var(--green) 22%, transparent);
     color: var(--green-bright);
-    margin-bottom: 0.9rem;
   }
   .facts strong {
     display: block;
@@ -511,15 +546,16 @@ const description =
     color: color-mix(in srgb, var(--white) 68%, var(--navy-deep));
     display: block;
   }
-  @media (min-width: 560px) {
-    .facts {
-      grid-template-columns: 1fr 1fr;
-    }
+  .fact-photo {
+    position: relative;
+    min-height: 100%;
   }
-  @media (min-width: 940px) {
-    .facts {
-      grid-template-columns: repeat(3, 1fr);
-    }
+  .fact-photo :global(picture),
+  .fact-photo :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   /* ---- Finding us ---- */

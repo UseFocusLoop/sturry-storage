@@ -14,6 +14,7 @@ const formConfigured = web3formsKey.length > 0;
 ---
 
 <section class="section container quote-section" id="quote">
+  <div class="quote-inner">
   <div class="section-head">
     <h2>Get a quote</h2>
     <p class="lead">
@@ -46,6 +47,7 @@ const formConfigured = web3formsKey.length > 0;
   </div>
 
   <QuoteForm />
+  </div>
 </section>
 
 <style>
@@ -54,5 +56,14 @@ const formConfigured = web3formsKey.length > 0;
     flex-wrap: wrap;
     gap: 1rem;
     margin: 1.5rem 0 2rem;
+  }
+  /* Laptop and up (container at its 75rem max): the heading, buttons and
+     form sit left with empty space on the right, so centre the whole block
+     as one column. Tablet and mobile are untouched. */
+  @media (min-width: 75rem) {
+    .quote-inner {
+      max-width: 50rem;
+      margin-inline: auto;
+    }
   }
 </style>
