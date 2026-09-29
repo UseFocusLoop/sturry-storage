@@ -571,6 +571,10 @@ const description =
     border: 1px solid var(--hairline);
     border-radius: var(--radius);
     overflow: hidden;
+    /* width must win so the box never grows past its column: with only a
+       min-height + aspect-ratio, the height drove the width and overflowed
+       the right edge on narrow screens. */
+    width: 100%;
     aspect-ratio: 4 / 3;
     min-height: 320px;
   }
