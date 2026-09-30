@@ -10,6 +10,7 @@ const schema: Record<string, unknown> = {
   "@id": `${Astro.site?.href ?? "https://sturrystorage.co.uk/"}#business`,
   name: business.legalName,
   telephone: business.phoneDial,
+  email: business.email,
   url: Astro.site?.href,
   image: new URL("/og-image.png", Astro.site).href,
   address: {

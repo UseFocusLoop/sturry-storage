@@ -82,6 +82,12 @@ var config_default = defineConfig({
           },
           {
             type: "string",
+            name: "email",
+            label: "Email address",
+            description: "Shown in the footer and on the privacy and terms pages."
+          },
+          {
+            type: "string",
             name: "whatsapp",
             label: "WhatsApp number",
             description: "International form: starts 44, no plus sign and no spaces, e.g. 447777392538."

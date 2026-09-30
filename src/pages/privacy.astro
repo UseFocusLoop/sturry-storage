@@ -1,0 +1,137 @@
+---
+import Legal from "../layouts/Legal.astro";
+import { business, links, addressOneLine } from "../data/business";
+
+const title = "Privacy Policy | Sturry Storage";
+const description = `How ${business.legalName} collects, uses and protects your personal information.`;
+---
+
+<Legal
+  title={title}
+  description={description}
+  path="/privacy/"
+  heading="Privacy policy"
+  updated="30 September 2026"
+>
+  <p>
+    This policy explains what personal information {business.legalName} collects,
+    why we collect it, how we look after it and what your rights are. We keep it
+    to the minimum we need to answer your enquiry, provide your storage and keep
+    the site secure.
+  </p>
+
+  <h2>Who we are</h2>
+  <p>
+    {business.legalName} is a company registered in England &amp; Wales
+    (company no. {business.companyNumber}). We are the controller of the
+    personal information described in this policy.
+  </p>
+  <ul>
+    <li>Address: {addressOneLine}</li>
+    <li>Email: <a href={links.email}>{business.email}</a></li>
+    <li>Phone: <a href={links.tel}>{business.phoneDisplay}</a></li>
+  </ul>
+
+  <h2>What we collect</h2>
+  <p><strong>When you make an enquiry</strong> through our quote form, by phone, text, WhatsApp or email:</p>
+  <ul>
+    <li>your name, phone number and email address</li>
+    <li>how you'd like us to contact you</li>
+    <li>what you want to store, for how long and when you need it</li>
+    <li>anything else you choose to tell us in your message</li>
+  </ul>
+  <p><strong>When you become a customer</strong>, we also keep:</p>
+  <ul>
+    <li>your address and the details in your storage agreement</li>
+    <li>payment records and any correspondence about your account</li>
+    <li>records of who is authorised to access your unit or space</li>
+  </ul>
+  <p><strong>When you visit the site</strong>, our yard is covered by CCTV, so we record images of people and vehicles on site.</p>
+
+  <h2>How we use it, and our lawful basis</h2>
+  <ul>
+    <li>
+      <strong>To reply to your enquiry and give you a quote</strong>, because you
+      have asked us to take steps before entering a contract.
+    </li>
+    <li>
+      <strong>To provide and manage your storage</strong>, because we need to in
+      order to perform our contract with you.
+    </li>
+    <li>
+      <strong>To keep the site, and everything stored on it, secure</strong>
+      (including CCTV), because we have a legitimate interest in protecting
+      people and property.
+    </li>
+    <li>
+      <strong>To keep accounts and meet our legal obligations</strong>, such as
+      tax and company record-keeping.
+    </li>
+  </ul>
+  <p>We do not use your information for marketing, and we never sell it.</p>
+
+  <h2>Who we share it with</h2>
+  <p>We only share your information where we need to, with:</p>
+  <ul>
+    <li>
+      <strong>Web3Forms</strong>, which receives our quote form and forwards
+      your enquiry to us by email
+    </li>
+    <li>our email, phone and messaging providers (including WhatsApp, if you choose to contact us that way)</li>
+    <li>the company that hosts this website</li>
+    <li>our accountant, bank and HMRC, for customer and payment records</li>
+    <li>the police or other authorities, where the law requires it or to help prevent or detect crime</li>
+  </ul>
+  <p>
+    Some of these providers may process information outside the UK. Where they
+    do, we rely on the safeguards UK data protection law requires, such as UK
+    adequacy regulations or approved contract terms.
+  </p>
+
+  <h2>How long we keep it</h2>
+  <ul>
+    <li>Enquiries that don't lead to a booking: up to 12 months.</li>
+    <li>Customer records: for the length of your storage agreement, then 6 years after it ends, as required for tax and legal purposes.</li>
+    <li>CCTV footage: around 30 days, unless we need it for longer to deal with an incident.</li>
+  </ul>
+
+  <h2>Cookies</h2>
+  <p>
+    We don't use analytics, advertising or tracking cookies of our own. The map
+    on our home page is provided by Google Maps, and Google may set cookies or
+    collect information when it loads. See
+    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's privacy policy</a>
+    for details. You can block or delete cookies in your browser settings.
+  </p>
+
+  <h2>Your rights</h2>
+  <p>You have the right to:</p>
+  <ul>
+    <li>ask for a copy of the personal information we hold about you</li>
+    <li>ask us to correct anything that's wrong or incomplete</li>
+    <li>ask us to delete your information</li>
+    <li>object to, or ask us to restrict, how we use it</li>
+    <li>ask us to transfer information you gave us to another organisation</li>
+  </ul>
+  <p>
+    To use any of these rights, contact us at
+    <a href={links.email}>{business.email}</a>. We'll respond within one month.
+    Some rights have limits. For example, we may need to keep records the law
+    requires us to hold.
+  </p>
+
+  <h2>Complaints</h2>
+  <p>
+    If you're unhappy with how we've handled your information, please tell us
+    first so we can put it right. You can also complain to the Information
+    Commissioner's Office (ICO) at
+    <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noopener">ico.org.uk</a>
+    or on 0303 123 1113.
+  </p>
+
+  <h2>Changes to this policy</h2>
+  <p>
+    We may update this policy from time to time. The latest version will always
+    be on this page, with the date it was last changed at the top.
+  </p>
+</Legal>

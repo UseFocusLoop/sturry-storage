@@ -97,6 +97,12 @@ export default defineConfig({
           },
           {
             type: "string",
+            name: "email",
+            label: "Email address",
+            description: "Shown in the footer and on the privacy and terms pages.",
+          },
+          {
+            type: "string",
             name: "whatsapp",
             label: "WhatsApp number",
             description:
