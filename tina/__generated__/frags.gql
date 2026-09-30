@@ -3,6 +3,7 @@ fragment BusinessParts on Business {
   legalName
   phoneDisplay
   phoneDial
+  email
   whatsapp
   whatsappMessage
   address {

@@ -250,6 +250,7 @@ export type Business = Node & Document & {
   legalName?: Maybe<Scalars['String']['output']>;
   phoneDisplay?: Maybe<Scalars['String']['output']>;
   phoneDial?: Maybe<Scalars['String']['output']>;
+  email?: Maybe<Scalars['String']['output']>;
   whatsapp?: Maybe<Scalars['String']['output']>;
   whatsappMessage?: Maybe<Scalars['String']['output']>;
   address?: Maybe<BusinessAddress>;
@@ -287,6 +288,7 @@ export type BusinessFilter = {
   legalName?: InputMaybe<StringFilter>;
   phoneDisplay?: InputMaybe<StringFilter>;
   phoneDial?: InputMaybe<StringFilter>;
+  email?: InputMaybe<StringFilter>;
   whatsapp?: InputMaybe<StringFilter>;
   whatsappMessage?: InputMaybe<StringFilter>;
   address?: InputMaybe<BusinessAddressFilter>;
@@ -785,6 +787,7 @@ export type BusinessMutation = {
   legalName?: InputMaybe<Scalars['String']['input']>;
   phoneDisplay?: InputMaybe<Scalars['String']['input']>;
   phoneDial?: InputMaybe<Scalars['String']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
   whatsapp?: InputMaybe<Scalars['String']['input']>;
   whatsappMessage?: InputMaybe<Scalars['String']['input']>;
   address?: InputMaybe<BusinessAddressMutation>;
@@ -936,6 +939,7 @@ export type BusinessFilter = {
   legalName?: StringFilter | null | undefined;
   phoneDisplay?: StringFilter | null | undefined;
   phoneDial?: StringFilter | null | undefined;
+  email?: StringFilter | null | undefined;
   whatsapp?: StringFilter | null | undefined;
   whatsappMessage?: StringFilter | null | undefined;
   address?: BusinessAddressFilter | null | undefined;
@@ -1080,7 +1084,7 @@ export type PageYardFilter = {
   second?: PageYardSecondFilter | null | undefined;
 };
 
-export type BusinessPartsFragment = { __typename: 'Business', legalName: string | null, phoneDisplay: string | null, phoneDial: string | null, whatsapp: string | null, whatsappMessage: string | null, accessHours: string | null, accessHoursConfirmed: boolean | null, companyNumber: string | null, minimumTerm: string | null, pricesIndicative: boolean | null, address: { __typename: 'BusinessAddress', line1: string | null, town: string | null, city: string | null, county: string | null, postcode: string | null } | null };
+export type BusinessPartsFragment = { __typename: 'Business', legalName: string | null, phoneDisplay: string | null, phoneDial: string | null, email: string | null, whatsapp: string | null, whatsappMessage: string | null, accessHours: string | null, accessHoursConfirmed: boolean | null, companyNumber: string | null, minimumTerm: string | null, pricesIndicative: boolean | null, address: { __typename: 'BusinessAddress', line1: string | null, town: string | null, city: string | null, county: string | null, postcode: string | null } | null };
 
 export type PricingPartsFragment = { __typename: 'Pricing', name: string, priceFrom: number | null, priceUnit: string | null, priceNote: string | null, whatFits: string | null, available: boolean | null, order: number | null, category: string | null };
 
@@ -1095,7 +1099,7 @@ export type BusinessQueryVariables = Exact<{
 }>;
 
 
-export type BusinessQuery = { business: { __typename: 'Business', id: string, legalName: string | null, phoneDisplay: string | null, phoneDial: string | null, whatsapp: string | null, whatsappMessage: string | null, accessHours: string | null, accessHoursConfirmed: boolean | null, companyNumber: string | null, minimumTerm: string | null, pricesIndicative: boolean | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, address: { __typename: 'BusinessAddress', line1: string | null, town: string | null, city: string | null, county: string | null, postcode: string | null } | null } };
+export type BusinessQuery = { business: { __typename: 'Business', id: string, legalName: string | null, phoneDisplay: string | null, phoneDial: string | null, email: string | null, whatsapp: string | null, whatsappMessage: string | null, accessHours: string | null, accessHoursConfirmed: boolean | null, companyNumber: string | null, minimumTerm: string | null, pricesIndicative: boolean | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, address: { __typename: 'BusinessAddress', line1: string | null, town: string | null, city: string | null, county: string | null, postcode: string | null } | null } };
 
 export type BusinessConnectionQueryVariables = Exact<{
   before?: string | null | undefined;
@@ -1107,7 +1111,7 @@ export type BusinessConnectionQueryVariables = Exact<{
 }>;
 
 
-export type BusinessConnectionQuery = { businessConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Business', id: string, legalName: string | null, phoneDisplay: string | null, phoneDial: string | null, whatsapp: string | null, whatsappMessage: string | null, accessHours: string | null, accessHoursConfirmed: boolean | null, companyNumber: string | null, minimumTerm: string | null, pricesIndicative: boolean | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, address: { __typename: 'BusinessAddress', line1: string | null, town: string | null, city: string | null, county: string | null, postcode: string | null } | null } | null } | null> | null } };
+export type BusinessConnectionQuery = { businessConnection: { totalCount: number, pageInfo: { hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges: Array<{ cursor: string, node: { __typename: 'Business', id: string, legalName: string | null, phoneDisplay: string | null, phoneDial: string | null, email: string | null, whatsapp: string | null, whatsappMessage: string | null, accessHours: string | null, accessHoursConfirmed: boolean | null, companyNumber: string | null, minimumTerm: string | null, pricesIndicative: boolean | null, _sys: { filename: string, basename: string, hasReferences: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, address: { __typename: 'BusinessAddress', line1: string | null, town: string | null, city: string | null, county: string | null, postcode: string | null } | null } | null } | null> | null } };
 
 export type PricingQueryVariables = Exact<{
   relativePath: string;
@@ -1191,6 +1195,7 @@ export const BusinessPartsFragmentDoc = gql`
   legalName
   phoneDisplay
   phoneDial
+  email
   whatsapp
   whatsappMessage
   address {

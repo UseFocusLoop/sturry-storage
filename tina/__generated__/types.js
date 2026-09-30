@@ -11,6 +11,7 @@ export const BusinessPartsFragmentDoc = gql`
   legalName
   phoneDisplay
   phoneDial
+  email
   whatsapp
   whatsappMessage
   address {

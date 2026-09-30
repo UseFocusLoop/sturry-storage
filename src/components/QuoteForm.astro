@@ -136,7 +136,10 @@ const thankYouUrl = new URL("/thank-you/", Astro.site ?? "https://sturrystorage.
         <button type="button" class="btn btn-primary qf-next">Next</button>
         <button type="submit" class="btn btn-primary qf-submit" hidden>Get my quote</button>
       </div>
-      <p class="qf-foot">We'll get back to you with a price using the details above. We don't share your details.</p>
+      <p class="qf-foot">
+        We'll only use your details to reply to your enquiry, and we never sell or share them.
+        See our <a href="/privacy/">privacy policy</a>.
+      </p>
     </form>
   )
 }

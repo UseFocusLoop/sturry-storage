@@ -111,6 +111,7 @@ type Business implements Node & Document {
   legalName: String
   phoneDisplay: String
   phoneDial: String
+  email: String
   whatsapp: String
   whatsappMessage: String
   address: BusinessAddress
@@ -148,6 +149,7 @@ input BusinessFilter {
   legalName: StringFilter
   phoneDisplay: StringFilter
   phoneDial: StringFilter
+  email: StringFilter
   whatsapp: StringFilter
   whatsappMessage: StringFilter
   address: BusinessAddressFilter
@@ -523,6 +525,7 @@ input BusinessMutation {
   legalName: String
   phoneDisplay: String
   phoneDial: String
+  email: String
   whatsapp: String
   whatsappMessage: String
   address: BusinessAddressMutation

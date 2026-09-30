@@ -25,6 +25,9 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${enco
       <p class="footer-line">
         <a href={links.whatsapp} target="_blank" rel="noopener">WhatsApp us</a>
       </p>
+      <p class="footer-line">
+        <a href={links.email}>{business.email}</a>
+      </p>
       {
         business.accessHoursConfirmed && (
           <p class="footer-line">{business.accessHours}</p>
@@ -34,16 +37,11 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${enco
 
     <div>
       <p class="footer-heading">Company</p>
+      <p class="footer-line">{business.legalName}</p>
+      <p class="footer-line">Registered in England &amp; Wales</p>
       {
-        business.companyNumber ? (
-          <p class="footer-line">
-            {business.legalName} — company no. {business.companyNumber}
-          </p>
-        ) : (
-          <p class="footer-line footer-muted">
-            {/* [CONFIRM] company registration number */}
-            Registered in England &amp; Wales
-          </p>
+        business.companyNumber && (
+          <p class="footer-line">Company no. {business.companyNumber}</p>
         )
       }
     </div>
@@ -51,6 +49,10 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${enco
 
   <div class="container footer-base">
     <p>&copy; {year} {business.legalName}. All rights reserved.</p>
+    <nav class="footer-legal" aria-label="Legal">
+      <a href="/privacy/">Privacy policy</a>
+      <a href="/terms/">Terms &amp; conditions</a>
+    </nav>
   </div>
 </footer>
 
@@ -88,15 +90,29 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${enco
   .footer-line a {
     color: color-mix(in srgb, var(--green) 55%, var(--white));
   }
-  .footer-muted {
-    color: color-mix(in srgb, var(--white) 55%, var(--navy-deep));
-  }
   .footer-base {
     margin-top: 2rem;
     padding-top: 1.25rem;
     border-top: 1px solid color-mix(in srgb, var(--white) 14%, transparent);
     font-size: var(--step-small);
     color: color-mix(in srgb, var(--white) 60%, var(--navy-deep));
+  }
+  .footer-base p {
+    margin: 0;
+  }
+  .footer-legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin-top: 0.6rem;
+  }
+  .footer-legal a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .footer-legal a:hover {
+    color: var(--white);
   }
   @media (min-width: 700px) {
     .footer-grid {

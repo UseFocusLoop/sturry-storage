@@ -32,6 +32,7 @@ export const business = { ...editable, ...technical };
 export const links = {
   tel: `tel:${business.phoneDial}`,
   sms: `sms:${business.phoneDial}`,
+  email: `mailto:${business.email}`,
   whatsapp: `https://wa.me/${business.whatsapp}?text=${encodeURIComponent(
     business.whatsappMessage
   )}`,

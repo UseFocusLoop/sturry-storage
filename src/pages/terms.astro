@@ -1,0 +1,149 @@
+---
+import Legal from "../layouts/Legal.astro";
+import { business, links, addressOneLine } from "../data/business";
+
+const title = "Terms & Conditions | Sturry Storage";
+const description = `Terms for using the ${business.legalName} website and booking container or yard storage.`;
+---
+
+<Legal
+  title={title}
+  description={description}
+  path="/terms/"
+  heading="Terms & conditions"
+  updated="30 September 2026"
+>
+  <p>
+    These terms cover the use of this website and how quotes and bookings work
+    with {business.legalName}. When you take storage with us, you'll also sign a
+    written storage agreement. If anything in that agreement differs from these
+    terms, the storage agreement applies.
+  </p>
+
+  <h2>1. About us</h2>
+  <p>
+    {business.legalName} is a company registered in England &amp; Wales
+    (company no. {business.companyNumber}), trading from {addressOneLine}. You can
+    contact us on <a href={links.tel}>{business.phoneDisplay}</a> or at
+    <a href={links.email}>{business.email}</a>.
+  </p>
+
+  <h2>2. Prices and quotes</h2>
+  <ul>
+    <li>Prices on this website are per week unless stated otherwise.</li>
+    <li>
+      Yard and open storage is priced on the space you need, so we'll give you
+      a quote.
+    </li>
+    <li>
+      We may change the prices on this website at any time. The price agreed in
+      your quote or storage agreement is the one you pay.
+    </li>
+    <li>
+      Sending an enquiry or asking for a quote doesn't commit you to anything.
+      A booking is only confirmed once we've both agreed the storage agreement.
+    </li>
+  </ul>
+
+  <h2>3. What you can and can't store</h2>
+  <p>
+    For everyone's safety you must not store anything that is dangerous,
+    illegal or likely to cause damage or nuisance, including:
+  </p>
+  <ul>
+    <li>
+      explosives, fireworks, ammunition, gas bottles, fuel or other flammable
+      liquids (other than fuel in the tank of a vehicle or plant stored in the
+      yard)
+    </li>
+    <li>chemicals, toxic, radioactive or other hazardous materials</li>
+    <li>food or anything perishable, or anything that attracts pests</li>
+    <li>animals or any other living things</li>
+    <li>waste, or anything that smells or leaks</li>
+    <li>stolen goods, or anything illegal to own or store</li>
+  </ul>
+  <p>
+    Nobody may live or sleep in a container or anywhere on the site. We may
+    refuse to store, or ask you to remove, anything we reasonably believe breaks
+    these rules.
+  </p>
+
+  <h2>4. Insurance and looking after your goods</h2>
+  <p>
+    Your goods stay your responsibility while they're with us, and we don't
+    insure them. We strongly recommend you arrange your own insurance for
+    anything you store. Please pack and secure items properly, and don't store
+    anything irreplaceable or of exceptional value.
+  </p>
+
+  <h2>5. Access and security</h2>
+  <p>
+    Access is at the times set out in your storage agreement. You're responsible
+    for your own lock and keys, and for anyone you allow to access your unit or
+    space. The site is covered by CCTV. Please follow any safety instructions
+    given on site.
+  </p>
+
+  <h2>6. Payment, ending your storage and unpaid charges</h2>
+  <ul>
+    <li>Storage is paid in advance, as set out in your storage agreement.</li>
+    <li>
+      You can end your storage by giving the notice set out in your agreement.
+      Please remove everything and leave the unit or space clean and empty by
+      the end date.
+    </li>
+    <li>
+      If charges go unpaid, or goods are left behind after your storage ends, we
+      will contact you and give you reasonable notice before taking any further
+      action. If they're still not paid or collected, we may sell or dispose of
+      the goods as the law allows, and use any money raised towards what you owe.
+    </li>
+  </ul>
+
+  <h2>7. Your right to cancel</h2>
+  <p>
+    If you're a consumer and you book with us without visiting the site in
+    person (for example, by phone, email or WhatsApp), you have 14 days from the
+    date we agree the booking to cancel without giving a reason. If you ask for
+    your storage to start within those 14 days and then cancel, you'll pay for
+    the storage you've used up to that point. To cancel, contact us using the
+    details above.
+  </p>
+
+  <h2>8. Our responsibility to you</h2>
+  <p>
+    We'll take reasonable care in running the site and providing your storage.
+    We're not responsible for loss or damage to stored goods unless it was
+    caused by our negligence or by us breaking our agreement with you. We're not
+    responsible for losses we couldn't reasonably have foreseen, or for business
+    losses such as lost profits.
+  </p>
+  <p>
+    Nothing in these terms limits our liability for death or personal injury
+    caused by our negligence, for fraud, or for anything else that can't be
+    limited by law. If you're a consumer, nothing in these terms affects your
+    legal rights.
+  </p>
+
+  <h2>9. Using this website</h2>
+  <p>
+    We try to keep the information on this website accurate and up to date, but
+    it's for general information only. Please check anything important with us
+    before relying on it. Links to other websites, such as Google Maps and
+    WhatsApp, are provided for convenience, and we're not responsible for their
+    content. How we handle your personal information is explained in our
+    <a href="/privacy/">privacy policy</a>.
+  </p>
+
+  <h2>10. Law</h2>
+  <p>
+    These terms are governed by the law of England and Wales, and any dispute
+    will be dealt with by the courts of England and Wales.
+  </p>
+
+  <h2>11. Changes to these terms</h2>
+  <p>
+    We may update these terms from time to time. The version on this page when
+    you make a booking is the one that applies to it.
+  </p>
+</Legal>

@@ -1,0 +1,57 @@
+---
+/*
+  Plain reading layout for the privacy policy and terms pages. These are linked
+  from the footer only — they are deliberately not in the header navigation.
+*/
+import Base from "./Base.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  heading: string;
+  /* Shown under the heading, e.g. "30 September 2026". */
+  updated: string;
+}
+const { title, description, path, heading, updated } = Astro.props;
+---
+
+<Base title={title} description={description} path={path}>
+  <article class="section container legal">
+    <h1>{heading}</h1>
+    <p class="legal-updated">Last updated: {updated}</p>
+    <slot />
+  </article>
+</Base>
+
+<style>
+  .legal {
+    max-width: 46rem;
+  }
+  .legal .legal-updated {
+    margin: 0.9rem 0 1.5rem;
+    color: var(--steel);
+    font-size: var(--step-small);
+  }
+  .legal :global(h2) {
+    font-size: var(--step-h3);
+    margin-top: 2.25rem;
+    margin-bottom: 0.6rem;
+  }
+  .legal :global(p),
+  .legal :global(li) {
+    color: var(--navy);
+  }
+  .legal :global(p) {
+    margin: 0 0 0.9rem;
+  }
+  .legal :global(ul) {
+    margin: 0 0 0.9rem;
+    padding-left: 1.25rem;
+    list-style: disc;
+    max-width: var(--measure);
+  }
+  .legal :global(li) {
+    margin-bottom: 0.35rem;
+  }
+</style>
