@@ -81,11 +81,11 @@ const description =
 <Base title={title} description={description} path="/">
   <!-- ============================ HERO ============================ -->
   <section class="hero">
-    <div class="hero-photo" aria-hidden="true">
+    <div class="hero-photo">
       <Picture
         src={heroImg}
         formats={["avif", "webp"]}
-        alt=""
+        alt={hero.image.alt}
         widths={[768, 1100, 1280]}
         sizes="100vw"
         loading="eager"
