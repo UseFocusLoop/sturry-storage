@@ -11,6 +11,10 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${enco
   <div class="container footer-grid">
     <div>
       <Logo variant="light" class="footer-logo" />
+      <p class="footer-line footer-tagline">
+        Container and yard storage serving Canterbury, Sturry, Whitstable,
+        Herne Bay and surrounding East Kent.
+      </p>
       <p class="footer-line footer-addr">{addressOneLine}</p>
       <p class="footer-line">
         <a href={directionsUrl} target="_blank" rel="noopener">Get directions</a>
@@ -70,6 +74,9 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${enco
   }
   .footer-logo {
     margin-bottom: 0.85rem;
+  }
+  .footer-line.footer-tagline {
+    margin: 0 0 0.75rem;
   }
   .footer-addr {
     margin-top: 0;
