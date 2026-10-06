@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+Sitemap: https://sturrystorage.co.uk/sitemap.xml
 Sitemap: https://sturrystorage.co.uk/sitemap-index.xml
