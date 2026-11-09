@@ -30,6 +30,16 @@ Best long-term: every saved change republishes automatically.
 In the Cloudflare Pages project → **Custom domains** → add e.g.
 `sturrystorage.co.uk` and follow the DNS steps.
 
+## www redirect (already handled)
+`functions/_middleware.js` sends every `www.sturrystorage.co.uk` address to
+`https://sturrystorage.co.uk` with a permanent (301) redirect, keeping the page
+path. Cloudflare Pages picks it up automatically on the next deploy, so there's
+nothing to set up in the dashboard. It only works while `www` stays added under
+the Pages project's **Custom domains**, so leave it there.
+
+To check it's working, open `www.sturrystorage.co.uk/yard-space/` in a browser.
+You should end up on `sturrystorage.co.uk/yard-space/`.
+
 ## After the domain is set — two small edits
 Point the site at the real domain in these two places:
 - `astro.config.mjs` → `SITE_URL`
