@@ -1,0 +1,107 @@
+---
+/*
+  Customer reviews, copied word for word from the Google Business Profile.
+  All four are five-star. To add a new one, paste it into the list below
+  exactly as written on Google.
+
+  No review star markup (schema) on purpose: Google doesn't show stars for
+  reviews a business posts about itself.
+*/
+const googleProfile =
+  "https://www.google.com/maps/place/?q=place_id:ChIJf_3pLTO13kcRZ3eo31A4j_o";
+
+const reviews = [
+  "Very helpful and easy to deal with. Secure site and straightforward access. Would definitely recommend for container storage around Canterbury.",
+  "Hired for short term use. Recommended, very friendly and helpful.",
+  "I needed a container for short term use. The guys was really Helpful and friendly. No problems at all would really recommend",
+  "Really secure easy to get to a+ service",
+];
+---
+
+<section class="section container reviews" aria-labelledby="reviews-heading">
+  <div class="section-head">
+    <h2 id="reviews-heading">What our customers say</h2>
+  </div>
+  <ul class="review-list" role="list">
+    {
+      reviews.map((text) => (
+        <li class="review">
+          <p class="stars" aria-label="5 out of 5 stars">
+            {[0, 1, 2, 3, 4].map(() => (
+              <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.9l-5.2 2.7 1-5.8L1.5 7.7l5.9-.9z"
+                />
+              </svg>
+            ))}
+          </p>
+          <blockquote>
+            <p>{text}</p>
+          </blockquote>
+          <p class="source">Google review</p>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="more">
+    <a href={googleProfile} class="link-inline" target="_blank" rel="noopener">
+      Read our reviews on Google
+    </a>
+  </p>
+</section>
+
+<style>
+  .review-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  .review {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.5rem;
+    background: var(--white);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+  }
+  .stars {
+    display: flex;
+    gap: 2px;
+    margin: 0;
+    color: #e8a317;
+  }
+  blockquote {
+    margin: 0;
+    flex: 1;
+  }
+  blockquote p {
+    margin: 0;
+    color: var(--navy);
+    line-height: 1.55;
+  }
+  .source {
+    margin: 0;
+    font-size: var(--step-small);
+    color: var(--steel);
+    font-weight: 500;
+  }
+  .more {
+    margin-top: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .review-list {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (min-width: 1000px) {
+    .review-list {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

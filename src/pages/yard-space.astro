@@ -3,8 +3,10 @@ import Base from "../layouts/Base.astro";
 import Photo from "../components/Photo.astro";
 import Icon from "../components/Icon.astro";
 import QuoteSection from "../components/QuoteSection.astro";
+import Faq from "../components/Faq.astro";
 import { getCollection, getEntry } from "astro:content";
 import { business, links } from "../data/business";
+import { yardFaqs } from "../data/faqs";
 
 // Editable page text + photo (CMS: Page sections -> Yard space).
 const page = (await getEntry("pages", "yard"))!.data;
@@ -23,6 +25,7 @@ const priceOpen =
     ? `From £${openP.data.priceFrom}${openP.data.priceUnit}`
     : openP.data.priceNote;
 
+const faqs = yardFaqs({ gated: gatedP.data, open: openP.data });
 const title = "Yard Space & Open Storage Canterbury | Sturry Storage";
 const description =
   "Gated storage yards and open storage space at Staines Hill, Sturry, Canterbury. Hardstanding for plant, trailers and vehicles. Call 07777 39 25 38.";
@@ -77,7 +80,13 @@ const description =
     <p class="terms-line">
       Paid weekly or monthly. Short or long term. No tie-ins.
     </p>
+    <p class="cross-link">
+      Need somewhere dry and lockable?
+      <a href="/container-storage/" class="link-inline">See our 20ft and 40ft container hire</a>
+    </p>
   </section>
+
+  <Faq heading="Yard space questions" faqs={faqs} />
 
   <QuoteSection />
 </Base>
@@ -131,6 +140,10 @@ const description =
     margin-top: 1rem;
     font-weight: 500;
     color: var(--navy);
+  }
+  .cross-link {
+    margin-top: 0.75rem;
+    color: var(--steel);
   }
   .two-col :global(picture) {
     display: block;

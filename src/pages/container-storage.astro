@@ -3,8 +3,10 @@ import Base from "../layouts/Base.astro";
 import Photo from "../components/Photo.astro";
 import Icon from "../components/Icon.astro";
 import QuoteSection from "../components/QuoteSection.astro";
+import Faq from "../components/Faq.astro";
 import { getCollection, getEntry } from "astro:content";
 import { business, links } from "../data/business";
+import { containerFaqs } from "../data/faqs";
 
 // Editable page text + side photo (CMS: Page sections -> Container storage).
 const page = (await getEntry("pages", "container"))!.data;
@@ -17,6 +19,7 @@ const forty = pricing.find((e) => e.id === "container-40")!;
 const heroPrice = `£${twenty.data.priceFrom ?? 35}`;
 const price20 = `Priced from £${twenty.data.priceFrom}${twenty.data.priceUnit}`;
 const price40 = `Priced from £${forty.data.priceFrom}${forty.data.priceUnit}`;
+const faqs = containerFaqs({ c20: twenty.data, c40: forty.data });
 const title = "20ft & 40ft Container Storage Canterbury | Sturry Storage";
 const description =
   "Secure 20ft & 40ft container storage at Staines Hill, Sturry, Canterbury. Drive-up access, 24hr CCTV, weekly terms from £35. Call 07777 39 25 38 or WhatsApp.";
@@ -91,7 +94,13 @@ const description =
     <p class="terms-line">
       Paid weekly or monthly. Short or long term. No tie-ins.
     </p>
+    <p class="cross-link">
+      Need outdoor space instead?
+      <a href="/yard-space/" class="link-inline">See our yard and open storage</a>
+    </p>
   </section>
+
+  <Faq heading="Container hire questions" faqs={faqs} />
 
   <QuoteSection />
 </Base>
@@ -162,6 +171,10 @@ const description =
   .terms-line {
     margin-top: 1rem;
     font-weight: 500;
+  }
+  .cross-link {
+    margin-top: 0.75rem;
+    color: var(--steel);
   }
   @media (min-width: 800px) {
     .two-col {
