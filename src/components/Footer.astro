@@ -61,11 +61,11 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${enco
       <a href="/terms/">Terms &amp; conditions</a>
     </nav>
     <p class="footer-credit">
-      {
+      Created by {
         creditUrl ? (
-          <a href={creditUrl} target="_blank" rel="noopener">Built by Ceej</a>
+          <a href={creditUrl} class="credit-brand" target="_blank" rel="noopener">Built by Ceej</a>
         ) : (
-          "Built by Ceej"
+          <span class="credit-brand">Built by Ceej</span>
         )
       }
     </p>
@@ -139,11 +139,12 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${enco
     letter-spacing: 0.02em;
     color: color-mix(in srgb, var(--white) 45%, var(--navy-deep));
   }
-  .footer-credit a {
-    color: inherit;
+  .credit-brand {
+    font-weight: 600;
+    color: color-mix(in srgb, var(--white) 70%, var(--navy-deep));
     text-decoration: none;
   }
-  .footer-credit a:hover {
+  a.credit-brand:hover {
     color: var(--white);
   }
   @media (min-width: 700px) {
