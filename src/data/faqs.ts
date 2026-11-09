@@ -17,11 +17,6 @@ type Price = { priceFrom?: number | null; priceNote: string };
 const weekly = (p: Price) =>
   p.priceFrom != null ? `from £${p.priceFrom} a week` : p.priceNote.toLowerCase();
 
-const insurance: Faq = {
-  q: "Is my stuff insured while it's in storage?",
-  a: "No. Your goods stay your responsibility while they're with us, and we don't insure them, so we strongly recommend you arrange your own insurance before you move in. It's worth checking whether your home or business policy can cover goods kept in storage.",
-};
-
 const distance = (also: string): Faq => ({
   q: "How far are you from Canterbury, Herne Bay and Whitstable?",
   a: `We're on Staines Hill in Sturry, on the Herne Bay side of Canterbury. That's about 3 miles from Canterbury city centre, about 4.5 miles from Herne Bay and about 6 miles from Whitstable. ${also}`,
@@ -44,7 +39,6 @@ export const containerFaqs = (p: { c20: Price; c40: Price }): Faq[] => [
     a: "A 20ft container holds roughly a three-bed house's worth of furniture, or a full van-load of tools and stock, with room to walk in and get at what you need. A 40ft container has about twice the floor space. Not sure which size to hire? Contact us and we'll help you work it out.",
   },
   security,
-  insurance,
   distance(
     "Customers use our container hire for house moves and clear-outs, trade tools and stock, and anything else they need kept dry and locked away."
   ),
@@ -65,7 +59,6 @@ export const yardFaqs = (p: { gated: Price; open: Price }): Faq[] => [
     q: "Is the yard secure?",
     a: "Yes. It's a gated, hardstanding yard behind a locked gate, closed to the public and covered by 24hr CCTV. You can drive straight onto it in any weather.",
   },
-  insurance,
   distance(
     "As well as yard space, we do container hire on the same site if you need somewhere dry and lockable too."
   ),
