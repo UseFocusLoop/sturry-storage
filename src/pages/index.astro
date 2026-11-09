@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import { Picture } from "astro:assets";
 import Photo from "../components/Photo.astro";
 import QuoteSection from "../components/QuoteSection.astro";
+import Reviews from "../components/Reviews.astro";
 import Icon from "../components/Icon.astro";
 import { getCollection, getEntry } from "astro:content";
 import { business, links, addressOneLine } from "../data/business";
@@ -53,6 +54,7 @@ const cards = [
     alt: "Inside a brand-new 20ft steel container at Sturry Storage",
     pos: "50% 50%",
     href: "/container-storage/",
+    cta: "See 20ft container storage",
   },
   {
     title: "40ft container",
@@ -62,6 +64,7 @@ const cards = [
     alt: "Inside a brand-new 40ft steel container at Sturry Storage",
     pos: "50% 50%",
     href: "/container-storage/",
+    cta: "See 40ft container storage",
   },
   {
     title: "Yard & open storage",
@@ -71,6 +74,7 @@ const cards = [
     alt: "Open green gates to a gated hardstanding storage yard at Sturry, Canterbury",
     pos: "50% 50%",
     href: "/yard-space/",
+    cta: "See yard and open storage",
   },
 ];
 const title = "Self Storage Canterbury & Sturry | Sturry Storage";
@@ -162,7 +166,7 @@ const description =
               <p class="card-fits">{c.fits}</p>
               <p class="card-price">{c.price}</p>
               <a href={c.href} class="btn btn-primary card-btn">
-                See details
+                {c.cta}
               </a>
             </div>
           </li>
@@ -173,6 +177,9 @@ const description =
       Paid weekly or monthly. Short or long term. No tie-ins.
     </p>
   </section>
+
+  <!-- ========================== REVIEWS ========================== -->
+  <Reviews />
 
   <!-- ===================== SECURITY & ACCESS ===================== -->
   <!-- The one full-bleed dark section on the page. -->

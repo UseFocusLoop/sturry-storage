@@ -1,0 +1,59 @@
+---
+/*
+  Questions and answers block for the container and yard pages.
+  The questions live in src/data/faqs.ts. Also outputs FAQPage structured data
+  so search engines can read the questions and answers directly.
+*/
+import type { Faq } from "../data/faqs";
+
+interface Props {
+  heading: string;
+  faqs: Faq[];
+}
+const { heading, faqs } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+---
+
+<section class="section container faq" aria-labelledby="faq-heading">
+  <div class="section-head">
+    <h2 id="faq-heading">{heading}</h2>
+  </div>
+  <div class="faq-list">
+    {
+      faqs.map((f) => (
+        <div class="faq-item">
+          <h3>{f.q}</h3>
+          <p>{f.a}</p>
+        </div>
+      ))
+    }
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</section>
+
+<style>
+  .faq-list {
+    max-width: 46rem;
+    border-top: 1px solid var(--hairline);
+  }
+  .faq-item {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .faq-item h3 {
+    margin: 0 0 0.5rem;
+  }
+  .faq-item p {
+    margin: 0;
+    color: var(--navy);
+  }
+</style>

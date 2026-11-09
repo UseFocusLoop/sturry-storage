@@ -2,6 +2,9 @@
 import { business, links, addressOneLine } from "../data/business";
 import Logo from "./Logo.astro";
 const year = new Date().getFullYear();
+// Site credit. Put the Built by Ceej website address here once it's live
+// and the credit becomes a link.
+const creditUrl = "";
 const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
   addressOneLine
 )}`;
@@ -57,6 +60,15 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${enco
       <a href="/privacy/">Privacy policy</a>
       <a href="/terms/">Terms &amp; conditions</a>
     </nav>
+    <p class="footer-credit">
+      Created by {
+        creditUrl ? (
+          <a href={creditUrl} class="credit-brand" target="_blank" rel="noopener">Built by Ceej</a>
+        ) : (
+          <span class="credit-brand">Built by Ceej</span>
+        )
+      }
+    </p>
   </div>
 </footer>
 
@@ -119,6 +131,20 @@ const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${enco
     text-underline-offset: 0.2em;
   }
   .footer-legal a:hover {
+    color: var(--white);
+  }
+  .footer-base .footer-credit {
+    margin-top: 1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    color: color-mix(in srgb, var(--white) 45%, var(--navy-deep));
+  }
+  .credit-brand {
+    font-weight: 600;
+    color: color-mix(in srgb, var(--white) 70%, var(--navy-deep));
+    text-decoration: none;
+  }
+  a.credit-brand:hover {
     color: var(--white);
   }
   @media (min-width: 700px) {
